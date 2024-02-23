@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::group(['prefix'  => '/', 'middleware' => 'auth'], function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
 });

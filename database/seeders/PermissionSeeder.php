@@ -23,7 +23,7 @@ class PermissionSeeder extends Seeder
             "fullname" => "superadmin",
             "email" => "superadmin@example.com",
             "phone" => '0892132456789',
-            "birthdate" => "02-02-2002",
+            "birthdate" => "2002-02-02",
             "password" => Hash::make('password'),
             "theme_id" => 1
         ]);
@@ -32,7 +32,7 @@ class PermissionSeeder extends Seeder
             "fullname" => "admin",
             "email" => "admin@example.com",
             "phone" => '0892132456789',
-            "birthdate" => "02-02-2002",
+            "birthdate" => "2002-02-02",
             "password" => Hash::make('password'),
             "theme_id" => 1
         ]);
@@ -115,6 +115,9 @@ class PermissionSeeder extends Seeder
                 'profile-edit',
                 'profile-delete',
             ]);
+
+            $role = Role::create(['name' => 'admin']);
+            $role = Role::create(['name' => 'customer']);
 
             $user1 = $user1->fresh();
             $user1->syncRoles(['superadmin']);

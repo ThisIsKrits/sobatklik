@@ -54,6 +54,8 @@ class AuthController extends Controller
             'theme_id'      => 1,
         ]);
 
+        $user->assignRole('customer');
+
         $token = JWTAuth::fromUser($user);
 
         return response()->json([
