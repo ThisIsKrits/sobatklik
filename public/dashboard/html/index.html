@@ -411,19 +411,15 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a
+                                            <span
                                                 class="dropdown-item d-flex align-items-center logout-dropdown-menu"
-                                                href="auth-login-basic.html"
+                                                type="button"                         data-bs-toggle="modal"                          data-bs-target="#modalCenter"
                                             >
-                                                <div class="mt-1">
-                                                    <i
-                                                        class="ri-logout-box-r-line me-2 ic-md"
-                                                    ></i>
-                                                </div>
+                                               <div class="me-2"><img src="../assets/img/icons/iconly/Logout.svg" alt=""></div>
                                                 <span class="align-middle"
                                                     >Log Out</span
                                                 >
-                                            </a>
+                                            </span>
                                         </li>
                                     </ul>
                                 </li>
@@ -432,6 +428,41 @@
                         </div>
                     </nav>
 
+                    <!-- Modal Logout-->
+                    <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header p-0">
+                                    <h2></h2>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                              <div class="modal-body">
+                                <div
+                                  class="my-5 d-flex justify-content-center align-items-center text-center"
+                                >
+                                  <div >
+                                    <img
+                                      class="mb-4 w-px-300"
+                                      src="../assets/img/elements/email-verify-error.svg"
+                                      alt=""
+                                    />
+                                    <h3 class="mb-3 h3 font-semibold">Apakah kamu yakin akan
+                                        keluar dari aplikasi?</h3>
+                                    <button
+                                      class="mb-2 btn btn-danger d-grid w-100"
+                                      type="submit"
+                                    >
+                                      Ya, Keluar Sekarang
+                                    </button>
+                                    <span data-bs-dismiss="modal" aria-label="Close" class="subtitle-1 cursor-pointer">
+                                      Batal
+                                    </span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
                     <!-- / Navbar -->
 
                     <!-- Content wrapper -->
