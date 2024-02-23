@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\Theme;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class AuthController extends Controller
             'password'  => ['required',Password::min(8)],
             'fullname'  => 'required',
             'phone'     => 'required|numeric|min_digits:11|max_digits:15',
-            'birthdate' => 'required|'
+            'birthdate' => 'required|',
         ],[
             'fullname.required'     => 'Nama tidak boleh kosong!',
             'email.required'        => 'Email tidak boleh kosong!',
@@ -50,6 +51,7 @@ class AuthController extends Controller
             'birthdate'     => $birthdate,
             'phone'         => $request->phone,
             'password'      => bcrypt($request->password),
+            'theme_id'      => 1,
         ]);
 
         $token = JWTAuth::fromUser($user);
@@ -58,6 +60,7 @@ class AuthController extends Controller
             'success'   => true,
             'message'   => 'Registrasi berhasil!',
             'data'      => $user,
+            'tema'      => $user->getTheme->colors,
             'token'     => $token,
             'type'      => 'Bearer Token',
         ]);
@@ -103,11 +106,14 @@ class AuthController extends Controller
 
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
+        $theme  = $user->getTheme;
+
         return response()->json([
             'success'   => true,
             'message'   => 'Login berhasil',
-            'token' => $token,
-            'type'  => 'Bearer Token'
+            'theme'     => $theme->colors,
+            'token'     => $token,
+            'type'      => 'Bearer Token'
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\Profile\ProfileController;
+use App\Http\Controllers\API\Profile\ThemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,6 @@ Route::middleware(['auth:api'])->group(function (){
         return $request->user();
     });
     Route::post('change-password/{id}', [AuthController::class, 'change_password']);
+    Route::resource('theme', ThemeController::class);
     Route::resource('profile-update', ProfileController::class);
 });
