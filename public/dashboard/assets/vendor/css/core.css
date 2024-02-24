@@ -364,6 +364,50 @@ p {
     overflow-y: auto;
 }
 
+.table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:before,
+table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order:before,
+table.dataTable thead > tr > td.dt-orderable-asc span.dt-column-order:before,
+table.dataTable thead > tr > td.dt-ordering-asc span.dt-column-order:before {
+    position: absolute;
+    display: block;
+    top: 40%;
+    left: 10%;
+    font-weight: 500;
+    font-size: 1.5rem;
+    content: "↑"/"" !important;
+    content: "↑" !important;
+}
+
+.table.dataTable thead > tr > th.dt-orderable-desc span.dt-column-order:after,
+table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after,
+table.dataTable thead > tr > td.dt-orderable-desc span.dt-column-order:after,
+table.dataTable thead > tr > td.dt-ordering-desc span.dt-column-order:after {
+    position: absolute;
+    display: block;
+    top: 40%;
+    left: 80%;
+    font-weight: 500;
+    font-size: 1.5rem;
+    content: "↓"/"" !important;
+    content: "↓" !important;
+}
+
+table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:before,
+table.dataTable thead > tr > th.dt-orderable-desc span.dt-column-order:after {
+    opacity: 0.6 !important;
+}
+
+table.dataTable thead > tr > th.dt-ordering-asc span.dt-column-order:before,
+table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after {
+    opacity: 1 !important;
+    color: var(--bs-general-body);
+}
+
+table.dataTable th.dt-type-numeric,
+table.dataTable td.dt-type-numeric {
+    text-align: left !important;
+}
+
 /* custom class */
 
 abbr[title],
@@ -529,6 +573,7 @@ th {
     font-weight: 500;
     text-align: inherit;
     text-align: -webkit-match-parent;
+    border-bottom-width: 0 !important;
 }
 
 thead,

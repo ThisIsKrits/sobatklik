@@ -52,6 +52,10 @@
             href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
         />
 
+        <!-- Datatables -->
+        <link rel="stylesheet" href="../assets/vendor/libs/datatables/datatables.min.css">
+    
+
         <link
             rel="stylesheet"
             href="../assets/vendor/libs/apex-charts/apex-charts.css"
@@ -751,7 +755,7 @@
                                                     <div
                                                         class="table-responsive text-nowrap"
                                                     >
-                                                        <table class="table">
+                                                        <table id="reportGrafik" class="table responsive">
                                                             <thead>
                                                                 <tr>
                                                                     <th>#</th>
@@ -949,7 +953,7 @@
                                                     <div
                                                         class="table-responsive text-nowrap"
                                                     >
-                                                        <table class="table">
+                                                        <table id="byBrandTable" class="table responsive">
                                                             <thead>
                                                                 <tr>
                                                                     <th>
@@ -1012,7 +1016,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>2</td>
@@ -1050,7 +1054,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>3</td>
@@ -1089,7 +1093,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>4</td>
@@ -1128,7 +1132,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -1238,7 +1242,7 @@
                                                     <div
                                                         class="table-responsive text-nowrap"
                                                     >
-                                                        <table class="table">
+                                                        <table id="byBrand" class="table responsive">
                                                             <thead>
                                                                 <tr>
                                                                     <th>
@@ -1291,7 +1295,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>2</td>
@@ -1321,7 +1325,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>3</td>
@@ -1351,7 +1355,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>4</td>
@@ -1381,7 +1385,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>5</td>
@@ -1411,7 +1415,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>6</td>
@@ -1441,7 +1445,7 @@
                                                                         1m 15s
                                                                     </td>
                                                                     <td>100</td>
-                                                                    <td></td>
+                                                                    
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -1511,6 +1515,10 @@
         <!-- Vendors JS -->
         <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
+        <!-- Datatables -->
+        <script src="../assets/vendor/libs/datatables/datatables.min.js"></script>
+        
+
         <!-- Main JS -->
         <script src="../assets/js/main.js"></script>
 
@@ -1520,6 +1528,21 @@
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script>
+
+            // Datatables
+
+            $(function () {
+                $("#reportGrafik").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false, searching: false,paging: false,info: false
+                }),
+                $("#byBrandTable").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false, searching: false,paging: false,info: false
+                }),
+                $("#byBrand").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false, searching: false,paging: false,info: false
+                })
+            
+            });
             // Chart  element
             let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
