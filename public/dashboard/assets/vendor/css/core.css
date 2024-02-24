@@ -16,6 +16,7 @@
     --bs-gray-dark: rgba(67, 89, 113, 0.8);
     --bs-gray-25: rgba(67, 89, 113, 0.025);
     --bs-gray-50: rgba(67, 89, 113, 0.05);
+    --bs-grey: #eff0f6;
     --bs-primary: #9a8de7;
     --bs-primary-strong: #8872e0;
     --bs-primary-weak: #c4bff3;
@@ -189,7 +190,7 @@ h5,
 
 h6,
 .h6 {
-    font-size: 0.9375rem;
+    font-size: 1.25rem;
 }
 
 p {
@@ -269,6 +270,10 @@ p {
     background-color: var(--bs-success-bg-weak);
 }
 
+.bg-grey {
+    background-color: var(--bs-grey);
+}
+
 .footer {
     font-size: 1rem;
     font-weight: 600;
@@ -336,6 +341,27 @@ p {
     -ms-overflow-style: none;
     touch-action: auto;
     -ms-touch-action: auto;
+}
+
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+
+.text-general {
+    color: var(--bs-general);
+}
+
+.card-shadow {
+    box-shadow: 0px 5px 11px 0px rgba(154, 141, 231, 0.05),
+        0px 20px 20px 0px rgba(154, 141, 231, 0.04),
+        0px 45px 27px 0px rgba(154, 141, 231, 0.03),
+        0px 79px 32px 0px rgba(154, 141, 231, 0.01),
+        0px 124px 35px 0px rgba(154, 141, 231, 0);
+}
+
+.card-scrollable-container {
+    height: 250px;
+    overflow-y: auto;
 }
 
 /* custom class */
