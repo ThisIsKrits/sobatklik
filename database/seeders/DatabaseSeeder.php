@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ListThemesSeeder::class,
             PermissionSeeder::class,
+            SelectColorSeeder::class,
         ]);
     }
 }

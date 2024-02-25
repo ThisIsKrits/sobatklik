@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\ColorSelect;
 use App\Models\API\Theme;
 use App\Models\User;
 use Carbon\Carbon;
@@ -51,18 +52,19 @@ class AuthController extends Controller
             'birthdate'     => $birthdate,
             'phone'         => $request->phone,
             'password'      => bcrypt($request->password),
-            'theme_id'      => 1,
         ]);
 
         $user->assignRole('customer');
 
         $token = JWTAuth::fromUser($user);
 
+        $theme  = ColorSelect::find(1)->getTheme;
+
         return response()->json([
             'success'   => true,
             'message'   => 'Registrasi berhasil!',
             'data'      => $user,
-            'tema'      => $user->getTheme->colors,
+            'tema'      => $theme->colors,
             'token'     => $token,
             'type'      => 'Bearer Token',
         ]);
@@ -108,7 +110,7 @@ class AuthController extends Controller
 
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
-        $theme  = $user->getTheme;
+        $theme  = ColorSelect::find(1)->getTheme;
 
         return response()->json([
             'success'   => true,

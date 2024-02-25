@@ -1,65 +1,155 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+<div
+        class="authentication-wrapper authentication-basic h-custom"
+      >
+        <!-- Register -->
+        <div class="card card-login">
+          <div class="card-body md:my-4 md:mx-4">
+            <!-- Logo -->
+            <div class="app-brand justify-content-left mb-3">
+              <a href="index.html" class="app-brand-link">
+                <span class="app-brand-logo demo">
+                  <img
+                    src="{{ asset('/dashboard/assets/img/elements/logo-default.png') }}"
+                    alt=""
+                  />
+                </span>
+              </a>
             </div>
+            <!-- /Logo -->
+
+            <h2 class="mb-2 font-semibold">Reset Password</h2>
+
+            <p class="mb-4 subtitle-1">
+              Verifikasi email berhasil, silahkan menginput password
+              baru
+            </p>
+            <form
+              id="formAuthentication"
+              class="mb-3"
+              action="{{ route('reset.send') }}"
+              method="POST"
+            >
+            @csrf
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="hidden" id="email"  name="email" value="{{ $email }}" />
+              <div class="mb-3 form-password-toggle">
+                <label class="form-label" for="password"
+                  >Password Baru<span>*</span></label
+                >
+
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control error"
+                    name="password"
+                    placeholder="Masukan password baru"
+                    aria-describedby="password"
+                  />
+                  <span
+                    id="togglePassword"
+                    class="input-group-text cursor-pointer"
+                  >
+                    <i class="ri-eye-line"></i>
+                  </span>
+                    @if($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                    @endif
+                </div>
+              </div>
+
+              <div class="mb-4 form-password-toggle">
+                <label class="form-label" for="password_confirmation"
+                  >Konfirmasi Password Baru <span>*</span></label
+                >
+
+                <div class="input-group input-group-merge">
+                  <input
+                    type="password"
+                    id="password_confirmation"
+                    class="form-control error"
+                    name="password_confirmation"
+                    placeholder="Masukan konfirmasi password baru"
+                    aria-describedby="password"
+                  />
+                  <span
+                    id="togglePasswordConfirmation"
+                    class="input-group-text cursor-pointer"
+                    ><i class="ri-eye-line"></i
+                  ></span>
+                    @if($errors->has('password'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </span>
+                    @endif
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <button
+                  class="btn btn-primary d-grid w-100"
+                  type="submit"
+                >
+                  Reset Password
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
-</div>
+        <!-- /Register -->
+      </div>
 @endsection
+@push('scripts')
+    <script>
+        // Password view toggle
+      const togglePassword = () => {
+        const passwordInput = document.getElementById('password');
+        const toggleButton =
+          document.getElementById('togglePassword');
+
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          toggleButton.innerHTML = '<i class="ri-eye-off-line"></i>';
+        } else {
+          passwordInput.type = 'password';
+          toggleButton.innerHTML = '<i class="ri-eye-line"></i>';
+        }
+      };
+
+      const toggleButton = document.getElementById('togglePassword');
+      toggleButton.addEventListener('click', togglePassword);
+
+      // Password view toggle
+      const togglePasswordConfirmation = () => {
+        const passwordInputConfirmation = document.getElementById(
+          'passwordConfirmation'
+        );
+        const toggleButtonConfirmation = document.getElementById(
+          'togglePasswordConfirmation'
+        );
+
+        if (passwordInputConfirmation.type === 'password') {
+          passwordInputConfirmation.type = 'text';
+          toggleButtonConfirmation.innerHTML =
+            '<i class="ri-eye-off-line"></i>';
+        } else {
+          passwordInputConfirmation.type = 'password';
+          toggleButtonConfirmation.innerHTML =
+            '<i class="ri-eye-line"></i>';
+        }
+      };
+
+      const toggleButtonConfirmation = document.getElementById(
+        'togglePasswordConfirmation'
+      );
+      toggleButtonConfirmation.addEventListener(
+        'click',
+        togglePasswordConfirmation
+      );
+    </script>
+@endpush

@@ -25,7 +25,6 @@ class PermissionSeeder extends Seeder
             "phone" => '0892132456789',
             "birthdate" => "2002-02-02",
             "password" => Hash::make('password'),
-            "theme_id" => 1
         ]);
 
         $user2 = User::create([
@@ -34,7 +33,6 @@ class PermissionSeeder extends Seeder
             "phone" => '0892132456789',
             "birthdate" => "2002-02-02",
             "password" => Hash::make('password'),
-            "theme_id" => 1
         ]);
 
         app()[PermissionRegistrar::class]->forgetCachedPermissions();

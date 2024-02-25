@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('theme_id')->default(1)
-                ->constrained('list_themes')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+        Schema::create('color_selects', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('theme_id')->default(1)->constrained('list_themes')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            $table->timestamps();
         });
     }
 
@@ -28,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('theme_id');
-        });
+        Schema::dropIfExists('color_selects');
     }
 };

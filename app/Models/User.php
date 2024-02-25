@@ -28,7 +28,6 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'email',
         'password',
-        'theme_id'
     ];
 
     /**
@@ -60,8 +59,4 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function getTheme() :BelongsTo
-    {
-        return $this->belongsTo(ListTheme::class, 'theme_id', 'id');
-    }
 }
