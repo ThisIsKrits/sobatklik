@@ -318,7 +318,7 @@ button.list-group-item-primary.active {
     --bs-table-hover-bg: #d8daf6;
     --bs-table-hover-color: #435971;
     color: #435971;
-    border-color: #d1d4f1;
+    border-color: var(--bs-general-outline);
 }
 .table-primary th {
     border-bottom-color: inherit !important;
