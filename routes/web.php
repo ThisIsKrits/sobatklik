@@ -3,6 +3,7 @@
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
+use App\Http\Controllers\Web\EmailVerfiController;
 use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login',[AuthController::class, 'login'])->name('login.view');
 Route::post('/login', [AuthController::class, 'loginUser'])->name('auth.login');
 Route::get('/forgot-password', [ForgotPasswordController::class, 'forgotPasswordview'])->name('forgot.view');
+Route::get('/verif-success',[EmailVerfiController::class,'verifSuccess'])->name('verif.success');
+Route::get('/verif-failed',[EmailVerfiController::class,'verifFailed'])->name('verif.failed');
+Route::get('/verif-waiting',[EmailVerfiController::class,'verifWaiting'])->name('verif.waiting');
 Route::post('/forgot-password',[ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forgot.post');
 Route::get('/reset-password/{email}/{token}/', [ForgotPasswordController::class, 'resetPasswordView'])->name('reset.view');
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.send');
