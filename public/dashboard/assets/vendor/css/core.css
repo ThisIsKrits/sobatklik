@@ -350,6 +350,9 @@ p {
 .text-general {
     color: var(--bs-general);
 }
+.text-general-body {
+    color: var(--bs-general-body);
+}
 
 .card-shadow {
     box-shadow: 0px 5px 11px 0px rgba(154, 141, 231, 0.05),
