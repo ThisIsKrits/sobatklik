@@ -1,6 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+@if(session('message'))
+<div
+      class="toast toast-success fade fade middle-top-toast"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+      data-bs-autohide="true"
+      data-bs-delay="5000"
+    >
+      <div class="toast-header toast-succes-header">
+        <strong class="me-auto">{{ session('message') }}</strong>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="toast"
+          aria-label="Close"
+        ></button>
+      </div>
+</div>
+@endif
+
+
 <div class="email-verify-wrapper authentication-basic">
         <!-- Register -->
         <div class="card card-login">
@@ -28,15 +50,36 @@
               <p class="mb-4 subtitle-1 text-center">
                 Kami telah mengirim email verifikasi ke email
                 <span class="text-primary font-medium">
-                  johndoe@example.com.
+                  {{ $email }}
                 </span>
                 Mohon check kotak masuk, sosial, promosi ataupun kotak
                 spam
               </p>
               <p class="subtitle-2">Belum menerima email?</p>
-              <a class="mb-2 font-semibold" href="#">Kirim Lagi</a>
+                <form id="formResend" class="mb-3" action="{{ route('resend') }}" method="POST">
+                    @csrf
+                    <input type="hidden" id="email" name="email" value="{{ $email }}" placeholder="Masukan email" autofocus />
+                    <a class="mb-2 font-semibold" id="resendLink" class="button" href="#">Kirim Lagi</a>
+                </form>
             </div>
           </div>
         </div>
       </div>
 @endsection
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastEl = document.querySelector('.toast');
+            const toast = new bootstrap.Toast(toastEl);
+            toast.show();
+         });
+
+        const form = document.getElementById('formResend');
+        const resendLink = document.getElementById('resendLink');
+
+        resendLink.addEventListener('click', function(event) {
+            event.preventDefault();
+            form.submit();
+        });
+    </script>
+@endpush

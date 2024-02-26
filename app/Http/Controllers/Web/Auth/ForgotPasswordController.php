@@ -42,10 +42,36 @@ class ForgotPasswordController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-        Mail::to($request->email)->send(new ResetPasswordEmail($token,$email));
+        $send = Mail::to($request->email)->send(new ResetPasswordEmail($token,$email));
 
-        return back()->with('message', 'Email reset password telah dikirim!');
-      }
+        if($send){
+            $request->session()->flash('message', 'Email reset password telah dikirim!');
+            return redirect()->route('verif.success',$email);
+        } else {
+            $request->session()->flash('message', 'Email reset gagal dikirim!');
+            return redirect()->route('verif.failed');
+        }
+
+    }
+
+    public function resendEmail(Request $request)
+    {
+        $email  = $request->email;
+        $token  = Str::random(64);
+
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $send = Mail::to($request->email)->send(new ResetPasswordEmail($token,$email));
+
+        if($send){
+            $request->session()->flash('message', 'Email reset password telah dikirim!');
+            return redirect()->route('verif.waiting',$email);
+        }
+    }
 
     public function resetPasswordView($email,$token)
     {

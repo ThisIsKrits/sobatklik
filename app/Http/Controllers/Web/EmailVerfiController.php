@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 class EmailVerfiController extends Controller
 {
-    public function verifSuccess()
+    public function verifSuccess($email)
     {
-        return view('email.email-success');
+        return view('email.email-success',[
+            'email' => $email
+        ]);
     }
 
     public function verifFailed()
@@ -17,8 +19,10 @@ class EmailVerfiController extends Controller
         return view('email.email-failed');
     }
 
-    public function verifWaiting()
+    public function verifWaiting($email)
     {
-        return view('email.email-waiting');
+        return view('email.email-waiting',[
+            'email' => $email
+        ]);
     }
 }
