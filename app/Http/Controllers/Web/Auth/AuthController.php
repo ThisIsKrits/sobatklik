@@ -40,6 +40,7 @@ class AuthController extends Controller
 
         $email      = $request->email;
         $password   = $request->password;
+        $remember   = $request->get('remember');
 
         $userEmail = User::where('email', $email)->first();
 
@@ -55,7 +56,7 @@ class AuthController extends Controller
 
 
 
-        if(Auth::attempt(['email' => $email, 'password' => $password]))
+        if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
         {
             $request->session()->flash('success', 'Login berhasil!');
             return redirect()->route('home');

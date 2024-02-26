@@ -40,7 +40,7 @@
               <div class="mb-3 form-password-toggle">
                 <label for="password" class="form-label">{{ __('Password') }}<span>*</span></label>
                 <div class="input-group input-group-merge">
-                  <input id="password" type="password" class="form-control @error('error-password') is-invalid @enderror" name="password" aria-describedby="password" required autocomplete="current-password">
+                  <input id="password" type="password" class="form-control @error('error-password') is-invalid @enderror" value="{{ old('password')}}" name="password" aria-describedby="password" required autocomplete="current-password">
                   <span id="togglePassword" class="input-group-text cursor-pointer">
                     <i class="ri-eye-line"></i>
                   </span>
@@ -58,7 +58,7 @@
               <div class="mb-3">
                 <div class="d-flex justify-content-between">
                   <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember-me" {{ old('remember') ? 'checked' : '' }}>
                     <label class="form-check-label" for="remember-me">
                       Simpan Password
                     </label>
