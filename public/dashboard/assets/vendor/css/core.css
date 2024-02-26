@@ -555,6 +555,16 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
     color: #f1f5f9 !important;
 }
 
+.selfie-area {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    border: 2px dashed var(--bs-general-outline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* custom class */
 
 abbr[title],

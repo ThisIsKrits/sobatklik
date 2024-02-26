@@ -412,14 +412,14 @@ button.list-group-item-primary.active {
 }
 
 .btn-outline-primary {
-    color: #696cff;
-    border-color: #696cff;
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
     background: transparent;
 }
 .btn-outline-primary:hover {
-    color: #fff;
-    background-color: #5f61e6;
-    border-color: #5f61e6;
+    color: var(--bs-primary-strong);
+
+    border-color: var(--bs-primary-strong);
     box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.4);
     transform: translateY(-1px);
 }
