@@ -201,31 +201,31 @@ p {
 /* custom class */
 
 .font-thin {
-    font-weight: 100;
+    font-weight: 100 !important;
 }
 .font-extralight {
-    font-weight: 200;
+    font-weight: 200 !important;
 }
 .font-light {
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 .font-normal {
-    font-weight: 400;
+    font-weight: 400 !important;
 }
 .font-medium {
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 .font-semibold {
-    font-weight: 600;
+    font-weight: 600 !important;
 }
 .font-bold {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 .font-extrabold {
-    font-weight: 800;
+    font-weight: 800 !important;
 }
 .font-black {
-    font-weight: 900;
+    font-weight: 900 !important;
 }
 
 .subtitle-1 {
@@ -258,7 +258,7 @@ p {
 }
 
 .bg-primary-weak {
-    background-color: var(--bs-primary-bg-weak);
+    background-color: var(--bs-primary-bg-weak) !important;
 }
 .bg-danger-weak {
     background-color: var(--bs-danger-bg-weak);
@@ -406,6 +406,153 @@ table.dataTable thead > tr > th.dt-ordering-desc span.dt-column-order:after {
 table.dataTable th.dt-type-numeric,
 table.dataTable td.dt-type-numeric {
     text-align: left !important;
+}
+
+table.dataTable thead > tr > th.dt-orderable-asc:hover,
+table.dataTable thead > tr > th.dt-orderable-desc:hover {
+    outline: none !important;
+}
+
+.dt-paging {
+    display: flex;
+    justify-content: center;
+}
+
+.dt-paging .previous,
+.dt-paging .next {
+    background-color: transparent;
+}
+
+.dt-paging .pagination .page-item.disabled .page-link {
+    background-color: transparent;
+    font-weight: 500;
+    cursor: not-allowed !important;
+}
+
+.form-select-md {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1.75rem;
+    font-size: 1rem;
+    border-radius: 0.438rem;
+}
+
+.form-control-sm {
+    min-height: calc(1.53em + 0.5rem + 2px);
+    padding: 1rem;
+    font-size: 0.75rem;
+    border-radius: 0.625rem;
+}
+
+.btn-outline-placeholder:hover {
+    color: #fff;
+    background-color: transparent;
+    border: 1.5px solid var(--bs-primary);
+    box-shadow: 0 0.125rem 0.25rem 0 var(--bs-primary-weak);
+}
+
+.btn-outline-placeholder:focus {
+    color: #fff;
+    background-color: transparent;
+    border: 1.5px solid var(--bs-primary);
+    box-shadow: none;
+    transform: translateY(0);
+}
+
+.bg-badge-label-primary {
+    background-color: var(--bs-primary-bg-weak) !important;
+    color: var(--bs-primary) !important;
+}
+
+.bg-badge-label-success {
+    background-color: var(--bs-success-bg-weak) !important;
+    color: var(--bs-success) !important;
+}
+.bg-badge-label-info {
+    background-color: var(--bs-info-bg-weak) !important;
+    color: var(--bs-info) !important;
+}
+
+.bg-badge-label-warning {
+    background-color: var(--bs-warning-bg-weak) !important;
+    color: var(--bs-warning) !important;
+}
+
+.bg-badge-label-danger {
+    background-color: var(--bs-danger-bg-weak) !important;
+    color: var(--bs-danger) !important;
+}
+
+.input-file {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.input-file .file-upload {
+    padding: 2rem;
+    border-radius: 2px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+    background-color: var(--bs-body-bg);
+    text-align: center;
+    color: var(--bs-general);
+    font-size: 0.875rem;
+}
+
+.input-file .file-upload input[type="file"] {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.input-file .file-upload:hover {
+    background-color: var(--bs-primary-bg-weak);
+    color: var(--bs-primary-weak);
+    cursor: pointer;
+}
+
+.card-template-chat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid var(--bs-general-outline);
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.card-template-chat:hover {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--bs-primary-bg-weak);
+    background-clip: border-box;
+    border: 1px solid var(--bs-general-outline);
+    border-radius: 1rem;
+}
+.active-template {
+    background-color: var(--bs-primary-bg-weak);
+}
+
+.hr-thin {
+    color: #f1f5f9 !important;
 }
 
 /* custom class */
@@ -570,7 +717,7 @@ caption {
 }
 
 th {
-    font-weight: 500;
+    font-weight: 400;
     text-align: inherit;
     text-align: -webkit-match-parent;
     border-bottom-width: 0 !important;
@@ -2651,16 +2798,16 @@ textarea.form-control-lg {
     width: 100%;
     padding: 0.4375rem 1.875rem 0.4375rem 0.875rem;
     -moz-padding-start: calc(0.875rem - 3px);
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.53;
-    color: #697a8d;
+    color: var(--bs-general-placeholder);
     background-color: #fff;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%2867, 89, 113, 0.6%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.875rem center;
     background-size: 17px 12px;
-    border: 1px solid #d9dee3;
+    border: 1px solid var(--bs-general-placeholder);
     border-radius: 0.375rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     -webkit-appearance: none;
@@ -2692,11 +2839,8 @@ textarea.form-control-lg {
 }
 
 .form-select-sm {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
-    padding-left: 0.625rem;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
+    font-size: 1rem;
+    border-radius: 0.438rem;
 }
 
 .form-select-lg {
@@ -4166,7 +4310,7 @@ fieldset:disabled .btn {
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1 solid var(--bs-primary-bg-weak);
+    border: 1px solid var(--bs-primary-bg-weak);
     border-radius: 1rem;
 }
 .card > hr {
@@ -4525,11 +4669,11 @@ fieldset:disabled .btn {
     display: inline-block;
     padding: 0.52em 0.593em;
     font-size: 0.8125em;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1;
     color: #fff;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
     vertical-align: baseline;
     border-radius: 0.25rem;
 }
@@ -7604,8 +7748,8 @@ button:focus {
 }
 
 .badge {
-    text-transform: uppercase;
-    line-height: 0.75;
+    /* text-transform: uppercase; */
+    line-height: 1;
 }
 
 .badge-center {
