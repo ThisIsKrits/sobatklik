@@ -158,4 +158,13 @@ class AuthController extends Controller
             'message'   => 'Password berhasil diganti!'
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::user()->tokens()->delete();
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Logout berhasil',
+        ], 200);
+    }
 }
