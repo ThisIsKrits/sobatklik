@@ -8,7 +8,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
         />
 
-        <title>Login</title>
+        <title>Verification Code</title>
 
         <meta name="description" content="" />
 
@@ -66,14 +66,12 @@
         <!-- Content -->
 
         <div class="container-fluid">
-            <div class="email-verify-wrapper authentication-basic">
+            <div class="authentication-wrapper authentication-basic h-custom">
                 <!-- Register -->
                 <div class="card card-login">
-                    <div class="card-body my-4 mx-5">
+                    <div class="card-body md:my-4 md:mx-4">
                         <!-- Logo -->
-                        <div
-                            class="app-brand flex-column justify-content-center my-3"
-                        >
+                        <div class="app-brand justify-content-left mb-3">
                             <a href="index.html" class="app-brand-link">
                                 <span class="app-brand-logo demo">
                                     <img
@@ -82,32 +80,51 @@
                                     />
                                 </span>
                             </a>
-                            <!-- /Logo -->
-                            <img
-                                src="../assets/img/elements/email-verify-error.svg"
-                                alt=""
-                            />
-                            <h3 class="mb-3 font-semibold">
-                                Email Kamu Kadaluarsa
-                            </h3>
-
-                            <p class="subtitle-2">
-                                Email akan berlaku dalam 1x24 jam sejak
-                                permintaan
-                            </p>
-
-                            <button
-                                class="btn btn-primary d-grid w-25"
-                                type="submit"
-                            >
-                                Hubungi Admin
-                            </button>
                         </div>
+                        <!-- /Logo -->
+                        <h2 class="mb-2 font-semibold">
+                            Masukkan Kode Verifikasi
+                        </h2>
+                        <p class="mb-4 subtitle-1">
+                            Harap hubungi owner untuk mendapatkan kode
+                            verifikasi
+                        </p>
+
+                        <form
+                            id="formAuthentication"
+                            class="mb-3"
+                            action="index.html"
+                            method="POST"
+                        >
+                            <div class="mb-3">
+                                <label for="code" class="form-label"
+                                    >Kode Verifikasi <span>*</span></label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="code"
+                                    name="code"
+                                    placeholder="Masukan kode verifikasi"
+                                    autofocus
+                                />
+                            </div>
+
+                            <div class="mb-3">
+                                <button
+                                    class="btn btn-primary d-grid w-100"
+                                    type="submit"
+                                >
+                                    Kirim
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <!-- /Register -->
             </div>
         </div>
-        <footer class="footer fixed-bottom mt-5">
+        <footer class="footer fixed-bottom">
             <div class="container py-3">
                 <span>
                     Copyright &copy;2024 Sobat Klik, All rights Reserved</span
@@ -134,5 +151,23 @@
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script>
+            // Password view toggle
+            const togglePassword = () => {
+                const passwordInput = document.getElementById("password");
+                const toggleButton = document.getElementById("togglePassword");
+
+                if (passwordInput.type === "password") {
+                    passwordInput.type = "text";
+                    toggleButton.innerHTML = '<i class="ri-eye-off-line"></i>';
+                } else {
+                    passwordInput.type = "password";
+                    toggleButton.innerHTML = '<i class="ri-eye-line"></i>';
+                }
+            };
+
+            const toggleButton = document.getElementById("togglePassword");
+            toggleButton.addEventListener("click", togglePassword);
+        </script>
     </body>
 </html>

@@ -65,55 +65,43 @@
     <body>
         <!-- Content -->
 
-        <div class="container-fluid">
-            <div class="email-verify-wrapper authentication-basic">
+        <div class="container">
+            <div
+                class="d-flex align-items-center justify-content-center min-vh-100"
+            >
                 <!-- Register -->
-                <div class="card card-login">
-                    <div class="card-body my-4 mx-5">
-                        <!-- Logo -->
-                        <div
-                            class="app-brand flex-column justify-content-center my-3"
-                        >
-                            <a href="index.html" class="app-brand-link">
-                                <span class="app-brand-logo demo">
+                <div class="card w-50">
+                    <div class="card-header ms-auto">
+                        <span class="cursor-pointer">
+                            <i class="ri-close-line fs-4 subtitle-1"></i>
+                        </span>
+                    </div>
+                    <div class="card-body mx-5">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="my-3">
+                                <div class="selfie-area text-center">
                                     <img
-                                        src="../assets/img/elements/logo-default.png"
+                                        class="w-75 h-75"
+                                        src="../assets/img/elements/Selfie.png"
                                         alt=""
                                     />
-                                </span>
-                            </a>
-                            <!-- /Logo -->
-                            <img
-                                src="../assets/img/elements/email-verify-error.svg"
-                                alt=""
-                            />
-                            <h3 class="mb-3 font-semibold">
-                                Email Kamu Kadaluarsa
-                            </h3>
-
-                            <p class="subtitle-2">
-                                Email akan berlaku dalam 1x24 jam sejak
-                                permintaan
-                            </p>
+                                </div>
+                            </div>
 
                             <button
-                                class="btn btn-primary d-grid w-25"
+                                class="mb-3 btn btn-primary d-grid"
                                 type="submit"
                             >
-                                Hubungi Admin
+                                kirim foto
                             </button>
+                            <span class="mb-2 subtitle-1 cursor-pointer">
+                                ulangi
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="footer fixed-bottom mt-5">
-            <div class="container py-3">
-                <span>
-                    Copyright &copy;2024 Sobat Klik, All rights Reserved</span
-                >
-            </div>
-        </footer>
 
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
