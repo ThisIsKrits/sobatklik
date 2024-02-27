@@ -95,7 +95,7 @@
                                 padding: 32px 32px 0;
                               "
                             >
-                              Permintaan Reset Password - Sobat Klik 📮
+                              Permintaan Verifikasi Kode - Sobat Klik📮
                             </td>
                           </tr>
 
@@ -109,34 +109,26 @@
                                 padding: 32px;
                               "
                             >
-                              Halo! Anda menerima email ini karena Anda telah
+                              Anda menerima email ini karena Anda telah
                               mendaftar di situs kami.
                               <br />
                               <br />
-                              Klik tautan di bawah untuk melakukan reset
-                              password pada akun Sobat Klik, Tautan ini akan
-                              kedaluwarsa dalam 15 menit dan hanya dapat
-                              digunakan satu kali.
+                              Saat ini pengguna
+                              <span style="font-weight: 600">John Doe</span>
+                              sedang melakukan aktivitas login diluar radius.
+                              Berikut merupakan kode verifikasi pengguna :
                               <br />
                               <br />
-                              <div style="text-align: center">
-                                <a
-                                  href="{{ route('reset.view', [$email,$token]) }}"
-                                  target="_blank"
-                                  style="
-                                    color: #ffffff;
-                                    background: #9a8de7;
-                                    border: 1px solid #9a8de7;
-                                    border-radius: 8px;
-                                    display: inline-block;
-                                    margin-top: 8px;
-                                    padding: 12px 22px;
-                                    text-decoration: none;
-                                  "
-                                >
-                                  Reset Password
-                                </a>
-                              </div>
+                              <h2
+                                style="
+                                  font-size: 32px;
+                                  font-weight: 500;
+                                  text-align: center;
+                                  margin-bottom: 0px;
+                                "
+                              >
+                                0 1 2 3 4 5 6
+                              </h2>
                             </td>
                           </tr>
 
@@ -150,20 +142,30 @@
                                 padding: 0 32px 32px;
                               "
                             >
-                              Atau Jika tombol di atas tidak berfungsi,
-                              tempelkan tautan ini ke browser web Anda:
+                              Atau kamu dapat melakukan pengecekan lokasi login,
+                              melalui tombol berikut
                               <br />
                               <br />
-                              <a href="{{ route('reset.view', [$email,$token]) }}" style="color: #9a8de7"
-                                >{{ route('reset.view', [$email,$token]) }}</a
-                              >
-                              <br />
-                              <br />
-                              Jika Anda tidak mengajukan permintaan ini, harap
-                              hubungi kami atau abaikan pesan ini.
-                              <br />
-                              <br />
+                              <div style="text-align: center">
+                                <a
+                                  href="#"
+                                  target="_blank"
+                                  style="
+                                    color: #ffffff;
+                                    background: #9a8de7;
+                                    border: 1px solid #9a8de7;
+                                    border-radius: 8px;
+                                    display: inline-block;
+                                    margin-top: 8px;
+                                    padding: 12px 22px;
+                                    text-decoration: none;
+                                  "
+                                >
+                                  Lihat Peta
+                                </a>
+                              </div>
 
+                              <br />
                               Ini adalah email yang dibuat secara otomatis,
                               mohon jangan membalas email ini. Jika Anda
                               menghadapi ada masalah, silakan hubungi kami di
