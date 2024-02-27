@@ -106,6 +106,16 @@
     border-color: var(--bs-primary-weak);
     transform: translateY(-1px);
 }
+.btn-success-weak {
+    color: var(--bs-success-weak);
+    background-color: var(--bs-success-bg-weak);
+    border-color: var(--bs-success-bg-weak);
+}
+.btn-success-weak:hover {
+    color: var(--bs-success-weak);
+    border-color: var(--bs-success-weak);
+    transform: translateY(-1px);
+}
 .btn-danger-weak {
     color: var(--bs-danger-weak);
     background-color: var(--bs-danger-bg-weak);
