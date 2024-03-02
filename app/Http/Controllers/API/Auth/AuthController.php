@@ -96,7 +96,8 @@ class AuthController extends Controller
         {
             return response()->json([
                 'success'   => false,
-                'message'   => 'Email tidak terdaftar. Silahkan lengkapi biodata!'
+                'message'   => 'Email tidak terdaftar. Silahkan lengkapi biodata!',
+                'email'     => $email,
             ]);
         }
 
