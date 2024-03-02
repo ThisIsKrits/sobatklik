@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\API\ColorSelect;
 use App\Models\API\Theme;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Stevebauman\Location\Facades\Location;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\JWT;
@@ -112,6 +114,15 @@ class AuthController extends Controller
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
         $theme  = ColorSelect::find(1)->getTheme;
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+
+        $logs   = Activity::create([
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $location->cityName,
+            'description'   => 'Login ke aplikasi sobatklik'
+        ]);
 
         return response()->json([
             'success'   => true,

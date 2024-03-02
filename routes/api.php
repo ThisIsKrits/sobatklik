@@ -26,8 +26,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::resource('/social-media', [SosmedCategoryController::class]);
-Route::resource('/contact', [ContactCategoryController::class]);
+Route::resource('/social-media', SosmedCategoryController::class);
+Route::resource('/contact', ContactCategoryController::class);
 
 Route::middleware(['auth:api'])->group(function (){
     Route::get('/user', function (Request $request) {
