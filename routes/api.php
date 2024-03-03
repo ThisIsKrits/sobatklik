@@ -40,7 +40,7 @@ Route::middleware(['auth:api'])->group(function (){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::post('change-password/{id}', [AuthController::class, 'change_password']);
     Route::resource('theme', ThemeController::class);
+    Route::post('change-password/{id}', [AuthController::class, 'change_password']);
     Route::resource('profile-update', ProfileController::class);
 });
