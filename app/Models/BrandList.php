@@ -9,5 +9,5 @@ class BrandList extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','status'];
+    protected $fillable = ['logo','name','status'];
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('brand_lists', function (Blueprint $table) {
             $table->id();
+            $table->string('logo');
             $table->string('name');
             $table->boolean('status');
             $table->timestamps();
