@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\TermCondition;
 use Illuminate\Http\Request;
 
 class TermController extends Controller
@@ -14,7 +15,13 @@ class TermController extends Controller
      */
     public function index()
     {
-        //
+        $datas = TermCondition::all();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Syarat dan ketentuan berhasil ditampilkan!',
+            'data'      => $datas
+        ]);
     }
 
     /**

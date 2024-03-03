@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ListThemesSeeder::class,
             PermissionSeeder::class,
             SelectColorSeeder::class,
+            TermConditionSeeder::class,
         ]);
     }
 }

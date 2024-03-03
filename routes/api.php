@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\MasterData\ContactCategoryController;
 use App\Http\Controllers\API\MasterData\SosmedCategoryController;
 use App\Http\Controllers\API\Profile\ProfileController;
+use App\Http\Controllers\API\Profile\TermController;
 use App\Http\Controllers\API\Profile\ThemeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
+// term and condition
+Route::resource('/term-condition', TermController::class);
+
+// master data
 Route::resource('/social-media', SosmedCategoryController::class);
 Route::resource('/contact', ContactCategoryController::class);
 
