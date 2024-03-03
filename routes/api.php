@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\MasterData\BrandListController;
 use App\Http\Controllers\API\MasterData\ContactCategoryController;
 use App\Http\Controllers\API\MasterData\SosmedCategoryController;
 use App\Http\Controllers\API\Profile\ProfileController;
@@ -33,6 +34,7 @@ Route::resource('/term-condition', TermController::class);
 // master data
 Route::resource('/social-media', SosmedCategoryController::class);
 Route::resource('/contact', ContactCategoryController::class);
+Route::resource('/brand-list', BrandListController::class);
 
 Route::middleware(['auth:api'])->group(function (){
     Route::get('/user', function (Request $request) {
