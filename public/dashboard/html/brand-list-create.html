@@ -7,7 +7,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
         />
 
-        <title>Kategori Kontak</title>
+        <title>Brand List</title>
 
         <meta name="description" content="" />
 
@@ -61,6 +61,27 @@
             rel="stylesheet"
             href="../assets/vendor/libs/datatables/datatables.min.css"
         />
+
+        <!-- Croppie -->
+        <link
+            rel="stylesheet"
+            href="../assets/vendor/libs/croppie/croppie.css"
+        />
+        <style>
+            #maskotBrand {
+                width: 100%;
+                max-width: 300px; /* Set maximum width for Croppie container */
+            }
+
+            /* Media query for mobile */
+            @media (max-width: 768px) {
+                #croppie-viewport,
+                #croppie-boundary {
+                    width: 200px; /* Set viewport and boundary width for mobile */
+                    height: 200px; /* Set viewport and boundary height for mobile */
+                }
+            }
+        </style>
 
         <!-- Page CSS -->
 
@@ -126,7 +147,7 @@
                         </li>
 
                         <li class="menu-item">
-                            <a href="laporan.html" class="menu-link">
+                            <a href="index.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img
                                     class="menu-icon tf-icons"
@@ -146,7 +167,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="telepon.html" class="menu-link">
+                            <a href="index.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Calling-active.svg" alt=""> -->
                                 <!-- icon saat active -->
@@ -183,7 +204,7 @@
                             <span class="menu-header-text">Lainnya</span>
                         </li>
                         <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                            <a href="pengaturan.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Setting-active.svg" alt=""> -->
                                 <!-- icon saat active -->
@@ -204,29 +225,33 @@
                                 class="menu-link menu-toggle"
                             >
                                 <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Folder-active.svg" alt=""> -->
+                                <img
+                                    class="menu-icon tf-icons"
+                                    src="../assets/img/icons/iconly/Folder-active.svg"
+                                    alt=""
+                                />
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <img
+                                <!-- <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/Folder.svg"
                                     alt=""
-                                />
+                                /> -->
                                 <!-- icon tidak active -->
 
                                 <div>Master Data</div>
                             </a>
                             <ul class="menu-sub">
-                                <li class="menu-item ms-4">
+                                <li class="menu-item ms-4 active">
                                     <a
-                                        href="auth-login-basic.html"
+                                        href="brand-list.html"
                                         class="menu-link"
                                         target="_blank"
                                     >
                                         <div data-i18n="Basic">Brand List</div>
                                     </a>
                                 </li>
-                                <li class="menu-item ms-4 active">
+                                <li class="menu-item ms-4">
                                     <a
                                         href="kategori-kontak.html"
                                         class="menu-link"
@@ -239,7 +264,7 @@
                                 </li>
                                 <li class="menu-item ms-4">
                                     <a
-                                        href="auth-forgot-password-basic.html"
+                                        href="kategori-sosmed.html"
                                         class="menu-link"
                                         target="_blank"
                                     >
@@ -543,25 +568,16 @@
                             <div
                                 class="d-flex flex-row justify-content-between align-items-center pb-4"
                             >
-                                <h3 class="ms-1 font-semibold mb-0">
-                                    Kategori Kontak
-                                </h3>
-
-                                <a
-                                    href="./kateogri-kontak-create.html"
-                                    class="btn btn-primary"
-                                >
-                                    <div
-                                        class="d-flex align-items-center gap-3"
-                                    >
-                                        <img
-                                            class="w-px-20"
-                                            src="../assets/img/icons/iconly/Plus.svg"
-                                            alt=""
-                                        />
-                                        Tambah
-                                    </div>
-                                </a>
+                                <div class="d-flex align-items-center">
+                                    <a
+                                        href="./kategori-sosmed.html"
+                                        class="text-general"
+                                        ><i class="ri-arrow-left-line fs-1"></i
+                                    ></a>
+                                    <h3 class="ms-1 font-semibold mb-0">
+                                        Tambah Brand
+                                    </h3>
+                                </div>
                             </div>
                             <!-- Main Content -->
 
@@ -569,181 +585,250 @@
                                 <div class="col">
                                     <div class="card">
                                         <div class="card-body px-3">
-                                            <div class="table">
-                                                <table
-                                                    id="reportGrafik"
-                                                    class="table"
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th
-                                                                class="w-md-px-25"
+                                            <form
+                                                id="formAuthentication"
+                                                class="mb-3"
+                                                action="index.html"
+                                                method="POST"
+                                            >
+                                                <form>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="code"
+                                                            class="form-label"
+                                                            >Kode Brand
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            class="form-control"
+                                                            name="brandCode"
+                                                            placeholder="Masukan Kode Brand"
+                                                            id="code"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="brandName"
+                                                            class="form-label"
+                                                            >Nama Brand
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            class="form-control"
+                                                            name="brandName"
+                                                            placeholder="Masukan Nama Brand"
+                                                            id="brandName"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="taglineBrand"
+                                                            class="form-label"
+                                                            >Tagline Brand
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            class="form-control"
+                                                            name="taglineBrand"
+                                                            placeholder="Masukan Tagline Brand"
+                                                            id="taglineBrand"
+                                                        />
+                                                    </div>
+
+                                                    <div class="row gap-3 mb-5">
+                                                        <div
+                                                            class="col-12 col-md-4"
+                                                        >
+                                                            <div
+                                                                class="d-flex flex-column"
                                                             >
-                                                                Icon
-                                                            </th>
-                                                            <th>
-                                                                Nama Kategori
-                                                            </th>
+                                                                <label
+                                                                    for="brand"
+                                                                    class="form-label"
+                                                                    >Logo Brand
+                                                                    <span
+                                                                        >*</span
+                                                                    ></label
+                                                                >
 
-                                                            <th>Status</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody
-                                                        class="table-border-bottom-0"
+                                                                <img
+                                                                    style="
+                                                                        display: none;
+                                                                        max-width: 104px;
+                                                                        border-radius: 8px;
+                                                                    "
+                                                                    id="resultImage"
+                                                                    src=""
+                                                                    alt="Cropped Image"
+                                                                />
+
+                                                                <div
+                                                                    class="input-file"
+                                                                    id="input-logo"
+                                                                >
+                                                                    <div
+                                                                        class="file-upload"
+                                                                    >
+                                                                        <input
+                                                                            type="file"
+                                                                            accept="image/*"
+                                                                            id="brandLogo"
+                                                                        />
+                                                                        <img
+                                                                            src="../assets//img/icons/iconly/Plus-general.svg"
+                                                                            alt=""
+                                                                        />
+                                                                        <p>
+                                                                            Upload
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="col-12 col-md-4"
+                                                        >
+                                                            <div
+                                                                class="d-flex flex-column"
+                                                            >
+                                                                <label
+                                                                    for="brand"
+                                                                    class="form-label"
+                                                                    >Maskot
+                                                                    Brand
+                                                                    <span
+                                                                        >*</span
+                                                                    ></label
+                                                                >
+
+                                                                <img
+                                                                    style="
+                                                                        display: none;
+                                                                        max-width: 104px;
+                                                                        border-radius: 8px;
+                                                                    "
+                                                                    id="resultMaskot"
+                                                                    src=""
+                                                                    alt="Maskot Image"
+                                                                />
+
+                                                                <div
+                                                                    class="input-file"
+                                                                    id="input-maskot"
+                                                                >
+                                                                    <div
+                                                                        class="file-upload"
+                                                                    >
+                                                                        <input
+                                                                            type="file"
+                                                                            accept="image/*"
+                                                                            id="brandMaskot"
+                                                                        />
+                                                                        <img
+                                                                            src="../assets//img/icons/iconly/Plus-general.svg"
+                                                                            alt=""
+                                                                        />
+                                                                        <p>
+                                                                            Upload
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <p
+                                                            class="mb-3 font-semibold"
+                                                        >
+                                                            Alamat
+                                                        </p>
+                                                        <div
+                                                            id="container"
+                                                        ></div>
+                                                        <button
+                                                            class="btn btn-outline-placeholder w-100"
+                                                            type="button"
+                                                            onclick="addAddress()"
+                                                        >
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-center gap-2"
+                                                            >
+                                                                <img
+                                                                    src="../assets/img/icons/iconly/Plus-outline.svg"
+                                                                    alt=""
+                                                                />
+                                                                Tambah Alamat
+                                                                baru
+                                                            </div>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="mb-5">
+                                                        <p
+                                                            class="mb-3 font-semibold"
+                                                        >
+                                                            Kontak
+                                                        </p>
+                                                        <div
+                                                            id="contactContainer"
+                                                        ></div>
+                                                        <button
+                                                            class="btn btn-outline-placeholder w-100"
+                                                            type="button"
+                                                            onclick="addContact()"
+                                                        >
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-center gap-2"
+                                                            >
+                                                                <img
+                                                                    src="../assets/img/icons/iconly/Plus-outline.svg"
+                                                                    alt=""
+                                                                />
+                                                                Tambah Kontak
+                                                                baru
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <div class="mb-5">
+                                                        <p
+                                                            class="mb-3 font-semibold"
+                                                        >
+                                                            Sosial Media
+                                                        </p>
+                                                        <div
+                                                            id="sosmedContainer"
+                                                        ></div>
+                                                        <button
+                                                            class="btn btn-outline-placeholder w-100"
+                                                            type="button"
+                                                            onclick="addSosmed()"
+                                                        >
+                                                            <div
+                                                                class="d-flex align-items-center justify-content-center gap-2"
+                                                            >
+                                                                <img
+                                                                    src="../assets/img/icons/iconly/Plus-outline.svg"
+                                                                    alt=""
+                                                                />
+                                                                Tambah Sosial
+                                                                Media
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                    <button
+                                                        class="mb-2 btn btn-primary btn-md"
+                                                        type="submit"
                                                     >
-                                                        <!--   1 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/email-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Email</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   2 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/whatsapp-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Whatsapp</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   3 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/baru-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                Kategori Baru
-                                                            </td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-danger"
-                                                                >
-                                                                    Tidak Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-
-                                                                    <button
-                                                                        class="btn btn-danger-weak"
-                                                                        type="button"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#modalDelete"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-delete-bin-7-line"
-                                                                        ></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   4 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/laporan-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Laporan</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                        Simpan
+                                                    </button>
+                                                </form>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -751,85 +836,15 @@
                         </div>
                         <!-- / Content -->
 
-                        <!-- Modal Filter Table-->
+                        <!-- Modal Brand Logo-->
                         <div
                             class="modal fade"
-                            id="modalFilter"
+                            id="uploadLogoBrand"
                             tabindex="-1"
                             aria-hidden="true"
                         >
                             <div
-                                class="modal-dialog modal-dialog-centered"
-                                role="document"
-                            >
-                                <div class="modal-content p-4">
-                                    <div class="modal-header p-0">
-                                        <h4 class="mb-0 mt-4 ms-4">Filter</h4>
-                                        <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                        ></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="mb-3 w-100">
-                                                <label
-                                                    for="status"
-                                                    class="form-label"
-                                                    >Status
-                                                    <span>*</span></label
-                                                >
-                                                <select
-                                                    class="form-select"
-                                                    id="status"
-                                                    aria-label="Default select example"
-                                                >
-                                                    <option selected>
-                                                        Status
-                                                    </option>
-                                                    <option value="1">
-                                                        One
-                                                    </option>
-                                                    <option value="2">
-                                                        Two
-                                                    </option>
-                                                    <option value="3">
-                                                        Three
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <div
-                                                class="d-flex justify-content-between align-items-center"
-                                            >
-                                                <span
-                                                    class="fs-5 bg-label-danger cursor-pointer font-semibold"
-                                                >
-                                                </span>
-                                                <button
-                                                    class="mb-2 btn btn-primary btn-md"
-                                                    type="submit"
-                                                >
-                                                    Filter
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal Delete Table-->
-                        <div
-                            class="modal fade"
-                            id="modalDelete"
-                            tabindex="-1"
-                            aria-hidden="true"
-                        >
-                            <div
-                                class="modal-dialog modal-dialog-centered"
+                                class="modal-dialog modal-lg modal-dialog-centered"
                                 role="document"
                             >
                                 <div class="modal-content">
@@ -843,26 +858,16 @@
                                         ></button>
                                     </div>
                                     <div class="modal-body">
+                                        <div id="brandImage"></div>
                                         <div
-                                            class="my-5 d-flex justify-content-center align-items-center text-center"
+                                            class="my-5 d-flex flex-column justify-content-center align-items-center text-center"
                                         >
                                             <div>
-                                                <img
-                                                    class="mb-4 w-px-300"
-                                                    src="../assets/img/elements/email-verify-error.svg"
-                                                    alt=""
-                                                />
-                                                <h3
-                                                    class="mb-3 h3 font-semibold"
-                                                >
-                                                    Apakah kamu yakin akan
-                                                    menghapus data ini?
-                                                </h3>
                                                 <button
-                                                    class="mb-2 btn btn-danger d-grid w-100"
-                                                    type="submit"
+                                                    class="mb-2 btn btn-primary d-grid crop_image"
+                                                    type="button"
                                                 >
-                                                    Hapus
+                                                    Simpan Gambar
                                                 </button>
                                                 <span
                                                     data-bs-dismiss="modal"
@@ -877,8 +882,53 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- / Navbar -->
 
+                        <!-- Modal Maskot Logo-->
+                        <div
+                            class="modal fade"
+                            id="uploadMaskotBrand"
+                            tabindex="-1"
+                            aria-hidden="true"
+                        >
+                            <div
+                                class="modal-dialog modal-lg modal-dialog-centered"
+                                role="document"
+                            >
+                                <div class="modal-content">
+                                    <div class="modal-header p-0">
+                                        <h2></h2>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="maskotBrand"></div>
+                                        <div
+                                            class="my-5 d-flex flex-column justify-content-center align-items-center text-center"
+                                        >
+                                            <div>
+                                                <button
+                                                    class="mb-2 btn btn-primary d-grid crop_maskot"
+                                                    type="button"
+                                                >
+                                                    Simpan Gambar
+                                                </button>
+                                                <span
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                                    class="subtitle-1 cursor-pointer"
+                                                >
+                                                    Batal
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Footer -->
                         <footer class="footer">
                             <div class="container py-3">
@@ -918,6 +968,8 @@
         <!-- Datatables -->
         <script src="../assets/vendor/libs/datatables/datatables.min.js"></script>
 
+        <!-- Croppie -->
+        <script src="../assets/vendor/libs/croppie/croppie.min.js"></script>
         <!-- Main JS -->
         <script src="../assets/js/main.js"></script>
 
@@ -927,56 +979,311 @@
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <script>
-            // Datatables
+            // Logo Brand
+            $(document).ready(function () {
+                var image_crop = $("#brandImage").croppie({
+                    viewport: { width: 244, height: 264 },
+                    boundary: { width: 600, height: 400 },
+                });
 
-            $(function () {
-                $("#reportGrafik").DataTable({
-                    responsive: true,
-                    lengthChange: true,
-                    autoWidth: false,
-                    searching: true,
-                    paging: true,
-                    pagingType: "simple_numbers",
-                    info: false,
-                    language: {
-                        lengthMenu: "Show _MENU_ data",
-                        paginate: {
-                            previous: '<i class="ri-arrow-left-line"></i>',
-                            next: '<i class="ri-arrow-right-line"></i>',
-                        },
-                        search: "",
-                        searchPlaceholder: "Cari",
-                    },
+                $("#brandLogo").on("change", function () {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        image_crop.croppie("bind", {
+                            url: event.target.result,
+                        });
 
-                    dom: '<"top"i<"px-3 d-flex flex-column justify-content-start align-items-start gap-3 ms-auto flex-md-row justify-content-between align-items-md-center gap-md-0"lf>>rt<"bottom"p>',
-                    fnInitComplete: function () {
-                        var newDiv = $(
-                            "<div class='d-flex justify-content-center align-items-center gap-2'></div>"
-                        );
-                        newDiv.append($(".dt-search"));
-                        newDiv.append(
-                            '<button class="btn btn-outline-placeholder" type="button" data-bs-toggle="modal" data-bs-target="#modalFilter"><i class="ri-equalizer-2-line "></i></button>'
-                        );
+                        $("#resultImage").show();
 
-                        newDiv.append(
-                            '<button class="btn btn-outline-placeholder"> <i class="ri-list-check"></i></button>'
-                        );
+                        $("#input-logo").hide();
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                    $("#uploadLogoBrand").modal("show");
+                });
 
-                        $(
-                            "div.d-flex.flex-column.justify-content-start.align-items-start.gap-3.ms-auto.flex-md-row.justify-content-between.align-items-md-center.gap-md-0"
-                        ).append(newDiv);
-                    },
+                // Ketika tombol crop di klik
+                $(".crop_image").click(function (event) {
+                    image_crop
+                        .croppie("result", {
+                            type: "blob",
+                            format: "png",
+                        })
+                        .then(function (blob) {
+                            var croppedImageUrl = URL.createObjectURL(blob);
+
+                            $("#resultImage").attr("src", croppedImageUrl);
+
+                            $("#uploadLogoBrand").modal("hide");
+                        });
+                });
+
+                function adjustCroppieForMobile() {
+                    var viewportWidth = $(window).width();
+                    if (viewportWidth <= 768) {
+                        image_crop.croppie("destroy");
+                        image_crop = $("#brandImage").croppie({
+                            viewport: { width: 200, height: 200 },
+                            boundary: { width: 300, height: 300 },
+                        });
+                    } else {
+                        image_crop.croppie("destroy");
+                        image_crop = $("#brandImage").croppie({
+                            viewport: { width: 244, height: 264 },
+                            boundary: { width: 600, height: 400 },
+                        });
+                    }
+                }
+
+                $(window).on("load resize", function () {
+                    adjustCroppieForMobile();
                 });
             });
 
+            // Maskot Brand
             $(document).ready(function () {
-                var selectElement = $("#dt-length-0");
-                selectElement.removeClass("form-select-sm");
-                selectElement.addClass("form-select-md");
-                var searchElement = $("#dt-search-1");
-                searchElement.removeClass("form-control-sm");
-                searchElement.addClass("form-control-md");
+                var image_crop = $("#maskotBrand").croppie({
+                    viewport: { width: 244, height: 264 },
+                    boundary: { width: 600, height: 400 },
+                });
+
+                $("#brandMaskot").on("change", function () {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        image_crop.croppie("bind", {
+                            url: event.target.result,
+                        });
+
+                        $("#resultMaskot").show();
+                        $("#input-maskot").hide();
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                    $("#uploadMaskotBrand").modal("show");
+                });
+
+                $(".crop_maskot").click(function (event) {
+                    image_crop
+                        .croppie("result", {
+                            type: "blob",
+                            format: "png",
+                        })
+                        .then(function (blob) {
+                            var croppedImageUrl = URL.createObjectURL(blob);
+
+                            $("#resultMaskot").attr("src", croppedImageUrl);
+
+                            $("#uploadMaskotBrand").modal("hide");
+                        });
+                });
+
+                function adjustCroppieForMobile() {
+                    var viewportWidth = $(window).width();
+                    if (viewportWidth <= 768) {
+                        image_crop.croppie("destroy");
+                        image_crop = $("#maskotBrand").croppie({
+                            viewport: { width: 200, height: 200 },
+                            boundary: { width: 300, height: 300 },
+                        });
+                    } else {
+                        image_crop.croppie("destroy");
+                        image_crop = $("#maskotBrand").croppie({
+                            viewport: { width: 244, height: 264 },
+                            boundary: { width: 600, height: 400 },
+                        });
+                    }
+                }
+
+                $(window).on("load resize", function () {
+                    adjustCroppieForMobile();
+                });
             });
+        </script>
+        <script>
+            // Add address form
+            const addAddress = () => {
+                let container = document.getElementById("container");
+
+                let inputDiv = document.createElement("div");
+                inputDiv.className = "mb-4 w-100 d-flex";
+
+                let input = document.createElement("input");
+                input.type = "text";
+                input.name = "address";
+                input.className = "form-control";
+
+                let deleteButton = document.createElement("i");
+                deleteButton.className =
+                    "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
+                deleteButton.onclick = function () {
+                    container.removeChild(inputDiv);
+                };
+
+                inputDiv.appendChild(input);
+                inputDiv.appendChild(deleteButton);
+
+                container.appendChild(inputDiv);
+            };
+
+            //Add contact form
+            const addContact = () => {
+                const container = document.getElementById("contactContainer");
+
+                const rowDiv = document.createElement("div");
+                rowDiv.className = "row gap-1 mb-3";
+                container.appendChild(rowDiv);
+
+                const colDiv1 = document.createElement("div");
+                colDiv1.className = "col-12 col-md-3";
+                rowDiv.appendChild(colDiv1);
+
+                const label1 = document.createElement("label");
+                label1.textContent = "Jenis Kontak";
+                label1.className = "form-label";
+                colDiv1.appendChild(label1);
+
+                const select1 = document.createElement("select");
+                select1.className = "form-select";
+                select1.id = "jenisSosmed";
+                select1.setAttribute("aria-label", "Default select example");
+                colDiv1.appendChild(select1);
+
+                const option1 = document.createElement("option");
+                option1.text = "Jenis Kontak";
+                option1.selected = true;
+                select1.appendChild(option1);
+                ["One", "Two", "Three"].forEach((optionText) => {
+                    const option = document.createElement("option");
+                    option.value = optionText;
+                    option.text = optionText;
+                    select1.appendChild(option);
+                });
+
+                const colDiv2 = document.createElement("div");
+                colDiv2.className = "col-12 col-md-4";
+                rowDiv.appendChild(colDiv2);
+
+                const label2 = document.createElement("label");
+                label2.textContent = "Label";
+                label2.className = "form-label";
+                colDiv2.appendChild(label2);
+
+                const input1 = document.createElement("input");
+                input1.className = "form-control";
+                input1.name = "sosmedLabel";
+                input1.placeholder = "Label";
+                input1.id = "label";
+                colDiv2.appendChild(input1);
+
+                const colDiv3 = document.createElement("div");
+                colDiv3.className = "col-12 col-md-4";
+                rowDiv.appendChild(colDiv3);
+
+                const label3 = document.createElement("label");
+                label3.textContent = "Link";
+                label3.className = "form-label";
+                colDiv3.appendChild(label3);
+
+                const flexDiv = document.createElement("div");
+                flexDiv.className = "d-flex";
+                colDiv3.appendChild(flexDiv);
+
+                // Membuat input untuk "Kode Brand"
+                const input2 = document.createElement("input");
+                input2.className = "form-control";
+                input2.name = "link";
+                input2.placeholder = "Link";
+                input2.id = "link";
+                flexDiv.appendChild(input2);
+
+                // Membuat ikon untuk menghapus
+                const deleteIcon = document.createElement("i");
+                deleteIcon.className =
+                    "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
+                deleteIcon.addEventListener("click", () => {
+                    container.removeChild(rowDiv);
+                });
+                flexDiv.appendChild(deleteIcon);
+            };
+
+            //Add sosmed form
+            const addSosmed = () => {
+                const container = document.getElementById("sosmedContainer");
+
+                const rowDiv = document.createElement("div");
+                rowDiv.className = "row gap-1 mb-3";
+                container.appendChild(rowDiv);
+
+                const colDiv1 = document.createElement("div");
+                colDiv1.className = "col-12 col-md-3";
+                rowDiv.appendChild(colDiv1);
+
+                const label1 = document.createElement("label");
+                label1.textContent = "Jenis Sosmed";
+                label1.className = "form-label";
+                colDiv1.appendChild(label1);
+
+                const select1 = document.createElement("select");
+                select1.className = "form-select";
+                select1.id = "jenisSosmed";
+                select1.setAttribute("aria-label", "Default select example");
+                colDiv1.appendChild(select1);
+
+                const option1 = document.createElement("option");
+                option1.text = "Jenis Sosmed";
+                option1.selected = true;
+                select1.appendChild(option1);
+                ["One", "Two", "Three"].forEach((optionText) => {
+                    const option = document.createElement("option");
+                    option.value = optionText;
+                    option.text = optionText;
+                    select1.appendChild(option);
+                });
+
+                const colDiv2 = document.createElement("div");
+                colDiv2.className = "col-12 col-md-4";
+                rowDiv.appendChild(colDiv2);
+
+                const label2 = document.createElement("label");
+                label2.textContent = "Label";
+                label2.className = "form-label";
+                colDiv2.appendChild(label2);
+
+                const input1 = document.createElement("input");
+                input1.className = "form-control";
+                input1.name = "sosmedLabel";
+                input1.placeholder = "Label";
+                input1.id = "label";
+                colDiv2.appendChild(input1);
+
+                const colDiv3 = document.createElement("div");
+                colDiv3.className = "col-12 col-md-4";
+                rowDiv.appendChild(colDiv3);
+
+                const label3 = document.createElement("label");
+                label3.textContent = "Link";
+                label3.className = "form-label";
+                colDiv3.appendChild(label3);
+
+                const flexDiv = document.createElement("div");
+                flexDiv.className = "d-flex";
+                colDiv3.appendChild(flexDiv);
+
+                // Membuat input untuk "Kode Brand"
+                const input2 = document.createElement("input");
+                input2.className = "form-control";
+                input2.name = "link";
+                input2.placeholder = "Link";
+                input2.id = "link";
+                flexDiv.appendChild(input2);
+
+                // Membuat ikon untuk menghapus
+                const deleteIcon = document.createElement("i");
+                deleteIcon.className =
+                    "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
+                deleteIcon.addEventListener("click", () => {
+                    container.removeChild(rowDiv);
+                });
+                flexDiv.appendChild(deleteIcon);
+            };
         </script>
     </body>
 </html>

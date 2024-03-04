@@ -463,8 +463,8 @@ button.list-group-item-primary.active {
 }
 
 .btn-outline-primary .badge {
-    background: #696cff;
-    border-color: #696cff;
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
     color: #fff;
 }
 
@@ -475,13 +475,13 @@ button.list-group-item-primary.active {
 .show > .btn-outline-primary.dropdown-toggle .badge {
     background: #fff;
     border-color: #fff;
-    color: #696cff;
+    color: var(--bs-primary);
 }
 
 .dropdown-item:not(.disabled).active,
 .dropdown-item:not(.disabled):active {
     background-color: rgba(105, 108, 255, 0.08);
-    color: #696cff !important;
+    color: var(--bs-primary) !important;
 }
 
 .dropdown-menu > li:not(.disabled) > a:not(.dropdown-item):active,
@@ -528,14 +528,14 @@ button.list-group-item-primary.active {
 }
 
 .custom-option.checked {
-    border: 1px solid #696cff;
+    border: 1px solid #966cff;
 }
 
 .form-switch .form-check-input:focus {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23696cff'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23966cff'/%3e%3c/svg%3e");
 }
 .form-switch .form-check-input:checked {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    background-image: url("../../img/elements/checklist-toggle.svg");
 }
 
 .form-control:focus ~ .form-label {
