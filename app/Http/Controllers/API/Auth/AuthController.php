@@ -7,6 +7,7 @@ use App\Models\Activity;
 use App\Models\API\ColorSelect;
 use App\Models\API\Theme;
 use App\Models\User;
+use App\Trait\ValidationTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,20 @@ use Tymon\JWTAuth\JWT;
 
 class AuthController extends Controller
 {
+    use ValidationTrait;
+
     public function checkEmail(Request $request){
+        $validations = Validator::make($request->all(),[
+            'email'     => 'required'
+        ],[
+            'email.required'    => 'Email tidak boleh kosong!'
+        ]);
+
+        if($validations->fails())
+        {
+            return $this->validationError($validations);
+        }
+
         $email  = $request->email;
         $user   = User::where('email',$email)->first();
 
@@ -61,9 +75,7 @@ class AuthController extends Controller
 
         if($validations->fails())
         {
-            return response()->json([
-                'errors'    => $validations->getMessageBag()->toArray()
-            ], 403);
+            return $this->validationError($validations);
         }
 
         $birthdate = Carbon::createFromFormat('d-m-Y', $request->birthdate)->format('Y-m-d');
@@ -95,18 +107,14 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validations    = Validator::make($request->all(), [
-            'email'     =>  'required|email',
             'password'  =>  'required',
         ],[
-            'email.required'    => 'Email tidak boleh kosong!',
             'password.required' => 'Password tidak boleh kosong!',
         ]);
 
         if($validations->fails())
         {
-            return response()->json([
-                'errors'    => $validations->getMessageBag()->toArray()
-            ]);
+            return $this->validationError($validations);
         }
 
         $email      = $request->email;
@@ -156,10 +164,7 @@ class AuthController extends Controller
 
         if($validations->fails())
         {
-            return response()->json([
-                'success'   => false,
-                'message'   => $validations->getMessageBag()->toArray()
-            ]);
+            return $this->validationError($validations);
         }
 
         if(!Hash::check($request->old_password, auth()->user()->password))
