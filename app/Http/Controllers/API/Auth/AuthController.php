@@ -20,6 +20,26 @@ use Tymon\JWTAuth\JWT;
 
 class AuthController extends Controller
 {
+    public function checkEmail(Request $request){
+        $email  = $request->email;
+        $user   = User::where('email',$email)->first();
+
+         if(!$user)
+        {
+            return response()->json([
+                'success'   => false,
+                'message'   => 'Email tidak terdaftar!',
+                'email'     => $email,
+            ]);
+        } else {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Email sudah terdaftar',
+                'email'     => $email,
+            ]);
+        }
+    }
+
     public function register(Request $request)
     {
         $validations   =    Validator::make($request->all(),[
@@ -94,15 +114,6 @@ class AuthController extends Controller
 
         $user   = User::where('email',$email)->first();
 
-        if(!$user)
-        {
-            return response()->json([
-                'success'   => false,
-                'message'   => 'Email tidak terdaftar. Silahkan lengkapi biodata!',
-                'email'     => $email,
-            ]);
-        }
-
         if(!Auth::attempt(['email' => $email, 'password' => $password]))
         {
             return response()->json([
@@ -114,15 +125,15 @@ class AuthController extends Controller
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
         $theme  = ColorSelect::find(1)->getTheme;
-        $getIp  = $request->ip();
-        $location   = Location::get($getIp);
+        // $getIp  = $request->ip();
+        // $location   = Location::get($getIp);
 
-        $logs   = Activity::create([
-            'date'          => Carbon::now()->format('Y-m-d'),
-            'ip'            => $getIp,
-            'location'      => $location->cityName,
-            'description'   => 'Login ke aplikasi sobatklik'
-        ]);
+        // $logs   = Activity::create([
+        //     'date'          => Carbon::now()->format('Y-m-d'),
+        //     'ip'            => $getIp,
+        //     'location'      => $location->cityName,
+        //     'description'   => 'Login ke aplikasi sobatklik'
+        // ]);
 
         return response()->json([
             'success'   => true,
