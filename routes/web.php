@@ -34,6 +34,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 // sosmed category
 Route::resource('/category-social-media', SosmedCategoryController::class);
 
-Route::group(['prefix'  => 'admin', 'middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 });
