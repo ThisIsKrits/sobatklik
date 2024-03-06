@@ -200,6 +200,10 @@ p {
 
 /* custom class */
 
+.pad-y-xl {
+    padding: 84px 42px 84px 42px !important;
+}
+
 .font-thin {
     font-weight: 100 !important;
 }
@@ -610,6 +614,20 @@ li.dt-paging-button.page-item.disabled {
     border-radius: 8px;
     border: 2px solid #9a8de7 !important;
 }
+
+/* Menyembunyikan teks dan menyesuaikan tata letak ikon */
+
+/* Mengatur lebar sidebar ketika dalam mode collapse */
+/* .layout-menu.collapsed {
+    width: 80px; /* Sesuaikan lebar sesuai kebutuhan */
+
+/* 
+Mengatur transisi untuk animasi ketika mengubah lebar sidebar */
+/* .layout-menu {
+    transition: width 0.3s ease;
+} */
+*/
+
 /* custom class */
 
 abbr[title],
