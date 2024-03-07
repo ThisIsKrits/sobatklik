@@ -189,7 +189,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::user()->tokens()->delete();
+        JWTAuth::parseToken()->invalidate();
         return response()->json([
             'success'   => true,
             'message'   => 'Logout berhasil',
