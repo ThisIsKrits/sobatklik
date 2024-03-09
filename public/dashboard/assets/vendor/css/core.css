@@ -200,6 +200,10 @@ p {
 
 /* custom class */
 
+.pad-y-xl {
+    padding: 84px 42px 84px 42px !important;
+}
+
 .font-thin {
     font-weight: 100 !important;
 }
@@ -567,6 +571,62 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
     align-items: center;
     justify-content: center;
 }
+
+.color {
+    border-radius: 8px;
+    height: 64px;
+    width: 64px;
+    cursor: pointer;
+}
+
+.color:hover {
+    transform: translateY(-0.2rem);
+}
+
+.ck.ck-toolbar {
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+.ck.ck-toolbar__items {
+    margin-bottom: 12px !important;
+    border-bottom: 1px solid #bbbbbb !important;
+}
+
+.ck.ck-toolbar__line-break {
+    border-bottom: 1px solid #e3e3e3 !important;
+}
+.ck-rounded-corners .ck.ck-editor__main > .ck-editor__editable,
+.ck.ck-editor__main > .ck-editor__editable.ck-rounded-corners {
+    border-radius: 10px !important;
+}
+
+.ck-editor__editable {
+    height: 300px;
+}
+
+li.dt-paging-button.page-item.disabled {
+    cursor: not-allowed;
+}
+
+.croppie-container .cr-viewport,
+.croppie-container .cr-resizer {
+    border-radius: 8px;
+    border: 2px solid #9a8de7 !important;
+}
+
+/* Menyembunyikan teks dan menyesuaikan tata letak ikon */
+
+/* Mengatur lebar sidebar ketika dalam mode collapse */
+/* .layout-menu.collapsed {
+    width: 80px; /* Sesuaikan lebar sesuai kebutuhan */
+
+/* 
+Mengatur transisi untuk animasi ketika mengubah lebar sidebar */
+/* .layout-menu {
+    transition: width 0.3s ease;
+} */
+*/
 
 /* custom class */
 
@@ -2951,7 +3011,7 @@ textarea.form-control-lg {
 }
 .form-switch .form-check-input:checked {
     background-position: right center;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
+    background-image: url("../../img/elements/checklist-toggle.svg");
 }
 
 .form-check-inline {
@@ -5166,18 +5226,18 @@ fieldset:disabled .btn {
     z-index: 1089;
     width: 100vw;
     height: 100vh;
-    opacity: 0.5;
-    background: #0f172a;
-    opacity: 0.1;
-    backdrop-filter: blur(100px);
+
+    background: rgba(15, 23, 42, 0.1);
+
+    pointer-events: none;
 }
 
 .modal-backdrop.fade {
     opacity: 0;
 }
 .modal-backdrop.show {
-    opacity: 0.5;
-    backdrop-filter: blur(10px);
+    opacity: 0.85;
+    backdrop-filter: blur(100px);
 }
 
 .modal-header {
