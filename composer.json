@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "spatie/laravel-permission": "^6.3",
         "stevebauman/location": "^7.1",
+        "tinymce/tinymce": "^6.8",
         "tymon/jwt-auth": "^2.0"
     },
     "require-dev": {

@@ -9,5 +9,5 @@ class TermCondition extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['term'];
+    protected $fillable = ['terms'];
 }

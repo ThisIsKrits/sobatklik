@@ -73,6 +73,9 @@
                 @if(session('success'))
                     @include('partials._login-success',['message' => (session('success'))])
                 @endif
+                @if (session('setting-success'))
+                    @include('partials.success',['message' => (session('setting-success'))])
+                @endif
     <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
                 <!-- sidebar -->
@@ -110,11 +113,8 @@
     </div>
     </div>
 
-    <!-- script -->
-    @stack('scripts')
-
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="/dashboard/assets/vendor/libs/jquery/jquery.js"></script>
+      <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{ asset('/dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
         <script src="/dashboard/assets/vendor/libs/popper/popper.js"></script>
         <script src="/dashboard/assets/vendor/js/bootstrap.js"></script>
         <script src="/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -137,12 +137,16 @@
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <!-- script -->
+        @stack('scripts')
+
         <script>
             $(document).ready(function() {
                 setTimeout(function() {
                     $('.modal-backdrop').hide();
                     $('#modalCenterSuccess').hide();
-                }, 3000);
+                }, 2000);
             });
             // Datatables
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
@@ -33,6 +34,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // sosmed category
 Route::resource('/category-social-media', SosmedCategoryController::class);
+
+// setting
+Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
