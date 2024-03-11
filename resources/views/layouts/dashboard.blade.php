@@ -63,10 +63,17 @@
 
         <!-- Helpers -->
         <script src="/dashboard/assets/vendor/js/helpers.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
 
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
         <script src="/dashboard/assets/js/config.js"></script>
+        <style>
+           .form-switch .form-check-input{
+            width: 60px;
+            height: 32px;
+           }
+        </style>
 </head>
 <body>
     <div id="app">

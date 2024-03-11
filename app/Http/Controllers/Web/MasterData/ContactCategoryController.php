@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ContactCategoryController extends Controller
 {
@@ -12,9 +14,16 @@ class ContactCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $status = $request->status;
+        $datas = ContactCategory::query()->when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })->get();
+
+        return view('admin.master-data.category-contact.index',[
+            'datas'  => $datas
+        ]);
     }
 
     /**
@@ -24,7 +33,7 @@ class ContactCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.master-data.category-contact.input');
     }
 
     /**
@@ -35,7 +44,18 @@ class ContactCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(),[
+            'name'      => 'required',
+            'image_base64' => 'required',
+        ]);
+
+        ContactCategory::create([
+            'name'  => $request->name,
+            'icon'  => $this->storeBase64($request->image_base64),
+            'status'    => $request->status ?? 0,
+        ]);
+
+        return redirect()->route('data-contact.index')->with('setting-success', 'Data contact berhasil ditambahkan!');
     }
 
     /**
@@ -57,7 +77,11 @@ class ContactCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data   = ContactCategory::findOrFail($id);
+
+        return view('admin.master-data.category-contact.input',[
+            'contact'  => $data
+        ]);
     }
 
     /**
@@ -69,7 +93,34 @@ class ContactCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(),[
+            'name'  => 'required',
+        ]);
+
+        $contact    = ContactCategory::findOrFail($id);
+
+        if ($request->has('file')) {
+            // Hapus gambar yang ada
+            if (!is_null($contact->icon)) {
+                $imagePath = public_path('uploads/') . $contact->icon;
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+            // Simpan gambar baru
+            $iconName = $this->storeBase64($request->image_base64);
+        } else {
+            // Jika tidak ada gambar baru, gunakan gambar yang sudah ada
+            $iconName = $contact->icon;
+        }
+
+        $contact->update([
+            'name'      => $request->name,
+            'icon'      => $iconName,
+            'status'    => $request->status ?? 0,
+        ]);
+
+        return redirect()->route('data-contact.index')->with('setting-success', 'Data contact berhasil diubah!');
     }
 
     /**
@@ -80,6 +131,34 @@ class ContactCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = ContactCategory::findOrFail($id);
+
+        $this->deleteImage($data->icon);
+
+        $data->delete();
+
+        return redirect()->back()->with('setting-success', 'Data Kategori Kontak Berhasil dihapus!');
+    }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/uploads/" . $imageName;
+
+        file_put_contents($path, $imageBase64);
+
+        return $imageName;
+    }
+
+    private function deleteImage($imageName)
+    {
+        $path = public_path("uploads/$imageName");
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 }

@@ -1,23 +1,15 @@
-<aside
-                    id="layout-menu"
-                    class="layout-menu menu-vertical menu bg-menu-theme"
-                >
-                    <div
-                        class="app-brand demo d-flex justify-content-center align-items-center"
-                    >
+<aside  id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" >
+                    <div class="app-brand demo d-flex justify-content-center align-items-center"  >
                         <a href="index.html" class="app-brand-link">
                             <span class="app-brand-logo demo">
                                 <img
-                                    src="dashboard/assets/img/elements/logo-default.png"
+                                    src="{{ asset('dashboard/assets/img/elements/logo-default.png') }}"
                                     alt=""
                                 />
                             </span>
                         </a>
 
-                        <a
-                            href="javascript:void(0);"
-                            class="layout-menu-toggle menu-link ms-auto d-block d-xl-none"
-                        >
+                        <a href="javascript:void(0);"  class="layout-menu-toggle menu-link ms-auto d-block d-xl-none">
                             <i class="ri-menu-unfold-line"></i>
                         </a>
                     </div>
@@ -31,12 +23,7 @@
                         <!-- Utama -->
                         <li class="menu-item active">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Home-active.svg" alt="">
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Home.svg" alt=""> -->
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Home-active.svg') }}" alt="">
                                 <div>Dashboard</div>
                             </a>
                         </li>
@@ -44,36 +31,21 @@
 
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                 <!-- icon saat active -->
-                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Ticket-Star-active.svg" alt=""> -->
-                                 <!-- icon saat active -->
-                                 <!-- icon tidak active -->
-                                 <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Ticket-Star.svg" alt="">
-                                <!-- icon tidak active -->
+                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Ticket-Star.svg') }}" alt="">
 
                                 <div>Laporan</div>
                             </a>
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Calling-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Calling.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Calling.svg') }}" alt="">
 
                                <div>Telepon</div>
                            </a>
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/3-User-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/3-User.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/3-User.svg') }}" alt="">
 
                                <div>Data Customer</div>
                            </a>
@@ -85,12 +57,7 @@
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Setting-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Setting.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Setting.svg') }}" alt="">
 
                                <div>Pengaturan</div>
                            </a>
@@ -100,12 +67,7 @@
                                 href="javascript:void(0);"
                                 class="menu-link menu-toggle"
                             >
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Folder-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Folder.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Folder.svg') }}" alt="">
 
                                <div>Master Data</div>
                             </a>
@@ -143,36 +105,20 @@
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/2-User-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/2-User.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/2-User.svg') }}" alt="">
 
                                <div>Manajemen User</div>
                            </a>
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Light-Time-Circle-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Light-Time-Circle.svg" alt="">
-                               <!-- icon tidak active -->
-
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Light-Time-Circle.svg') }}" alt="">
                                <div>Log Aktifitas</div>
                            </a>
                         </li>
                         <li class="menu-item">
                             <a href="index.html" class="menu-link">
-                                <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Profile-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
-                                <img class="menu-icon tf-icons" src="dashboard/assets/img/icons/iconly/Profile.svg" alt="">
-                               <!-- icon tidak active -->
+                                <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Profile.svg') }}" alt="">
 
                                <div>Profil Saya</div>
                            </a>

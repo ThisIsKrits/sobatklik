@@ -6,6 +6,7 @@ use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\EmailVerfiController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\MasterData\ContactCategoryController;
 use App\Http\Controllers\Web\MasterData\SosmedCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,9 @@ Route::resource('/category-social-media', SosmedCategoryController::class);
 // setting
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
 Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+
+// contact
+Route::resource('data-contact', ContactCategoryController::class);
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
