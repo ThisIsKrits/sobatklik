@@ -34,7 +34,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 
 // sosmed category
-Route::resource('/category-social-media', SosmedCategoryController::class);
+Route::resource('/data-sosmed', SosmedCategoryController::class);
 
 // setting
 Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
@@ -42,6 +42,8 @@ Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting
 
 // contact
 Route::resource('data-contact', ContactCategoryController::class);
+
+
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');

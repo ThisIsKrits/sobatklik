@@ -1,18 +1,18 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Tambah Kategori Kontak')
+@section('title', 'Tambah Kategori Sosial Media')
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex flex-row justify-content-between align-items-center pb-4">
         <div class="d-flex align-items-center">
             <a
-                href="{{ route('data-contact.index') }}"
+                href="{{ route('data-sosmed.index') }}"
                 class="text-general"
                 ><i class="ri-arrow-left-line fs-1"></i
             ></a>
             <h3 class="ms-1 font-semibold mb-0">
-                Tambah Kategori Kontak
+                Tambah Kategori Sosial Media
             </h3>
         </div>
     </div>
@@ -22,11 +22,11 @@
         <div class="col">
             <div class="card">
                 <div class="card-body px-3">
-                    @if (isset($contact))
-                        <form id="formAuthentication" class="mb-3" action="{{ route('data-contact.update',$contact->id) }}" method="POST">
+                    @if (isset($sosmed))
+                        <form id="formAuthentication" class="mb-3" action="{{ route('data-sosmed.update',$sosmed->id) }}" method="POST">
                         @method('PUT')
                     @else
-                        <form id="formAuthentication" class="mb-3" action="{{ route('data-contact.store') }}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{ route('data-sosmed.store') }}" method="POST">
                     @endif
                         @csrf
                             <div class="mb-3 w-100">
@@ -37,7 +37,7 @@
                                 <input
                                     class="form-control"
                                     name="name"
-                                    value="{{old('name', $contact->name ?? '')}}"
+                                    value="{{old('name', $sosmed->name ?? '')}}"
                                     placeholder="Masukan Nama Kategori"
                                     id="brand"
                                 />
@@ -52,10 +52,10 @@
                                     <div class="file-upload">
                                     <input type="file" name="image" class="image">
                                     <input type="hidden" name="image_base64">
-                                    <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload " alt=""  style="display: {{ isset($contact) && $contact->icon ? 'none' : '' }};"/>
+                                    <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload" alt=""  style="display: {{ isset($sosmed) && $sosmed->icon ? 'none' : '' }};"/>
                                     <input type="file" name="logo" class="image"/>
-                                    <img src="{{ isset($contact) && $contact->icon ? asset('uploads/' . $contact->icon) : '' }}" alt="" class="show-image" style="display: {{ isset($contact) && $contact->icon ? 'block' : 'none' }};"/>
-                                    <p class="text-upload" style="display: {{ isset($contact) && $contact->icon ? 'none' : '' }};">Upload</p>
+                                    <img src="{{ isset($sosmed) && $sosmed->icon ? asset('uploads/' . $sosmed->icon) : '' }}" alt="" class="show-image" style="display: {{ isset($sosmed) && $sosmed->icon ? 'block' : 'none' }};"/>
+                                    <p class="text-upload" style="display: {{ isset($sosmed) && $sosmed->icon ? 'none' : '' }};">Upload</p>
 
                                     </div>
                                 </div>
@@ -64,8 +64,8 @@
                             <div class="mb-5">
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" name="status"
-                                    type="checkbox" id="toggleSwitch" data-toggle="toggle" data-on="1" data-off="0" value="{{old('status', $contact->status ?? '')}}"
-                                    @if (isset($contact) && $contact->status == 'Aktif')
+                                    type="checkbox" id="toggleSwitch" data-toggle="toggle" data-on="1" data-off="0" value="{{old('status', $sosmed->status ?? '')}}"
+                                    @if (isset($sosmed) && $sosmed->status == 'Aktif')
                                     checked
                                     @endif>
                                     <label class="form-check-label" for="toggleSwitch">
@@ -217,7 +217,7 @@
     document.addEventListener('DOMContentLoaded', function() {
     const toggleSwitch = document.getElementById('toggleSwitch');
 
-    // Set initial value of the checkbox based on $contact->status
+    // Set initial value of the checkbox based on $sosmed->status
     toggleSwitch.value = toggleSwitch.checked ? "1" : "0";
 
     // Add event listener to update checkbox value when changed

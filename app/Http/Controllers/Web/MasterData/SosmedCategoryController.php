@@ -18,7 +18,9 @@ class SosmedCategoryController extends Controller
     {
         $datas  = SosmedCategory::all();
 
-        return view('admin.master-data.category-sosmed.index');
+        return view('admin.master-data.category-sosmed.index',[
+            'datas' => $datas
+        ]);
     }
 
     /**
@@ -28,7 +30,7 @@ class SosmedCategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.master-data.category-sosmed.create');
+        return view('admin.master-data.category-sosmed.input');
     }
 
     /**
@@ -39,20 +41,18 @@ class SosmedCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validations = Validator::make($request->all(),[
+        $validation = Validator::make($request->all(),[
             'name'      => 'required',
-            'image'     => 'required|image|mimes:jpeg,png,jpg,webp,svg|max:2048',
+            'image_base64' => 'required',
         ]);
 
-        if($validations->fails())
-        {
-            return redirect()->back()->withErrors($validations)->withInput();
-        }
-
-        $data = SosmedCategory::create([
+        SosmedCategory::create([
             'name'  => $request->name,
-            'image' => $request->image,
+            'icon'  => $this->storeBase64($request->image_base64),
+            'status'    => $request->status ?? 0,
         ]);
+
+        return redirect()->route('data-sosmed.index')->with('setting-success', 'Data contact berhasil ditambahkan!');
     }
 
     /**
@@ -74,7 +74,11 @@ class SosmedCategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sosmed   = SosmedCategory::findOrFail($id);
+
+        return view('admin.master-data.category-sosmed.input',[
+            'sosmed'  => $sosmed
+        ]);
     }
 
     /**
@@ -86,7 +90,34 @@ class SosmedCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(),[
+            'name'  => 'required',
+        ]);
+
+        $contact    = SosmedCategory::findOrFail($id);
+
+        if ($request->has('file')) {
+            // Hapus gambar yang ada
+            if (!is_null($contact->icon)) {
+                $imagePath = public_path('uploads/') . $contact->icon;
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+            }
+            // Simpan gambar baru
+            $iconName = $this->storeBase64($request->image_base64);
+        } else {
+            // Jika tidak ada gambar baru, gunakan gambar yang sudah ada
+            $iconName = $contact->icon;
+        }
+
+        $contact->update([
+            'name'      => $request->name,
+            'icon'      => $iconName,
+            'status'    => $request->status ?? 0,
+        ]);
+
+        return redirect()->route('data-sosmed.index')->with('setting-success', 'Data sosial media berhasil diubah!');
     }
 
     /**
@@ -97,6 +128,34 @@ class SosmedCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = SosmedCategory::findOrFail($id);
+
+        $this->deleteImage($data->icon);
+
+        $data->delete();
+
+        return redirect()->back()->with('setting-success', 'Data Kategori Sosial Media Berhasil dihapus!');
+    }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/uploads/" . $imageName;
+
+        file_put_contents($path, $imageBase64);
+
+        return $imageName;
+    }
+
+    private function deleteImage($imageName)
+    {
+        $path = public_path("uploads/$imageName");
+
+        if (file_exists($path)) {
+            unlink($path);
+        }
     }
 }
