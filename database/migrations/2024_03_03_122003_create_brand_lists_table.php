@@ -16,7 +16,11 @@ return new class extends Migration
         Schema::create('brand_lists', function (Blueprint $table) {
             $table->id();
             $table->string('logo');
+            $table->string('kode_brand');
             $table->string('name');
+            $table->string('tagline');
+            $table->string('maskot');
+            $table->text('address');
             $table->boolean('status');
             $table->timestamps();
         });

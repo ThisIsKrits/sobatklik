@@ -215,17 +215,17 @@
 
 
     document.addEventListener('DOMContentLoaded', function() {
-    const toggleSwitch = document.getElementById('toggleSwitch');
+        const toggleSwitch = document.getElementById('toggleSwitch');
 
-    // Set initial value of the checkbox based on $sosmed->status
-    toggleSwitch.value = toggleSwitch.checked ? "1" : "0";
+        // Set initial value of the checkbox based on $sosmed->status
+        toggleSwitch.value = toggleSwitch.checked ? "1" : "0";
 
-    // Add event listener to update checkbox value when changed
-    toggleSwitch.addEventListener('change', function() {
-        // Set checkbox value to 0 when unchecked and 1 when checked
-        this.value = this.checked ? "1" : "0";
+        // Add event listener to update checkbox value when changed
+        toggleSwitch.addEventListener('change', function() {
+            // Set checkbox value to 0 when unchecked and 1 when checked
+            this.value = this.checked ? "1" : "0";
+        });
     });
-});
 
 </script>
 @endpush

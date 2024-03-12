@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API\MasterData;
+namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrandList;
 use Illuminate\Http\Request;
 
-class BrandListController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,10 @@ class BrandListController extends Controller
      */
     public function index()
     {
-        $datas = BrandList::all();
+        $datas  = BrandList::all();
 
-        return response()->json([
-            'success'   => true,
-            'message'   => 'Data daftar brand berhasil ditampilkan!',
-            'data'      => $datas
+        return view('admin.master-data.brand-list.index',[
+            'datas' => $datas
         ]);
     }
 
@@ -31,7 +29,7 @@ class BrandListController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.master-data.brand-list.input');
     }
 
     /**
@@ -53,13 +51,7 @@ class BrandListController extends Controller
      */
     public function show($id)
     {
-        $data   = BrandList::with('contact','sosmed')->findOrFail($id);
-
-        return response()->json([
-            'success'   => true,
-            'message'   => 'Data Brand berhasil ditampilkan',
-            'data'      => $data
-        ]);
+        //
     }
 
     /**
@@ -70,7 +62,11 @@ class BrandListController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brands   = BrandList::findOrFail($id);
+
+        return view('admin.master-data.brand-list.input',[
+            'brands'  => $brands
+        ]);
     }
 
     /**

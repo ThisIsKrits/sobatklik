@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,10 +22,15 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            ListThemesSeeder::class,
-            PermissionSeeder::class,
-            SelectColorSeeder::class,
-            TermConditionSeeder::class,
+            // ListThemesSeeder::class,
+            // PermissionSeeder::class,
+            // SelectColorSeeder::class,
+            // TermConditionSeeder::class,
+            ContactCategorySeeder::class,
+            SosmedCategorySeeder::class,
+            BrandListSeeder::class,
+            ContactBrandSeeder::class,
+            SosmedBrandSeeder::class,
         ]);
     }
 }
