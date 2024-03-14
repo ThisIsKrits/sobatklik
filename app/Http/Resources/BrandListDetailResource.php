@@ -16,8 +16,8 @@ class BrandListDetailResource extends JsonResource
     {
         return [
             'id'            => $this->id,
-            'logo'          => $this->logo,
-            'maskot'        => $this->maskot,
+            'logo'          => asset('storage/uploads/logo/' . $this->logo),
+            'maskot'        => asset('storage/uploads/maskot/' . $this->maskot),
             'name'          => $this->name,
             'tagline'       => $this->tagline,
             'address'       => AddressBrandResource::collection($this->addresses),
