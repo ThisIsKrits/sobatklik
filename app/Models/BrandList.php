@@ -9,7 +9,7 @@ class BrandList extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['logo','name','kode_brand','tagline','maskot','address','status'];
+    protected $fillable = ['logo','name','kode_brand','tagline','maskot'];
 
     public function contact()
     {
@@ -19,5 +19,10 @@ class BrandList extends Model
     public function sosmed()
     {
         return $this->hasMany(SosmedBrand::class,'brand_id','id');
+    }
+
+    public function address()
+    {
+        return $this->hasMany(AddressBrand::class,'brand_id','id');
     }
 }

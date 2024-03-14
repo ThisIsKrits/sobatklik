@@ -73,7 +73,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex justify-conten-center align-items-center gap-2" >
-                                            <a href="{{ route('data-contact.edit',$data->id) }}" class="btn btn-success-weak" >
+                                            <a href="{{ route('data-sosmed.edit',$data->id) }}" class="btn btn-success-weak" >
                                                 <i class="ri-edit-2-line"></i>
                                             </a>
                                             @if ($data->status == 'Tidak Aktif')

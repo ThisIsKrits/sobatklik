@@ -96,10 +96,10 @@ class SosmedCategoryController extends Controller
 
         $contact    = SosmedCategory::findOrFail($id);
 
-        if ($request->has('file')) {
+        if ($request->has('image_base64')) {
             // Hapus gambar yang ada
             if (!is_null($contact->icon)) {
-                $imagePath = public_path('uploads/') . $contact->icon;
+                $imagePath = public_path('storage/uploads/sosmed/') . $contact->icon;
                 if (file_exists($imagePath)) {
                     unlink($imagePath);
                 }
@@ -143,7 +143,7 @@ class SosmedCategoryController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/uploads/" . $imageName;
+        $path = public_path('storage') . "/uploads/sosmed/" . $imageName;
 
         file_put_contents($path, $imageBase64);
 
@@ -152,7 +152,7 @@ class SosmedCategoryController extends Controller
 
     private function deleteImage($imageName)
     {
-        $path = public_path("uploads/$imageName");
+        $path = public_path("storage/uploads/sosmed/$imageName");
 
         if (file_exists($path)) {
             unlink($path);
