@@ -11,17 +11,17 @@ class BrandList extends Model
 
     protected $fillable = ['logo','name','kode_brand','tagline','maskot'];
 
-    public function contact()
+    public function contacts()
     {
         return $this->hasMany(ContactBrand::class,'brand_id','id');
     }
 
-    public function sosmed()
+    public function sosmeds()
     {
         return $this->hasMany(SosmedBrand::class,'brand_id','id');
     }
 
-    public function address()
+    public function addresses()
     {
         return $this->hasMany(AddressBrand::class,'brand_id','id');
     }

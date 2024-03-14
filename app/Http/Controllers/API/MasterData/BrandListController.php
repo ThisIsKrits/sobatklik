@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BrandListDetailResource;
+use App\Http\Resources\BrandListResource;
 use App\Models\BrandList;
 use Illuminate\Http\Request;
 
@@ -15,12 +17,13 @@ class BrandListController extends Controller
      */
     public function index()
     {
-        $datas = BrandList::all();
+        $datas = BrandList::with('addresses')->get();
+        // dd($datas);
 
         return response()->json([
             'success'   => true,
             'message'   => 'Data daftar brand berhasil ditampilkan!',
-            'data'      => $datas
+            'data'      => BrandListResource::collection($datas),
         ]);
     }
 
@@ -53,12 +56,12 @@ class BrandListController extends Controller
      */
     public function show($id)
     {
-        $data   = BrandList::with('contact','sosmed')->findOrFail($id);
+        $data   = BrandList::with('contacts','sosmeds','addresses')->find($id);
 
         return response()->json([
             'success'   => true,
             'message'   => 'Data Brand berhasil ditampilkan',
-            'data'      => $data
+            'data'      => new BrandListDetailResource($data)
         ]);
     }
 
