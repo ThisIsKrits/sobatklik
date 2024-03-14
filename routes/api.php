@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\MasterData\BrandListController;
 use App\Http\Controllers\API\MasterData\ContactCategoryController;
 use App\Http\Controllers\API\MasterData\ReportController;
+use App\Http\Controllers\API\MasterData\ResponseController;
 use App\Http\Controllers\API\MasterData\SosmedCategoryController;
 use App\Http\Controllers\API\Profile\ProfileController;
 use App\Http\Controllers\API\Profile\TermController;
@@ -47,6 +48,7 @@ Route::middleware(['auth:api'])->group(function (){
         return $request->user();
     });
     Route::resource('report', ReportController::class);
+    Route::resource('response', ResponseController::class);
     Route::post('change-password/{id}', [AuthController::class, 'change_password']);
     Route::resource('profile-update', ProfileController::class);
 });
