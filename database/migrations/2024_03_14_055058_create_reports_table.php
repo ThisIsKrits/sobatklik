@@ -16,19 +16,16 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('codes');
-            $table->date('report_date');
-            $table->foreignId('categories_id')->constrained('sosmed_categories')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-            $table->foreignId('contact_id')->constrained('contact_categories')
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->string('category');
+            $table->foreignId('type_id')->constrained('report_types');
+            $table->dateTime('report_date');
             $table->foreignId('brand_id')->constrained('brand_lists')
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
             $table->foreignId('reporter_id')->constrained('users');
-            $table->foreignId('admin_id')->constrained('users');
-            $table->string('status');
+            $table->foreignId('admin_id')->nullable()->constrained('users');
+            $table->string('complaint');
+            $table->string('status')->default('Laporan Baru');
             $table->timestamps();
         });
     }

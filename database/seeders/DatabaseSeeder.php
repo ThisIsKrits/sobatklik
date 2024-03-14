@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             BrandListSeeder::class,
             ContactBrandSeeder::class,
             SosmedBrandSeeder::class,
+            ReportTypeSeeder::class,
         ]);
     }
 }
