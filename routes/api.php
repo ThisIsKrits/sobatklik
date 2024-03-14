@@ -4,6 +4,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\MasterData\BrandListController;
 use App\Http\Controllers\API\MasterData\ContactCategoryController;
 use App\Http\Controllers\API\MasterData\ReportController;
+use App\Http\Controllers\API\MasterData\ReportTypeController;
 use App\Http\Controllers\API\MasterData\ResponseController;
 use App\Http\Controllers\API\MasterData\SosmedCategoryController;
 use App\Http\Controllers\API\Profile\ProfileController;
@@ -40,7 +41,9 @@ Route::resource('/social-media', SosmedCategoryController::class);
 Route::resource('/contact', ContactCategoryController::class);
 Route::resource('/brand-list', BrandListController::class);
 
-Route::resource('theme', ThemeController::class);
+Route::resource('/theme', ThemeController::class);
+
+Route::resource('/type-report', ReportTypeController::class);
 
 
 Route::middleware(['auth:api'])->group(function (){
