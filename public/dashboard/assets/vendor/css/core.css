@@ -253,6 +253,10 @@ p {
     height: 100vh;
 }
 
+.ic-sm {
+    font-size: 0.875rem;
+}
+
 .ic-md {
     font-size: 1.5rem;
 }
