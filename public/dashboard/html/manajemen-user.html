@@ -7,7 +7,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
         />
 
-        <title>Brand List</title>
+        <title>Manajemen User</title>
 
         <meta name="description" content="" />
 
@@ -93,9 +93,7 @@
                                 />
                             </span>
                         </a>
-                        <button id="toggleSidebar" class="toggle-button">
-                            Toggle Sidebar
-                        </button>
+
                         <a
                             href="javascript:void(0);"
                             class="layout-menu-toggle menu-link ms-auto d-block d-xl-none"
@@ -164,9 +162,13 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                            <a href="customer.html" class="menu-link">
                                 <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/3-User-active.svg" alt=""> -->
+                                <!-- <img
+                                    class="menu-icon tf-icons"
+                                    src="../assets/img/icons/iconly/3-User-active.svg"
+                                    alt="" 
+                                />-->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
                                 <img
@@ -200,30 +202,26 @@
                                 <div>Pengaturan</div>
                             </a>
                         </li>
-                        <li class="menu-item active open">
+                        <li class="menu-item">
                             <a
                                 href="javascript:void(0);"
                                 class="menu-link menu-toggle"
                             >
                                 <!-- icon saat active -->
-                                <img
-                                    class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/Folder-active.svg"
-                                    alt=""
-                                />
+                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Folder-active.svg" alt=""> -->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <!-- <img
+                                <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/Folder.svg"
                                     alt=""
-                                /> -->
+                                />
                                 <!-- icon tidak active -->
 
                                 <div>Master Data</div>
                             </a>
                             <ul class="menu-sub">
-                                <li class="menu-item ms-4 active">
+                                <li class="menu-item ms-4">
                                     <a
                                         href="brand-list.html"
                                         class="menu-link"
@@ -256,24 +254,28 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                        <li class="menu-item active">
+                            <a href="manajemen-user.html" class="menu-link">
                                 <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/2-User-active.svg" alt=""> -->
+                                <img
+                                    class="menu-icon tf-icons"
+                                    src="../assets/img/icons/iconly/2-User-active.svg"
+                                    alt=""
+                                />
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <img
+                                <!-- <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/2-User.svg"
                                     alt=""
-                                />
+                                /> -->
                                 <!-- icon tidak active -->
 
                                 <div>Manajemen User</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                            <a href="log-aktifitas.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Light-Time-Circle-active.svg" alt=""> -->
                                 <!-- icon saat active -->
@@ -550,11 +552,10 @@
                                 class="d-flex flex-row justify-content-between align-items-center pb-4"
                             >
                                 <h3 class="ms-1 font-semibold mb-0">
-                                    Brand List
+                                    Manajemen User
                                 </h3>
-
                                 <a
-                                    href="./brand-list-create.html"
+                                    href="./manajemen-user-create.html"
                                     class="btn btn-primary"
                                 >
                                     <div
@@ -583,14 +584,17 @@
                                                     <thead>
                                                         <tr>
                                                             <th
-                                                                class="w-md-px-25"
+                                                                class="w-md-px-150"
                                                             >
-                                                                Logo
+                                                                Nama
                                                             </th>
-                                                            <th>Nama Brand</th>
-
+                                                            <th>Nickname</th>
+                                                            <th>Email</th>
+                                                            <th>Brand</th>
                                                             <th>Status</th>
-                                                            <th>Aksi</th>
+                                                            <th class="w-lg-25">
+                                                                Aksi
+                                                            </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody
@@ -598,16 +602,24 @@
                                                     >
                                                         <!--   1 -->
                                                         <tr>
+                                                            <td>john Doe</td>
+                                                            <td>John Doe</td>
                                                             <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/email-kontak.svg"
-                                                                    alt=""
-                                                                />
+                                                                jenniedoe@gmail.com
                                                             </td>
-                                                            <td>Email</td>
-
+                                                            <td>
+                                                                <ul>
+                                                                    <li>
+                                                                        Smile
+                                                                        Consulting
+                                                                        Indonesia
+                                                                    </li>
+                                                                    <li>
+                                                                        Assesment
+                                                                        Indonesia
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
                                                             <td>
                                                                 <p
                                                                     class="badge bg-badge-label-success"
@@ -617,81 +629,19 @@
                                                             </td>
                                                             <td>
                                                                 <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
+                                                                    class="d-flex justify-conten-center align-items-center gap-3"
                                                                 >
                                                                     <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
+                                                                        href="#"
+                                                                        class="btn btn-primary-weak px-2 py-1"
                                                                     >
                                                                         <i
-                                                                            class="ri-edit-2-line"
+                                                                            class="ri-eye-line"
                                                                         ></i>
                                                                     </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   2 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/whatsapp-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Whatsapp</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
                                                                     <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   3 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/baru-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                Kategori Baru
-                                                            </td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-danger"
-                                                                >
-                                                                    Tidak Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
+                                                                        href="./manajemen-user-update.html"
+                                                                        class="btn btn-success-weak px-2 py-1"
                                                                     >
                                                                         <i
                                                                             class="ri-edit-2-line"
@@ -699,7 +649,7 @@
                                                                     </a>
 
                                                                     <button
-                                                                        class="btn btn-danger-weak"
+                                                                        class="btn btn-danger-weak px-2 py-1"
                                                                         type="button"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#modalDelete"
@@ -711,18 +661,17 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <!--   4 -->
+                                                        <!--   2 -->
                                                         <tr>
+                                                            <td>Jenne Doe</td>
+                                                            <td>Jenne Doe</td>
                                                             <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/laporan-kontak.svg"
-                                                                    alt=""
-                                                                />
+                                                                jenniedoe@gmail.com
                                                             </td>
-                                                            <td>Laporan</td>
-
+                                                            <td>
+                                                                Smile Consulting
+                                                                Indonesia
+                                                            </td>
                                                             <td>
                                                                 <p
                                                                     class="badge bg-badge-label-success"
@@ -732,16 +681,91 @@
                                                             </td>
                                                             <td>
                                                                 <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
+                                                                    class="d-flex justify-conten-center align-items-center gap-3"
                                                                 >
                                                                     <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
+                                                                        href="#"
+                                                                        class="btn btn-primary-weak px-2 py-1"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-eye-line"
+                                                                        ></i>
+                                                                    </a>
+                                                                    <a
+                                                                        href="./manajemen-user-update.html"
+                                                                        class="btn btn-success-weak px-2 py-1"
                                                                     >
                                                                         <i
                                                                             class="ri-edit-2-line"
                                                                         ></i>
                                                                     </a>
+
+                                                                    <button
+                                                                        class="btn btn-danger-weak px-2 py-1"
+                                                                        type="button"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalDelete"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-delete-bin-7-line"
+                                                                        ></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- 3 -->
+                                                        <tr>
+                                                            <td>
+                                                                Daniel Kendrick
+                                                            </td>
+                                                            <td>
+                                                                Daniel Kendrick
+                                                            </td>
+                                                            <td>
+                                                                danielkendrick@gmail.com
+                                                            </td>
+                                                            <td>
+                                                                Smile Consulting
+                                                                Indonesia
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                    class="badge bg-badge-label-danger"
+                                                                >
+                                                                    Tidak Aktif
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <div
+                                                                    class="d-flex justify-conten-center align-items-center gap-3"
+                                                                >
+                                                                    <a
+                                                                        href="#"
+                                                                        class="btn btn-primary-weak px-2 py-1"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-eye-line"
+                                                                        ></i>
+                                                                    </a>
+                                                                    <a
+                                                                        href="./manajemen-user-update.html"
+                                                                        class="btn btn-success-weak px-2 py-1"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-edit-2-line"
+                                                                        ></i>
+                                                                    </a>
+
+                                                                    <button
+                                                                        class="btn btn-danger-weak px-2 py-1"
+                                                                        type="button"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalDelete"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-delete-bin-7-line"
+                                                                        ></i>
+                                                                    </button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -780,6 +804,31 @@
                                         <form>
                                             <div class="mb-3 w-100">
                                                 <label
+                                                    for="brand"
+                                                    class="form-label"
+                                                    >Brand <span>*</span></label
+                                                >
+                                                <select
+                                                    class="form-select"
+                                                    id="brand"
+                                                    aria-label="Default select example"
+                                                >
+                                                    <option selected>
+                                                        Brand
+                                                    </option>
+                                                    <option value="1">
+                                                        One
+                                                    </option>
+                                                    <option value="2">
+                                                        Two
+                                                    </option>
+                                                    <option value="3">
+                                                        Three
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 w-100">
+                                                <label
                                                     for="status"
                                                     class="form-label"
                                                     >Status
@@ -805,20 +854,12 @@
                                                 </select>
                                             </div>
 
-                                            <div
-                                                class="d-flex justify-content-between align-items-center"
+                                            <button
+                                                class="mb-2 btn btn-primary btn-md"
+                                                type="submit"
                                             >
-                                                <span
-                                                    class="fs-5 bg-label-danger cursor-pointer font-semibold"
-                                                >
-                                                </span>
-                                                <button
-                                                    class="mb-2 btn btn-primary btn-md"
-                                                    type="submit"
-                                                >
-                                                    Filter
-                                                </button>
-                                            </div>
+                                                Filter
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
@@ -980,16 +1021,6 @@
                 var searchElement = $("#dt-search-1");
                 searchElement.removeClass("form-control-sm");
                 searchElement.addClass("form-control-md");
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const toggleButton = document.getElementById("toggleSidebar");
-                const layoutMenu = document.getElementById("layout-menu");
-
-                toggleButton.addEventListener("click", function () {
-                    layoutMenu.classList.toggle("collapsed");
-                });
             });
         </script>
     </body>
