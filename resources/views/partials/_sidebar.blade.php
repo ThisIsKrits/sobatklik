@@ -23,7 +23,7 @@
                         <!-- Utama -->
                         <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
                             <a href="{{ route('home') }}" class="menu-link">
-                            @if(Request::is('home'))
+                            @if(request()->is('/'))
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Home-active.svg') }}" alt="">
                             @else
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Home.svg') }}" alt="">
