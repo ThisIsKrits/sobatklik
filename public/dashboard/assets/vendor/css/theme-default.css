@@ -95,6 +95,9 @@
     border: 1.5px solid var(--bs-general-placeholder);
     background: transparent;
 }
+.btn-outline-placeholder:hover {
+    transform: translateY(-1px);
+}
 
 .btn-primary-weak {
     color: var(--bs-primary-weak);
@@ -130,6 +133,13 @@
 .btn-btn-outline-placeholder:active,
 .btn-btn-outline-placeholder.active {
     color: var(--bs-general-placeholder);
+}
+
+.btn-white {
+    color: var(--bs-general-placeholder);
+}
+.btn-white:hover {
+    transform: translateY(-1px);
 }
 
 /*Custom Theme*/
