@@ -1,4 +1,3 @@
-<div class="modal-backdrop fade show"></div>
 <div class="modal fade show" id="modalCenterSuccess" tabindex="-1" style="display: block" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
