@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactCategory;
+use App\Trait\ImageProcessingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ContactCategoryController extends Controller
 {
+    use ImageProcessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -138,27 +140,5 @@ class ContactCategoryController extends Controller
         $data->delete();
 
         return redirect()->back()->with('setting-success', 'Data Kategori Kontak Berhasil dihapus!');
-    }
-
-    private function storeBase64($imageBase64)
-    {
-        list($type, $imageBase64) = explode(';', $imageBase64);
-        list(, $imageBase64)      = explode(',', $imageBase64);
-        $imageBase64 = base64_decode($imageBase64);
-        $imageName= time().'.png';
-        $path = public_path('storage') . "/uploads/kontak/" . $imageName;
-
-        file_put_contents($path, $imageBase64);
-
-        return $imageName;
-    }
-
-    private function deleteImage($imageName)
-    {
-        $path = public_path("storage/uploads/kontak/$imageName");
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
     }
 }

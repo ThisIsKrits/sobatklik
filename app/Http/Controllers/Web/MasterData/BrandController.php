@@ -9,11 +9,13 @@ use App\Models\ContactBrand;
 use App\Models\ContactCategory;
 use App\Models\SosmedBrand;
 use App\Models\SosmedCategory;
+use App\Trait\ImageProcessingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
+    use ImageProcessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -278,49 +280,5 @@ class BrandController extends Controller
         $data->delete();
 
         return redirect()->back()->with('setting-success', 'Data Brand Berhasil dihapus!');
-    }
-
-    private function storeLogo($imageBase64)
-    {
-        list($type, $imageBase64) = explode(';', $imageBase64);
-        list(, $imageBase64)      = explode(',', $imageBase64);
-        $imageBase64 = base64_decode($imageBase64);
-        $imageName= 'logo'.time().'.png';
-        $path = public_path() . "/storage/uploads/logo/" . $imageName;
-
-        file_put_contents($path, $imageBase64);
-
-        return $imageName;
-    }
-
-    private function storeMaskot($imageBase64)
-    {
-        list($type, $imageBase64) = explode(';', $imageBase64);
-        list(, $imageBase64)      = explode(',', $imageBase64);
-        $imageBase64 = base64_decode($imageBase64);
-        $imageName= 'maskot'.time().'.png';
-        $path = public_path() . "/storage/uploads/maskot/" . $imageName;
-
-        file_put_contents($path, $imageBase64);
-
-        return $imageName;
-    }
-
-    private function deleteLogo($imageName)
-    {
-        $path = public_path() ."/storage/uploads/logo/" . $imageName;
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
-    }
-
-    private function deleteMaskot($imageName)
-    {
-        $path = public_path() . "/storage/uploads/maskot/" . $imageName;
-
-        if (file_exists($path)) {
-            unlink($path);
-        }
     }
 }
