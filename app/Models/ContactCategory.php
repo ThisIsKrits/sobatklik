@@ -16,7 +16,7 @@ class ContactCategory extends Model
     {
         return match ($value) {
             StatusEnum::Aktif->value => 'Aktif',
-            StatusEnum::TidakAktif->value => 'Tidak Aktif',
+            StatusEnum::TidakAktif->value => 'Tidak',
             default => 'Unknown',
         };
     }

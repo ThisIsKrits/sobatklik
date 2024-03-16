@@ -34,7 +34,7 @@
             <div class="card">
                 <div class="card-body px-3">
                     <div class="table">
-                        <table  id="contact" class="table">
+                        <table  id="data" class="table">
                             <thead>
                                 <tr>
                                     <th class="w-md-px-25">
@@ -83,6 +83,7 @@
                                                 id="confirmDeleteBtn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalDelete"
+                                                data-id="{{ $data->id }}"
                                             >
                                                 <i class="ri-delete-bin-7-line"></i>
                                             </button>
@@ -105,82 +106,12 @@
 @include('partials._modal-filter');
 
 <!-- Modal Delete Table-->
-@if (isset($data))
-    @include('partials._modal-delete',['data' => $data])
-@endif
+@include('partials._modal-delete',['data' => $data])
 
 @endsection
 @push('scripts')
+@include('partials._datatable-view')
 <script>
-    // Datatables
-
-    $(function () {
-        var table = $("#contact").DataTable({
-            responsive: true,
-            lengthChange: true,
-            autoWidth: false,
-            searching: true,
-            paging: true,
-            pagingType: "simple_numbers",
-            info: false,
-            language: {
-                lengthMenu: "Show _MENU_ data",
-                paginate: {
-                    previous: '<i class="ri-arrow-left-line"></i>',
-                    next: '<i class="ri-arrow-right-line"></i>',
-                },
-                search: "",
-                searchPlaceholder: "Cari",
-            },
-
-            dom: '<"top"i<"px-3 d-flex flex-column justify-content-start align-items-start gap-3 ms-auto flex-md-row justify-content-between align-items-md-center gap-md-0"lf>>rt<"bottom"p>',
-            fnInitComplete: function () {
-                var newDiv = $(
-                    "<div class='d-flex justify-content-center align-items-center gap-2'></div>"
-                );
-                newDiv.append($(".dt-search"));
-                newDiv.append(
-                    '<button class="btn btn-outline-placeholder" type="button" data-bs-toggle="modal" data-bs-target="#modalFilter"><i class="ri-equalizer-2-line "></i></button>'
-                );
-
-                newDiv.append(
-                    `<div class="dropdown">
-                        <button class="btn btn-outline-placeholder" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ri-list-check"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                            <li>
-                                <div class="container px-2">
-                                    <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Item 2</a></li>
-                            <li><a class="dropdown-item" href="#">Item 3</a></li>
-                        </ul>
-                    </div>`
-                );
-
-                $(
-                    "div.d-flex.flex-column.justify-content-start.align-items-start.gap-3.ms-auto.flex-md-row.justify-content-between.align-items-md-center.gap-md-0"
-                ).append(newDiv);
-            },
-        });
-
-        $('#filterForm').submit(function (e) {
-        e.preventDefault();
-        var status = $('#status').val();
-
-        table.columns(2).search(status).draw();
-
-        $('#modalFilter').modal('hide');
-    });
-
-    });
 
     $(document).ready(function () {
         var selectElement = $("#dt-length-0");
@@ -198,6 +129,10 @@
         });
 
         $('#confirmDeleteBtn').click(function() {
+            var modal = $('#modalDelete');
+            var dataId = $(this).data('id');
+            var form = modal.find('form');
+            var action = form.attr('action','/data-sosmed/'+dataId);
             $('#modalDelete').modal('show');
         });
 
