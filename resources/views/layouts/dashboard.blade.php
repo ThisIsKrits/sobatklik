@@ -156,6 +156,7 @@
                     $('#modalFilter').modal('hide');
                 }, 2000);
             });
+
             // Datatables
 
             $(function () {

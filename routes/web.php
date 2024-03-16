@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Web\Admin\CustomerController;
+use App\Http\Controllers\Web\Admin\LogController;
+use App\Http\Controllers\Web\Admin\ReportController;
 use App\Http\Controllers\Web\Admin\SettingController;
+use App\Http\Controllers\Web\Admin\TelephoneController;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
@@ -46,6 +50,14 @@ Route::resource('data-contact', ContactCategoryController::class);
 Route::resource('data-sosmed', SosmedCategoryController::class);
 // brand
 Route::resource('data-brand', BrandController::class);
+// customer
+Route::resource('data-customer', CustomerController::class);
+// telephone
+Route::resource('data-telepon', TelephoneController::class);
+// laporan
+Route::resource('data-report', ReportController::class);
+// log
+Route::resource('data-log',LogController::class);
 
 
 
