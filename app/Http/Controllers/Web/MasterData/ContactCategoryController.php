@@ -46,10 +46,15 @@ class ContactCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = Validator::make($request->all(),[
+        $validations = Validator::make($request->all(),[
             'name'      => 'required',
             'image_base64' => 'required',
         ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
 
         ContactCategory::create([
             'name'  => $request->name,
@@ -95,9 +100,14 @@ class ContactCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation = Validator::make($request->all(),[
+        $validations = Validator::make($request->all(),[
             'name'  => 'required',
         ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
 
         $contact    = ContactCategory::findOrFail($id);
 

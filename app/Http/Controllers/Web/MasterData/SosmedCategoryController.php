@@ -43,10 +43,15 @@ class SosmedCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = Validator::make($request->all(),[
+        $validations = Validator::make($request->all(),[
             'name'      => 'required',
             'image_base64' => 'required',
         ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
 
         SosmedCategory::create([
             'name'  => $request->name,
@@ -92,9 +97,14 @@ class SosmedCategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation = Validator::make($request->all(),[
+        $validations = Validator::make($request->all(),[
             'name'  => 'required',
         ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
 
         $contact    = SosmedCategory::findOrFail($id);
 
