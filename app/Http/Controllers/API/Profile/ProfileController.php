@@ -87,7 +87,10 @@ class ProfileController extends Controller
 
         if($validations->fails())
         {
-            return $this->validationError($validations);
+            return response()->json([
+                'success'   => false,
+                'message'   => $validations->getMessageBag()->toArray()
+            ]);
         }
 
         $data   = User::findOrFail($id);
@@ -115,5 +118,34 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $validations    = Validator::make($request->all(),[
+            'fullname'  => 'required',
+            'phone'     => 'required',
+            'birthdate' => 'required',
+        ]);
+
+        if($validations->fails())
+        {
+            return $this->validationError($validations);
+        }
+
+        $data   = Auth::user();
+        $birthdate = Carbon::createFromFormat('d-m-Y', $request->birthdate)->format('Y-m-d');
+
+        $data->update([
+            'fullname'  => $request->fullname,
+            'phone'     => $request->phone,
+            'birthdate' => $birthdate,
+        ]);
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Data akun berhasil diubah!',
+            'data'      => $data
+        ]);
     }
 }
