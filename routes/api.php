@@ -54,5 +54,5 @@ Route::middleware(['auth:api'])->group(function (){
     Route::resource('response', ResponseController::class);
     Route::post('change-password/{id}', [AuthController::class, 'change_password']);
     // Route::resource('profile-update', ProfileController::class);
-    Route::post('profiles-update', [ProfileController::class, 'updateProfile']);
+    Route::post('profile-update', [ProfileController::class, 'updateProfile']);
 });
