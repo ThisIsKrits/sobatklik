@@ -219,7 +219,7 @@
                                             class="d-flex justify-conten-center align-items-center gap-2"
                                         >
                                             <a
-                                                href="{{ route('report.show') }}"
+                                                href=""
                                                 class="btn btn-md btn-primary-weak"
                                             >
                                                 <i
@@ -275,7 +275,7 @@
                                             class="d-flex justify-conten-center align-items-center gap-2"
                                         >
                                             <a
-                                                href="{{ route('report.show') }}"
+                                                href=""
                                                 class="btn btn-md btn-primary-weak"
                                             >
                                                 <i
@@ -330,7 +330,7 @@
                                             class="d-flex justify-conten-center align-items-center gap-2"
                                         >
                                             <a
-                                                href="{{ route('report.show') }}"
+                                                href=""
                                                 class="btn btn-md btn-primary-weak"
                                             >
                                                 <i

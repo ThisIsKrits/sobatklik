@@ -21,7 +21,7 @@
                             <span class="menu-header-text">Utama</span>
                         </li>
                         <!-- Utama -->
-                        <li class="menu-item {{ Request::is('home') ? 'active' : '' }}">
+                        <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
                             <a href="{{ route('home') }}" class="menu-link">
                             @if(Request::is('home'))
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Home-active.svg') }}" alt="">
