@@ -35,8 +35,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $contacts = ContactCategory::all();
-        $sosmeds  = SosmedCategory::all();
+        $$contacts = ContactCategory::where('status', 1)->get();
+        $sosmeds  = SosmedCategory::where('status', 1)->get();
         return view('admin.master-data.brand-list.input',[
             'sosmeds'    => $sosmeds,
             'contacts'   => $contacts
@@ -88,7 +88,7 @@ class BrandController extends Controller
         }
 
         foreach ($request->label_sosmed as $key => $value) {
-            $brand->somseds()->create([
+            $brand->sosmeds()->create([
                 'sosmed_id'     => $request->sosmed_id[$key],
                 'label'         => $value,
                 'link'          => $request->link_sosmed[$key]
@@ -123,8 +123,8 @@ class BrandController extends Controller
         $addressBrand   = $brand->addresses()->get();
         $contactBrand   = $brand->contacts()->get();
         $sosmedBrand   = $brand->sosmeds()->get();
-        $contacts = ContactCategory::all();
-        $sosmeds  = SosmedCategory::all();
+        $contacts = ContactCategory::where('status', 1)->get();
+        $sosmeds  = SosmedCategory::where('status', 1)->get();
 
         // dd($addressBrand);
 
@@ -263,9 +263,18 @@ class BrandController extends Controller
         $this->deleteLogo($data->logo);
         $this->deleteMaskot($data->maskot);
 
-        $data->contacts()->delete();
-        $data->sosmeds()->delete();
-        $data->addresses()->delete();
+        if ($data->contacts()->exists()) {
+            $data->contacts()->delete();
+        }
+
+        if ($data->sosmeds()->exists()) {
+            $data->sosmeds()->delete();
+        }
+
+        if ($data->addresses()->exists()) {
+            $data->addresses()->delete();
+        }
+
         $data->delete();
 
         return redirect()->back()->with('setting-success', 'Data Brand Berhasil dihapus!');
@@ -277,7 +286,7 @@ class BrandController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= 'logo'.time().'.png';
-        $path = public_path('storage') . "/uploads/logo/" . $imageName;
+        $path = public_path() . "/storage/uploads/logo/" . $imageName;
 
         file_put_contents($path, $imageBase64);
 
@@ -290,7 +299,7 @@ class BrandController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= 'maskot'.time().'.png';
-        $path = public_path('storage') . "/uploads/maskot/" . $imageName;
+        $path = public_path() . "/storage/uploads/maskot/" . $imageName;
 
         file_put_contents($path, $imageBase64);
 
@@ -299,7 +308,7 @@ class BrandController extends Controller
 
     private function deleteLogo($imageName)
     {
-        $path = public_path("storage/uploads/contact/$imageName");
+        $path = public_path() ."/storage/uploads/logo/" . $imageName;
 
         if (file_exists($path)) {
             unlink($path);
@@ -308,7 +317,7 @@ class BrandController extends Controller
 
     private function deleteMaskot($imageName)
     {
-        $path = public_path("storage/uploads/sosmed/$imageName");
+        $path = public_path() . "/storage/uploads/maskot/" . $imageName;
 
         if (file_exists($path)) {
             unlink($path);

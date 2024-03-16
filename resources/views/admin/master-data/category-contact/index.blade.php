@@ -76,7 +76,7 @@
                                             <a href="{{ route('data-contact.edit',$data->id) }}" class="btn btn-success-weak" >
                                                 <i class="ri-edit-2-line"></i>
                                             </a>
-                                            @if ($data->status == 'Tidak Aktif')
+                                            @if ($data->status !== 'Aktif' && !$data->contactBrand->count())
                                             <button
                                                 class="btn btn-danger-weak"
                                                 type="button"
@@ -121,29 +121,17 @@
         searchElement.addClass("form-control-md");
     });
 
-    $('[data-bs-toggle="modal"]').click(function() {
-        var targetModal = $(this).data('bs-target');
-        $(targetModal).modal('show');
-    });
-
-    $('#confirmDeleteBtn').click(function() {
-        var modal = $('#modalDelete');
+    $('[data-bs-toggle="modal"]').on('click', function() {
         var dataId = $(this).data('id');
-        var form = modal.find('form');
-        var action = form.attr('action','/data-contact/'+dataId);
-        $('#modalDelete').modal('show');
+        console.log(dataId);
+
+        // Tambahkan baris berikut untuk mengatur atribut action pada form
+        $('#deleteForm').attr('action', '/data-contact/' + dataId);
     });
 
-    $(document).ready (function() {
-        $('#deleteForm').submit(function(event) {
-            event.preventDefault();
-            $(this).get(0).submit();
-            $('#modalDelete').modal('hide');
-        });
-
-        $('#modalDelete').on('hidden.bs.modal', function () {
-            $('#modalFilter').modal('hide'); // Hide modal filter after data deletion modal is hidden
-        });
+    $('#confirmDeleteBtn').on('click', function() {
+        $('#deleteForm').get(0).submit();
+        $('#modalDelete').modal('hide');
     });
 </script>
 @endpush

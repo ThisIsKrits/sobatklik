@@ -76,7 +76,7 @@
                                             <a href="{{ route('data-sosmed.edit',$data->id) }}" class="btn btn-success-weak" >
                                                 <i class="ri-edit-2-line"></i>
                                             </a>
-                                            @if ($data->status == 'Tidak Aktif')
+                                            @if ($data->status !== 'Aktif' && !$data->sosmedBrand->count())
                                             <button
                                                 class="btn btn-danger-weak"
                                                 type="button"
@@ -122,26 +122,17 @@
         searchElement.addClass("form-control-md");
     });
 
-    $(document).ready(function() {
-        $('[data-bs-toggle="modal"]').click(function() {
-            var targetModal = $(this).data('bs-target');
-            $(targetModal).modal('show');
-        });
+    $('[data-bs-toggle="modal"]').on('click', function() {
+        var dataId = $(this).data('id');
+        console.log(dataId);
 
-        $('#confirmDeleteBtn').click(function() {
-            var modal = $('#modalDelete');
-            var dataId = $(this).data('id');
-            var form = modal.find('form');
-            var action = form.attr('action','/data-sosmed/'+dataId);
-            $('#modalDelete').modal('show');
-        });
+        // Tambahkan baris berikut untuk mengatur atribut action pada form
+        $('#deleteForm').attr('action', '/data-brand/' + dataId);
+    });
 
-        // Menangani penutupan modal setelah penghapusan data
-        $('#deleteForm').submit(function(event) {
-            event.preventDefault();
-            $(this).get(0).submit(); // Submit form
-            $('#modalDelete').modal('hide'); // Menutup modal
-        });
+    $('#confirmDeleteBtn').on('click', function() {
+        $('#deleteForm').get(0).submit();
+        $('#modalDelete').modal('hide');
     });
 </script>
 @endpush

@@ -105,7 +105,7 @@
 @include('partials._modal-filter');
 
 <!-- Modal Delete Table-->
-@include('partials._modal-delete',['id' => $data->id])
+@include('partials._modal-delete',['data' => $data->id])
 
 @endsection
 @push('scripts')
@@ -121,26 +121,17 @@
         searchElement.addClass("form-control-md");
     });
 
-    $(document).ready(function() {
-        $('[data-bs-toggle="modal"]').click(function() {
-            var targetModal = $(this).data('bs-target');
-            $(targetModal).modal('show');
-        });
+    $('[data-bs-toggle="modal"]').on('click', function() {
+        var dataId = $(this).data('id');
+        console.log(dataId);
 
-        $('#confirmDeleteBtn').click(function() {
-            var id = $(this).data('id');
-            var modal = $('#modalDelete');
-            var form = modal.find('form');
-            var action = form.attr('action','/data-brand/'+id);
-            $('#modalDelete').modal('show');
-        });
+        // Tambahkan baris berikut untuk mengatur atribut action pada form
+        $('#deleteForm').attr('action', '/data-brand/' + dataId);
+    });
 
-
-        $('#deleteForm').submit(function(event) {
-            event.preventDefault();
-            $(this).get(0).submit();
-            $('#modalDelete').modal('hide');
-        });
+    $('#confirmDeleteBtn').on('click', function() {
+        $('#deleteForm').get(0).submit();
+        $('#modalDelete').modal('hide');
     });
 </script>
 @endpush

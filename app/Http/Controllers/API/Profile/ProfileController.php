@@ -87,10 +87,7 @@ class ProfileController extends Controller
 
         if($validations->fails())
         {
-            return response()->json([
-                'success'   => false,
-                'message'   => $validations->getMessageBag()->toArray()
-            ]);
+            return $this->validationError($validations);
         }
 
         $data   = User::findOrFail($id);

@@ -12,6 +12,11 @@ class SosmedCategory extends Model
 
     protected $fillable = ['icon','name','status'];
 
+    public function sosmedBrand()
+    {
+        return $this->hasMany(SosmedBrand::class, 'sosmed_id', 'id');
+    }
+
     public function getStatusAttribute($value)
     {
         return match ($value) {

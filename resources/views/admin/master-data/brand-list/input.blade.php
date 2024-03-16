@@ -305,6 +305,8 @@
         const option1 = document.createElement("option");
         option1.text = "Jenis Kontak";
         option1.selected = true;
+        option1.disabled = true;
+        option1.value = "";
         select1.appendChild(option1);
         contact.forEach((optionText) => {
             const option = document.createElement("option");
@@ -413,6 +415,8 @@
         const option1 = document.createElement("option");
         option1.text = "Jenis Sosmed";
         option1.selected = true;
+        option1.disabled = true;
+        option1.value = "";
         select1.appendChild(option1);
         sosmed.forEach((optionText) => {
             const option = document.createElement("option");

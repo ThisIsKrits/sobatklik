@@ -12,6 +12,11 @@ class ContactCategory extends Model
 
     protected $fillable = ['icon','name','status'];
 
+    public function contactBrand()
+    {
+        return $this->hasMany(ContactBrand::class, 'contact_id', 'id');
+    }
+
     public function getStatusAttribute($value)
     {
         return match ($value) {
