@@ -55,7 +55,7 @@
                                         <img
                                             width="48"
                                             height="48"
-                                            src="{{ asset('/uploads/'. $data->icon ) }}"
+                                            src="{{ asset('/storage/uploads/kontak/'. $data->icon ) }}"
                                             alt=""
                                         />
                                     </td>
@@ -83,6 +83,7 @@
                                                 id="confirmDeleteBtn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalDelete"
+                                                data-id="{{ $data->id }}"
                                             >
                                                 <i class="ri-delete-bin-7-line"></i>
                                             </button>
@@ -169,15 +170,14 @@
             },
         });
 
-        $('#filterForm').submit(function (e) {
-        e.preventDefault();
-        var status = $('#status').val();
+            $('#filterForm').submit(function (e) {
+                e.preventDefault();
+                var status = $('#status').val();
 
-        table.columns(2).search(status).draw();
+                table.columns(2).search(status).draw();
 
-        $('#modalFilter').modal('hide');
-    });
-
+                $('#modalFilter').modal('hide');
+            });
     });
 
     $(document).ready(function () {
@@ -189,21 +189,29 @@
         searchElement.addClass("form-control-md");
     });
 
-    $(document).ready(function() {
-        $('[data-bs-toggle="modal"]').click(function() {
-            var targetModal = $(this).data('bs-target');
-            $(targetModal).modal('show');
-        });
+    $('[data-bs-toggle="modal"]').click(function() {
+        var targetModal = $(this).data('bs-target');
+        $(targetModal).modal('show');
+    });
 
-        $('#confirmDeleteBtn').click(function() {
-            $('#modalDelete').modal('show');
-        });
+    $('#confirmDeleteBtn').click(function() {
+        var id = $(this).data('id');
+        var modal = $('#modalDelete');
+        var form = modal.find('form');
+        var action = form.attr('action');
+        form.attr('action', action.replace(':id', id));
+        $('#modalDelete').modal('show');
+    });
 
-        // Menangani penutupan modal setelah penghapusan data
+    $(document).ready (function() {
         $('#deleteForm').submit(function(event) {
             event.preventDefault();
-            $(this).get(0).submit(); // Submit form
-            $('#modalDelete').modal('hide'); // Menutup modal
+            $(this).get(0).submit();
+            $('#modalDelete').modal('hide');
+        });
+
+        $('#modalDelete').on('hidden.bs.modal', function () {
+            $('#modalFilter').modal('hide'); // Hide modal filter after data deletion modal is hidden
         });
     });
 </script>

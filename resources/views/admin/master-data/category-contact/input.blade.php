@@ -54,7 +54,7 @@
                                     <input type="hidden" name="image_base64">
                                     <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload " alt=""  style="display: {{ isset($contact) && $contact->icon ? 'none' : '' }};"/>
                                     <input type="file" name="logo" class="image"/>
-                                    <img src="{{ isset($contact) && $contact->icon ? asset('uploads/' . $contact->icon) : '' }}" alt="" class="show-image" style="display: {{ isset($contact) && $contact->icon ? 'block' : 'none' }};"/>
+                                    <img src="{{ isset($contact) && $contact->icon ? asset('storage/uploads/kontak/' . $contact->icon) : '' }}" alt="" class="show-image" style="display: {{ isset($contact) && $contact->icon ? 'block' : 'none' }};"/>
                                     <p class="text-upload" style="display: {{ isset($contact) && $contact->icon ? 'none' : '' }};">Upload</p>
 
                                     </div>

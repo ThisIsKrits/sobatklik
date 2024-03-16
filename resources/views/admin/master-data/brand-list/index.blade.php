@@ -54,7 +54,7 @@
                                         <img
                                             width="48"
                                             height="48"
-                                            src="{{ asset('/uploads/'. $data->icon ) }}"
+                                            src="{{ asset('storage/uploads/logo/'. $data->logo ) }}"
                                             alt=""
                                         />
                                     </td>
@@ -82,6 +82,7 @@
                                                 id="confirmDeleteBtn"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modalDelete"
+                                                data-id="{{ $data->id }}"
                                             >
                                                 <i class="ri-delete-bin-7-line"></i>
                                             </button>
@@ -105,7 +106,7 @@
 
 <!-- Modal Delete Table-->
 @if (isset($data))
-    @include('partials._modal-delete',['data' => $data])
+    @include('partials._modal-delete-brand',['id' => $data->id])
 @endif
 
 @endsection
@@ -190,21 +191,26 @@
         searchElement.addClass("form-control-md");
     });
 
-    $(document).ready(function() {
-        $('[data-bs-toggle="modal"]').click(function() {
-            var targetModal = $(this).data('bs-target');
-            $(targetModal).modal('show');
-        });
+    $('[data-bs-toggle="modal"]').click(function() {
+        var targetModal = $(this).data('bs-target');
+        $(targetModal).modal('show');
+    });
 
-        $('#confirmDeleteBtn').click(function() {
+    $('#confirmDeleteBtn').click(function() {
+        var id = $(this).data('id'); // Ambil ID data dari tombol hapus yang diklik
+            var modal = $('#modalDelete');
+            var form = modal.find('form');
+            var action = form.attr('action');
+            form.attr('action', action.replace(':id', id));
             $('#modalDelete').modal('show');
-        });
+    });
 
+    $(document).ready(function() {
         // Menangani penutupan modal setelah penghapusan data
         $('#deleteForm').submit(function(event) {
             event.preventDefault();
             $(this).get(0).submit(); // Submit form
-            $('#modalDelete').modal('hide'); // Menutup modal
+            $('#modalDelete').modal('hide');
         });
     });
 </script>

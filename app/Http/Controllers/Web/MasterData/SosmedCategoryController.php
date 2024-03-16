@@ -96,7 +96,7 @@ class SosmedCategoryController extends Controller
 
         $contact    = SosmedCategory::findOrFail($id);
 
-        if ($request->has('image_base64')) {
+        if (!empty($request->image_base64)) {
             // Hapus gambar yang ada
             if (!is_null($contact->icon)) {
                 $imagePath = public_path('storage/uploads/sosmed/') . $contact->icon;

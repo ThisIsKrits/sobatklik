@@ -55,7 +55,7 @@
                                         <img
                                             width="48"
                                             height="48"
-                                            src="{{ asset('/uploads/'. $data->icon ) }}"
+                                            src="{{ asset('storage/uploads/sosmed/'. $data->icon ) }}"
                                             alt=""
                                         />
                                     </td>

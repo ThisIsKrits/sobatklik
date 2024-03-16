@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,7 +10,7 @@ class BrandList extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['logo','name','kode_brand','tagline','maskot'];
+    protected $fillable = ['logo','name','kode_brand','tagline','maskot','status'];
 
     public function contacts()
     {
@@ -24,5 +25,14 @@ class BrandList extends Model
     public function addresses()
     {
         return $this->hasMany(AddressBrand::class,'brand_id','id');
+    }
+
+    public function getStatusAttribute($value)
+    {
+        return match ($value) {
+            StatusEnum::Aktif->value => 'Aktif',
+            StatusEnum::TidakAktif->value => 'Tidak Aktif',
+            default => 'Unknown',
+        };
     }
 }

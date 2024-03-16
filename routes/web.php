@@ -43,7 +43,7 @@ Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting
 // contact
 Route::resource('data-contact', ContactCategoryController::class);
 // sosmed category
-Route::resource('/data-sosmed', SosmedCategoryController::class);
+Route::resource('data-sosmed', SosmedCategoryController::class);
 // brand
 Route::resource('data-brand', BrandController::class);
 

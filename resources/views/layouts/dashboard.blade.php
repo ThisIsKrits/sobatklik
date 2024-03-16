@@ -153,6 +153,7 @@
                 setTimeout(function() {
                     $('.modal-backdrop').hide();
                     $('#modalCenterSuccess').hide();
+                    $('#modalFilter').modal('hide');
                 }, 2000);
             });
             // Datatables

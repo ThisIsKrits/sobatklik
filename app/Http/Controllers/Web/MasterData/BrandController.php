@@ -70,30 +70,28 @@ class BrandController extends Controller
             'tagline'       => $request->tagline,
             'logo'          => $this->storeLogo($request->image_logo),
             'maskot'        => $this->storeMaskot($request->image_maskot),
+            'status'        => $request->status ?? 0,
         ]);
 
-        foreach ($request->address as $keyA => $address) {
-            AddressBrand::create([
-                'brand_id'  => $brand->id,
-                'address'   => $request->address[$keyA]
+        foreach ($request->address as $key => $value) {
+            $brand->addresses()->create([
+                'address'   => $value
             ]);
         }
 
-        foreach ($request->contact_id as $keyB => $contact) {
-            ContactBrand::create([
-                'brand_id'      => $brand->id,
-                'contact_id'    => $request->contact_id[$keyB],
-                'label'         => $request->label_contact[$keyB],
-                'link'          => $request->link_contact[$keyB]
+        foreach ($request->label_contact as $key => $value) {
+            $brand->contacts()->create([
+                'contact_id'    => $request->contact_id[$key],
+                'label'         => $value,
+                'link'          => $request->link_contact[$key]
             ]);
         }
 
-        foreach ($request->sosmed_id as $keyC => $contact) {
-            SosmedBrand::create([
-                'brand_id'      => $brand->id,
-                'sosmed_id'     => $request->sosmed_id[$keyC],
-                'label'         => $request->label_sosmed[$keyC],
-                'link'          => $request->link_sosmed[$keyC]
+        foreach ($request->label_sosmed as $key => $value) {
+            $brand->somseds()->create([
+                'sosmed_id'     => $request->sosmed_id[$key],
+                'label'         => $value,
+                'link'          => $request->link_sosmed[$key]
             ]);
         }
 
@@ -122,17 +120,21 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand   = BrandList::findOrFail($id);
-        $contactBrand   = ContactBrand::all();
-        $sosmedBrand   = SosmedBrand::all();
+        $addressBrand   = $brand->addresses()->get();
+        $contactBrand   = $brand->contacts()->get();
+        $sosmedBrand   = $brand->sosmeds()->get();
         $contacts = ContactCategory::all();
         $sosmeds  = SosmedCategory::all();
+
+        // dd($addressBrand);
 
         return view('admin.master-data.brand-list.input',[
             'brand'  => $brand,
             'sosmeds'    => $sosmeds,
             'contacts'   => $contacts,
-            'contactbrand'  => $contactBrand,
+            'contactBrand'  => $contactBrand,
             'sosmedBrand'   => $sosmedBrand,
+            'addressBrand'   => $addressBrand,
         ]);
     }
 
@@ -145,7 +147,107 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validations = Validator::make($request->all(),[
+            'kode_brand'    =>  'required',
+            'name'          => 'required',
+            'tagline'       => 'required',
+        ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
+
+        $brand = BrandList::findOrFail($id);
+
+        if (!empty($request->image_logo)) {
+            // Hapus gambar yang ada
+            if (!is_null($brand->logo)) {
+                $imageLogo = public_path('storage/uploads/logo/') . $brand->logo;
+                if (file_exists($imageLogo)) {
+                    unlink($imageLogo);
+                }
+            }
+
+            $logoName   = $this->storeLogo($request->image_logo);
+        } else {
+            $logoName = $brand->logo;
+        }
+
+        if (!empty($request->image_maskot)) {
+            if (!is_null($brand->maskot)) {
+                $imageMaskot = public_path('storage/uploads/maskot/') . $brand->maskot;
+                if (file_exists($imageMaskot)) {
+                    unlink($imageMaskot);
+                }
+            }
+
+            $maskotName   = $this->storeMaskot($request->image_maskot);
+        } else {
+            $maskotName = $brand->maskot;
+        }
+
+        $brand->update([
+            'name'          => $request->name,
+            'kode_brand'    => $request->kode_brand,
+            'tagline'       => $request->tagline,
+            'logo'          => $logoName,
+            'maskot'        => $maskotName,
+            'status'        => $request->status ?? 0,
+        ]);
+
+        foreach ($request->address as $key => $value) {
+            if (empty($request->id[$key])) {
+                $brand->addresses()->create([
+                    'address' => $value
+                ]);
+            } else {
+                $adds = AddressBrand::find($request->id[$key]);
+                $adds->update(
+                    ['address' => $value]
+                );
+            }
+        }
+
+        // Perbarui kontak merek
+        foreach ($request->label_contact as $key => $value) {
+            if (empty($request->idContact[$key])) {
+                $brand->contacts()->create([
+                    'contact_id' => $request->contact_id[$key],
+                    'label' => $value,
+                    'link' => $request->link_contact[$key],
+                ]);
+            } else {
+                $conts = ContactBrand::find($request->idContact[$key]);
+                $conts->update([
+                    'contact_id' => $request->contact_id[$key],
+                    'label' => $value,
+                    'link' => $request->link_contact[$key],
+                ]);
+            }
+        }
+
+        // Perbarui sosial media merek
+        foreach ($request->label_sosmed as $key => $value) {
+            if (empty($request->idSosmed[$key])) {
+                $brand->sosmeds()->create([
+                    'sosmed_id' => $request->sosmed_id[$key],
+                    'label' => $value,
+                    'link' => $request->link_sosmed[$key],
+                ]);
+            } else {
+                $conts = SosmedBrand::find($request->idSosmed[$key]);
+                $conts->update([
+                    'sosmed_id' => $request->sosmed_id[$key],
+                    'label' => $value,
+                    'link' => $request->link_sosmed[$key],
+                ]);
+            }
+        }
+
+        // dd($request->all());
+
+        return redirect()->route('data-brand.index')->with('setting-success', 'Data Brand berhasil diperbarui!');
     }
 
     /**
@@ -156,11 +258,14 @@ class BrandController extends Controller
      */
     public function destroy($id)
     {
-        $data = BrandList::with('contact','sosmed','address')->findOrFail($id);
+        $data = BrandList::with('contacts','sosmeds','addresses')->findOrFail($id);
 
         $this->deleteLogo($data->logo);
         $this->deleteMaskot($data->maskot);
 
+        $data->contacts()->delete();
+        $data->sosmeds()->delete();
+        $data->addresses()->delete();
         $data->delete();
 
         return redirect()->back()->with('setting-success', 'Data Brand Berhasil dihapus!');

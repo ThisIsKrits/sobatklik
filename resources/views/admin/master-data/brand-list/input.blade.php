@@ -25,186 +25,7 @@
     <div class="row mb-4">
         <div class="col">
             <div class="card">
-                <div class="card-body px-3">
-                @if (isset($brand))
-                        <form id="formAuthentication" class="mb-3" action="{{ route('data-brand.update',$brand->id) }}" method="POST">
-                        @method('PUT')
-                    @else
-                        <form id="formAuthentication" class="mb-3" action="{{ route('data-brand.store') }}" method="POST" >
-                    @endif
-                        @csrf
-                            <div class="mb-3 w-100">
-                                <label  for="code" class="form-label">Kode Brand
-                                    <span>*</span>
-                                </label>
-                                <input class="form-control" name="kode_brand" value="{{old('kode_brand', $brand->kode_brand ?? '')}}" placeholder="Masukan Kode Brand" id="code"/>
-                            </div>
-                            <div class="mb-3 w-100">
-                                <label for="brandName" class="form-label">
-                                    Nama Brand
-                                    <span>*</span>
-                                </label>
-                                <input
-                                    class="form-control"
-                                    name="name"
-                                    placeholder="Masukan Nama Brand"
-                                    value="{{old('name', $brand->name ?? '')}}"
-                                    id="brandName"
-                                />
-                            </div>
-                            <div class="mb-3 w-100">
-                                <label
-                                    for="taglineBrand"
-                                    class="form-label"
-                                    >Tagline Brand
-                                    <span
-                                        >*</span
-                                    ></label
-                                >
-                                <input
-                                    class="form-control"
-                                    name="tagline"
-                                    value="{{old('tagline', $brand->tagline ?? '')}}"
-                                    placeholder="Masukan Tagline Brand"
-                                    id="taglineBrand"
-                                />
-                            </div>
-
-                            <div class="row gap-3 mb-5">
-                                <div
-                                    class="col-12 col-md-4"
-                                >
-                                    <div
-                                        class="d-flex flex-column"
-                                    >
-                                        <label
-                                            for="brand"
-                                            class="form-label"
-                                            >Logo Brand
-                                            <span
-                                                >*</span
-                                            ></label
-                                        >
-                                        <div class="input-file" id="input-logo">
-                                            <div class="file-upload">
-                                                <input type="file" accept="image/*" name="logo" class="image-logo">
-                                                <input type="hidden" name="image_logo">
-                                                <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload-logo" alt=""  style="display: {{ isset($brand) && $brand->logo ? 'none' : '' }};"/>
-                                                <input type="file" name="logo" class="image-logo"/>
-                                                <img src="{{ isset($brand) && $brand->logo ? asset('storage/uploads/logo/' . $brand->logo) : '' }}" alt="" class="show-image-logo" style="display: {{ isset($brand) && $brand->logo ? 'block' : 'none' }};max-width: 104px;
-                                                    border-radius: 8px;"/>
-                                                <p class="text-upload-logo" style="display: {{ isset($brand) && $brand->logo ? 'none' : '' }};">Upload</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="d-flex flex-column">
-                                        <label for="brand" class="form-label" >
-                                            Maskot Brand
-                                            <span >*</span>
-                                        </label>
-                                        <div class="input-file" id="input-maskot">
-                                            <div class="file-upload">
-                                                <input type="file" accept="image/*" name="maskot" class="image-maskot">
-                                                <input type="hidden" name="image_maskot">
-                                                <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload-maskot" alt=""  style="display: {{ isset($brand) && $brand->maskot ? 'none' : '' }};"/>
-                                                <input type="file" name="maskot" class="image-maskot"/>
-                                                <img src="{{ isset($brand) && $brand->maskot ? asset('storage/uploads/maskot/' . $brand->maskot) : '' }}" alt="" class="show-image-maskot" style="display: {{ isset($brand) && $brand->maskot ? 'block' : 'none' }};max-width: 104px;
-                                                    border-radius: 8px;"/>
-                                                <p class="text-upload-maskot" style="display: {{ isset($brand) && $brand->maskot ? 'none' : '' }};">Upload</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-5">
-                                <p
-                                    class="mb-3 font-semibold"
-                                >
-                                    Alamat
-                                </p>
-                                <div
-                                    id="container"
-                                ></div>
-                                <button
-                                    class="btn btn-outline-placeholder w-100"
-                                    type="button"
-                                    onclick="addAddress()"
-                                >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center gap-2"
-                                    >
-                                        <img
-                                            src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-outline.svg') }}"
-                                            alt=""
-                                        />
-                                        Tambah Alamat
-                                        baru
-                                    </div>
-                                </button>
-                            </div>
-
-                            <div class="mb-5">
-                                <p
-                                    class="mb-3 font-semibold"
-                                >
-                                    Kontak
-                                </p>
-                                <div
-                                    id="contactContainer"
-                                ></div>
-                                <button
-                                    class="btn btn-outline-placeholder w-100"
-                                    type="button"
-                                    onclick="addContact()"
-                                >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center gap-2"
-                                    >
-                                        <img
-                                            src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-outline.svg') }}"
-                                            alt=""
-                                        />
-                                        Tambah Kontak
-                                        baru
-                                    </div>
-                                </button>
-                            </div>
-                            <div class="mb-5">
-                                <p
-                                    class="mb-3 font-semibold"
-                                >
-                                    Sosial Media
-                                </p>
-                                <div
-                                    id="sosmedContainer"
-                                ></div>
-                                <button
-                                    class="btn btn-outline-placeholder w-100"
-                                    type="button"
-                                    onclick="addSosmed()"
-                                >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center gap-2"
-                                    >
-                                        <img
-                                            src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-outline.svg') }}"
-                                            alt=""
-                                        />
-                                        Tambah Sosial
-                                        Media
-                                    </div>
-                                </button>
-                            </div>
-                            <button
-                                class="mb-2 btn btn-primary btn-md"
-                                type="submit"
-                            >
-                                Simpan
-                            </button>
-                    </form>
-                </div>
+                @include('partials._form-brand')
             </div>
         </div>
     </div>
@@ -397,18 +218,33 @@
 
     const contact =  {!!$contacts!!}
     const sosmed  = {!!$sosmeds!!}
+
+    const addressBrand = {!! isset($addressBrand) ? json_encode($addressBrand) : 'null' !!};
+    const contactBrand = {!! isset($contactBrand) ? json_encode($contactBrand) : 'null' !!};
+    const sosmedBrand = {!! isset($sosmedBrand) ? json_encode($sosmedBrand) : 'null' !!};
+
+    var countAddress    = 0;
+    var countSosmed     = 0;
+    var countContact    = 0;
+
+
     const addAddress = () => {
-        let count = 0;
-        count++;
         let container = document.getElementById("container");
 
         let inputDiv = document.createElement("div");
-        inputDiv.className = "mb-4 w-100 d-flex";
+        inputDiv.className  = "mb-4 w-100 d-flex";
+        inputDiv.id         = "input-"+countAddress;
+
+        let inputId = document.createElement("input");
+        inputId.type = "hidden";
+        inputId.name = "id[]";
+        inputId.className = "form-control";
 
         let input = document.createElement("input");
         input.type = "text";
-        input.name = "address["+count+"]";
+        input.name = "address[]";
         input.className = "form-control";
+
 
         let deleteButton = document.createElement("i");
         deleteButton.className =
@@ -417,23 +253,38 @@
             container.removeChild(inputDiv);
         };
 
+
         inputDiv.appendChild(input);
+        inputDiv.appendChild(inputId);
         inputDiv.appendChild(deleteButton);
 
         container.appendChild(inputDiv);
+
+
+        if (addressBrand && countAddress < addressBrand.length) {
+            inputId.value = addressBrand[countAddress]['id'];
+            input.value = addressBrand[countAddress]['address'];
+        } else {
+            input.value = ''; // Input kosong jika tidak ada data lama atau data baru
+        }
+
+        countAddress++;
     };
 
     //Add contact form
     const addContact = () => {
-        let count = 0;
-        count++;
 
-        console.log(contact);
         const container = document.getElementById("contactContainer");
 
         const rowDiv = document.createElement("div");
         rowDiv.className = "row gap-1 mb-3";
+        rowDiv.id         = "input-"+countContact;
         container.appendChild(rowDiv);
+
+        let inputId = document.createElement("input");
+        inputId.type = "hidden";
+        inputId.name = "idContact[]";
+        inputId.className = "form-control";
 
         const colDiv1 = document.createElement("div");
         colDiv1.className = "col-12 col-md-3";
@@ -447,7 +298,7 @@
         const select1 = document.createElement("select");
         select1.className = "form-select";
         select1.id = "jenisContact";
-        select1.name = 'contact_id['+count+']'
+        select1.name = 'contact_id[]'
         select1.setAttribute("aria-label", "Default select example");
         colDiv1.appendChild(select1);
 
@@ -473,7 +324,7 @@
 
         const input1 = document.createElement("input");
         input1.className = "form-control";
-        input1.name = "label_contact["+count+"]";
+        input1.name = "label_contact[]";
         input1.placeholder = "Label";
         input1.id = "label";
         colDiv2.appendChild(input1);
@@ -494,7 +345,7 @@
         // Membuat input untuk "Kode Brand"
         const input2 = document.createElement("input");
         input2.className = "form-control";
-        input2.name = "link_contact["+count+"]";
+        input2.name = "link_contact[]";
         input2.placeholder = "Link";
         input2.id = "link";
         flexDiv.appendChild(input2);
@@ -507,22 +358,45 @@
             container.removeChild(rowDiv);
         });
         flexDiv.appendChild(deleteIcon);
+        flexDiv.appendChild(inputId);
+
+        if (contactBrand && countContact < contactBrand.length) {
+
+            const selectedContactId = contactBrand[countContact]['contact_id'];
+
+            inputId.value = contactBrand[countContact]['id'];
+            for (let i = 0; i < select1.options.length; i++) {
+                if (select1.options[i].value == selectedContactId) {
+                    select1.options[i].selected = true;
+                    break;
+                }
+
+            }
+            input1.value = contactBrand[countContact]['label'];
+            input2.value = contactBrand[countContact]['link'];
+        }
+
+        countContact++;
     };
 
     //Add sosmed form
     const addSosmed = () => {
-        let count = 0;
-        count++;
-
         const container = document.getElementById("sosmedContainer");
 
         const rowDiv = document.createElement("div");
         rowDiv.className = "row gap-1 mb-3";
+        rowDiv.id = "input"+countSosmed;
         container.appendChild(rowDiv);
+
+        let inputId = document.createElement("input");
+        inputId.type = "hidden";
+        inputId.name = "idSosmed[]";
+        inputId.className = "form-control";
 
         const colDiv1 = document.createElement("div");
         colDiv1.className = "col-12 col-md-3";
         rowDiv.appendChild(colDiv1);
+
 
         const label1 = document.createElement("label");
         label1.textContent = "Jenis Sosmed";
@@ -532,7 +406,7 @@
         const select1 = document.createElement("select");
         select1.className = "form-select";
         select1.id = "jenisSosmed";
-        select1.name = 'sosmed_id['+count+']';
+        select1.name = 'sosmed_id[]';
         select1.setAttribute("aria-label", "Default select example");
         colDiv1.appendChild(select1);
 
@@ -558,7 +432,7 @@
 
         const input1 = document.createElement("input");
         input1.className = "form-control";
-        input1.name = "label_sosmed["+count+"]";
+        input1.name = "label_sosmed[]";
         input1.placeholder = "Label";
         input1.id = "label";
         colDiv2.appendChild(input1);
@@ -579,7 +453,7 @@
         // Membuat input untuk "Kode Brand"
         const input2 = document.createElement("input");
         input2.className = "form-control";
-        input2.name = "link_sosmed["+count+"]";
+        input2.name = "link_sosmed[]";
         input2.placeholder = "Link";
         input2.id = "link";
         flexDiv.appendChild(input2);
@@ -592,7 +466,44 @@
             container.removeChild(rowDiv);
         });
         flexDiv.appendChild(deleteIcon);
+        flexDiv.appendChild(inputId);
+
+        if (sosmedBrand && countSosmed < sosmedBrand.length) {
+
+            const selectedContactId = sosmedBrand[countSosmed]['sosmed_id'];
+
+            inputId.value = sosmedBrand[countSosmed]['id'];
+            for (let i = 0; i < select1.options.length; i++) {
+                if (select1.options[i].value == selectedContactId) {
+                    select1.options[i].selected = true;
+                    break;
+                }
+
+            }
+            input1.value = sosmedBrand[countSosmed]['label'];
+            input2.value = sosmedBrand[countSosmed]['link'];
+        }
+
+        countSosmed++;
     };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        if(addressBrand){
+            addressBrand.forEach(() => {
+                addAddress(); // Menambahkan input alamat berdasarkan data lama
+            });
+        }
+        if(contactBrand){
+            contactBrand.forEach(() => {
+                addContact();
+            });
+        }
+        if(sosmedBrand){
+            sosmedBrand.forEach(() => {
+                addSosmed();
+            });
+        }
+    });
 
 </script>
 @endpush
