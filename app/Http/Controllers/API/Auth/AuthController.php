@@ -86,6 +86,7 @@ class AuthController extends Controller
             'birthdate'     => $birthdate,
             'phone'         => $request->phone,
             'password'      => bcrypt($request->password),
+            'status'        => 1,
         ]);
 
         $user->assignRole('customer');

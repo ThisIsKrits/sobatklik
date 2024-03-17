@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\StatusEnum;
 use App\Models\API\ListTheme;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -28,6 +29,7 @@ class User extends Authenticatable implements JWTSubject
         'phone',
         'email',
         'password',
+        'status'
     ];
 
     /**
@@ -59,4 +61,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    public function getStatusAttribute($value)
+    {
+        return match ($value) {
+            StatusEnum::Aktif->value => 'Aktif',
+            StatusEnum::TidakAktif->value => 'Tidak',
+            default => 'Unknown',
+        };
+    }
 }

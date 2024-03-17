@@ -10,7 +10,7 @@
     >
         <div class="d-flex align-items-center">
             <a
-                href="./customer.html"
+                href="{{ route('data-customer.index') }}"
                 class="text-general"
                 ><i class="ri-arrow-left-line fs-1"></i
             ></a>
@@ -25,13 +25,9 @@
         <div class="col">
             <div class="card">
                 <div class="card-body px-3">
-                    <form
-                        id="formAuthentication"
-                        class="mb-3"
-                        action="index.html"
-                        method="POST"
-                    >
-                        <form>
+                    <form id="formAuthentication" class="mb-3" action="{{ route('data-customer.update',$data->id) }}" method="POST">
+                        @method('PUT')
+                        @csrf
                             <div class="mb-3 w-100">
                                 <label
                                     for="name"
@@ -46,9 +42,9 @@
                                     type="text"
                                     class="form-control"
                                     id="name"
-                                    name="name"
+                                    name="fullname"
                                     placeholder="Nama customer"
-                                    value="John demo"
+                                    value="{{old('fullname', $data->fullname ?? '')}}"
                                     autofocus
                                 />
                             </div>
@@ -68,7 +64,7 @@
                                     id="email"
                                     name="email"
                                     placeholder="Email"
-                                    value="johndoe@gmail.com"
+                                    value="{{old('email', $data->email ?? '')}}"
                                     autofocus
                                 />
                             </div>
@@ -86,9 +82,9 @@
                                     type="text"
                                     class="form-control"
                                     id="nohp"
-                                    name="nohp"
+                                    name="phone"
                                     placeholder="Nomor HP"
-                                    value="081234567890"
+                                    value="{{old('phone', $data->phone ?? '')}}"
                                     autofocus
                                 />
                             </div>
@@ -105,10 +101,10 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="nohp"
-                                    name="nohp"
+                                    id="birthdate"
+                                    name="birthdate"
                                     placeholder="Tanggal Lahir"
-                                    value="17 Agustus 1998"
+                                    value="{{old('birthdate', $data->birthdate ?? '')}}"
                                     autofocus
                                 />
                             </div>
@@ -123,27 +119,25 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="nohp"
-                                    name="nohp"
+                                    id="password"
+                                    name="password"
                                     placeholder="Masukkan Password Baru "
                                     autofocus
                                 />
                             </div>
                             <div
-                                class="mb-3 form-check form-switch"
+                                class="mb-5 form-check form-switch"
                             >
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="flexSwitchCheckChecked"
-                                    checked
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="flexSwitchCheckChecked"
-                                    >Status
-                                    Aktif?</label
-                                >
+                                <input class="form-check-input" name="status"
+                                type="checkbox" id="toggleSwitch" data-toggle="toggle" data-on="1" data-off="0" value="{{old('status', $data->status ?? '')}}"
+                                @if (isset($data) && $data->status == 'Aktif')
+                                checked
+                                @endif>
+                                <label class="form-check-label" for="toggleSwitch">
+                                    <i class="far fa-square text-secondary" id="uncheckedIcon"></i>
+                                    <i class="fas fa-check-square text-success d-none" id="checkedIcon"></i>
+                                </label>
+                                <label for="toggleSwitch" class="mt-2 ml-2">Status Aktif?</label>
                             </div>
                             <button
                                 class="mb-2 btn btn-primary btn-md"
@@ -151,7 +145,6 @@
                             >
                                 Ubah Data
                             </button>
-                        </form>
                     </form>
                 </div>
             </div>
@@ -159,3 +152,19 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const toggleSwitch = document.getElementById('toggleSwitch');
+
+        // Set initial value of the checkbox based on $sosmed->status
+        toggleSwitch.value = toggleSwitch.checked ? "1" : "0";
+
+        // Add event listener to update checkbox value when changed
+        toggleSwitch.addEventListener('change', function() {
+            // Set checkbox value to 0 when unchecked and 1 when checked
+            this.value = this.checked ? "1" : "0";
+        });
+    });
+    </script>
+@endpush

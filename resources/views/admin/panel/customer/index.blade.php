@@ -3,6 +3,9 @@
 @section('title', 'Customer')
 
 @section('content')
+@if (session('message-success'))
+    @include('partials._toats-success',['message' => (session('message-success'))])
+@endif
 <div class="container-xxl flex-grow-1 container-p-y">
     <!-- Content header -->
     <div
@@ -20,7 +23,7 @@
                 <div class="card-body px-3">
                     <div class="table">
                         <table
-                            id="reportGrafik"
+                            id="data"
                             class="table"
                         >
                             <thead>
@@ -40,134 +43,52 @@
                             <tbody
                                 class="table-border-bottom-0"
                             >
-                                <!--   1 -->
-                                <tr>
-                                    <td>Jenne Doe</td>
-                                    <td>
-                                        jenniedoe@gmail.com
-                                    </td>
-                                    <td>
-                                        081234567890
-                                    </td>
-                                    <td>
-                                        17 Agustus 1992
-                                    </td>
-                                    <td>
-                                        <p
-                                            class="badge bg-badge-label-success"
-                                        >
-                                            Aktif
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <div
-                                            class="d-flex justify-conten-center align-items-center gap-2"
-                                        >
-                                            <a
-                                                href="./customer-edit.html"
-                                                class="btn btn-success-weak"
+                                @foreach ($datas as $user)
+                                    <tr>
+                                        <td>{{ $user->fullname }}</td>
+                                        <td>
+                                            {{ $user->email }}
+                                        </td>
+                                        <td>
+                                            {{ $user->phone }}
+                                        </td>
+                                        <td>
+                                            {{ $user->birthdate }}
+                                        </td>
+                                        <td>
+                                            @if($user->status == 'Aktif')
+                                                <p class="badge bg-badge-label-success">
+                                                    {{ $user->status }}
+                                                </p>
+                                            @else
+                                                <p class="badge bg-badge-label-danger">
+                                                    {{ $user->status }}
+                                                </p>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <div
+                                                class="d-flex justify-conten-center align-items-center gap-2"
                                             >
-                                                <i
-                                                    class="ri-edit-2-line"
-                                                ></i>
-                                            </a>
-
-                                            <button
-                                                class="btn btn-danger-weak"
-                                            >
-                                                <i
-                                                    class="ri-delete-bin-7-line"
-                                                ></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!--   2 -->
-                                <tr>
-                                    <td>John Doe</td>
-                                    <td>
-                                        johndoe@gmail.com
-                                    </td>
-                                    <td>
-                                        081234567890
-                                    </td>
-                                    <td>
-                                        17 Agustus 1992
-                                    </td>
-                                    <td>
-                                        <p
-                                            class="badge bg-badge-label-success"
-                                        >
-                                            Aktif
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <div
-                                            class="d-flex justify-conten-center align-items-center gap-2"
-                                        >
-                                            <a
-                                                href="./customer-edit.html"
-                                                class="btn btn-success-weak"
-                                            >
-                                                <i
-                                                    class="ri-edit-2-line"
-                                                ></i>
-                                            </a>
-
-                                            <button
-                                                class="btn btn-danger-weak"
-                                            >
-                                                <i
-                                                    class="ri-delete-bin-7-line"
-                                                ></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!--   3 -->
-                                <tr>
-                                    <td>
-                                        Daniel Kendrick
-                                    </td>
-                                    <td>
-                                        daniel@gmail.com
-                                    </td>
-                                    <td>
-                                        081234567890
-                                    </td>
-                                    <td>
-                                        17 Agustus 1992
-                                    </td>
-                                    <td>
-                                        <p
-                                            class="badge bg-badge-label-danger"
-                                        >
-                                            Tidak Aktif
-                                        </p>
-                                    </td>
-                                    <td>
-                                        <div
-                                            class="d-flex justify-conten-center align-items-center gap-2"
-                                        >
-                                            <a
-                                                href="./customer-edit.html"
-                                                class="btn btn-success-weak"
-                                            >
-                                                <i
-                                                    class="ri-edit-2-line"
-                                                ></i>
-                                            </a>
-
-                                            <button
-                                                class="btn btn-danger-weak"
-                                            >
-                                                <i
-                                                    class="ri-delete-bin-7-line"
-                                                ></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                <a href="{{ route('data-customer.edit',$user->id) }}" class="btn btn-success-weak" >
+                                                    <i class="ri-edit-2-line"></i>
+                                                </a>
+                                                @if ($user->status !== 'Aktif')
+                                                <button
+                                                    class="btn btn-danger-weak"
+                                                    type="button"
+                                                    id="confirmDeleteBtn"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete"
+                                                    data-id="{{ $user->id }}"
+                                                >
+                                                    <i class="ri-delete-bin-7-line"></i>
+                                                </button>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -176,4 +97,41 @@
         </div>
     </div>
 </div>
+
+@include('partials._modal-filter');
+
+<!-- Modal Delete Table-->
+@include('partials._modal-delete',['data' => $user])
+
 @endsection
+
+@push('scripts')
+@include('partials._datatable-view')
+<script>
+    $(document).ready(function() {
+        $('.toast').toast('show');
+    });
+
+    $(document).ready(function () {
+        var selectElement = $("#dt-length-0");
+        selectElement.removeClass("form-select-sm");
+        selectElement.addClass("form-select-md");
+        var searchElement = $("#dt-search-1");
+        searchElement.removeClass("form-control-sm");
+        searchElement.addClass("form-control-md");
+    });
+
+    $('[data-bs-toggle="modal"]').on('click', function() {
+        var dataId = $(this).data('id');
+        console.log(dataId);
+
+        // Tambahkan baris berikut untuk mengatur atribut action pada form
+        $('#deleteForm').attr('action', '/data-customer/' + dataId);
+    });
+
+    $('#confirmDeleteBtn').on('click', function() {
+        $('#deleteForm').get(0).submit();
+        $('#modalDelete').modal('hide');
+    });
+</script>
+@endpush
