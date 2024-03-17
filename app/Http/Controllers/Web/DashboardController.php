@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\Report;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,6 +20,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $datas = Report::all();
+
+        return view('home',[
+            'datas' => $datas
+        ]);
     }
 }

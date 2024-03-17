@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\API\Report;
 use App\Models\API\Response;
-use App\Models\Report;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ReportController extends Controller
+class ResponseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +18,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $datas = Report::all();
-        return view('admin.panel.report.index',[
-            'datas' => $datas
-        ]);
+        $datas = Response::all();
+
     }
 
     /**
@@ -29,7 +29,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('admin.panel.report.input');
+        //
     }
 
     /**
@@ -40,7 +40,20 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Response::create([
+            'report_id'     => $request->id,
+            'user_id'       => Auth::user()->id,
+            'report_date'   => Carbon::now()->toDateTimeString(),
+            'content'       => trim($request->content)
+        ]);
+
+        $report = Report::find($request->id);
+
+        $report->update([
+            'admin_id'  => Auth::user()->id,
+        ]);
+
+        return redirect()->back()->with('messages', 'Balasan terkirim!');
     }
 
     /**
@@ -51,12 +64,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = Report::findOrFail($id);
-        $responses  = Response::where('report_id',$id)->get();
-        return view('admin.panel.report.show',[
-            'report'    => $report,
-            'responses' => $responses
-        ]);
+        //
     }
 
     /**

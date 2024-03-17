@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\API\AttachReport;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,12 +22,23 @@ class Report extends Model
         return $this->belongsTo(BrandList::class, 'brand_id','id');
     }
 
-    public function user()
+    public function type()
     {
-        return $this->belongsTo(User::class, function ($query) {
-            $query->where('id', $this->reporter_id)
-                ->orWhere('id', $this->admin_id);
-        });
+        return $this->belongsTo(ReportType::class, 'type_id','id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'reporter_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(User::class, 'admin_id');
+    }
+
+    public function files()
+    {
+        return $this->hasMany(AttachReport::class, 'report_id');
+    }
 }

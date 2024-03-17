@@ -43,7 +43,7 @@
                                 <div>Laporan</div>
                             </a>
                         </li>
-                        <li class="menu-item {{ Request::is('data-telepon') ? 'active' : '' }}">
+                        <!-- <li class="menu-item {{ Request::is('data-telepon') ? 'active' : '' }}">
                             <a href="{{ route('data-telepon.index') }}" class="menu-link">
                                 @if(Request::is('data-telepon'))
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Calling-active.svg') }}" alt="">
@@ -53,7 +53,7 @@
 
                                <div>Telepon</div>
                            </a>
-                        </li>
+                        </li> -->
                         <li class="menu-item {{ Request::is('data-customer') ? 'active' : '' }}">
                             <a href="{{ route('data-customer.index') }}" class="menu-link">
                             @if(Request::is('data-customer'))
