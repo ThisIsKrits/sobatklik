@@ -683,20 +683,6 @@ li.dt-paging-button.page-item.disabled {
     stroke: var(--bs-general-placeholder); /* Warna saat aktif */
 }
 
-/* .layout-menu.collapsed {
-    width: 6rem;
-}
-.layout-menu .collapsed .menu-vertical,
-.menu-vertical .menu-block,
-.menu-vertical .menu-inner > .menu-item,
-.menu-vertical .menu-inner > .menu-header {
-    width: 0;
-}
-
-.layout-menu {
-    transition: width 0.3s ease;
-} */
-
 /* Profile upload */
 div#AvatarFileUpload {
     position: relative;
@@ -759,6 +745,55 @@ div#AvatarFileUpload > .avatar-selector > .avatar-selector-btn > img {
 }
 .btn-primary .svg-icon path {
     stroke: #ffffff; /* Warna saat aktif */
+}
+
+/* .layout-menu.collapsed {
+    width: 6rem;
+}
+.layout-menu .collapsed .menu-vertical,
+.menu-vertical .menu-block,
+.menu-vertical .menu-inner > .menu-item,
+.menu-vertical .menu-inner > .menu-header {
+    width: 0;
+}
+
+.layout-menu {
+    transition: width 0.3s ease;
+} */
+
+.layout-menu.menu-vertical.menu.bg-menu-theme.collapsed {
+    width: 80px;
+}
+.layout-menu.menu-vertical.menu.bg-menu-theme.collapsed .app-brand-link {
+    display: none;
+}
+
+.collapsed #sidebar-toggle {
+    transform: scaleX(-1);
+}
+
+.collapsed .menu-item .menu-item-text {
+    display: none;
+}
+
+.layout-menu.menu-vertical.menu.bg-menu-theme.collapsed .menu-item {
+    width: auto !important;
+}
+
+.collapsed .menu-vertical .menu-inner > .menu-item .menu-link {
+    margin: 0rem 0.75rem;
+}
+.collapsed .menu-item .menu-icon {
+    margin-right: 0;
+}
+.layout-menu.menu-vertical.menu.bg-menu-theme .brand-collapsed {
+    display: none;
+}
+
+.layout-menu.menu-vertical.menu.bg-menu-theme.collapsed .brand-collapsed {
+    width: 40px;
+    margin: 0 20px;
+    display: block;
 }
 
 /* custom class */
