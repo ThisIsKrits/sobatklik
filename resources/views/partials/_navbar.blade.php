@@ -1,5 +1,7 @@
 <!-- Navbar -->
-
+@php
+    $role = Auth::user()->roles->first()->name;
+@endphp
 <nav
     class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar"
@@ -59,10 +61,18 @@
                     data-bs-toggle="dropdown"
                 >
                     <div class="admin-avatar">
-                        <p class="mb-0">JD</p>
+                        <p class="mb-0">
+                            @if ($role == 'superadmin')
+                                SA
+                            @elseif ($role == 'admin')
+                                A
+                            @endif
+                        </p>
                     </div>
                     <div>
-                        <p class="mb-0">John Doe</p>
+                    @auth
+                        <p class="mb-0">{{ Auth::user()->fullname }}</p>
+                    @endauth
                     </div>
                     <div class="mt-1">
                         <i
@@ -72,6 +82,7 @@
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end">
+                @auth
                     <li>
                         <a class="dropdown-item" href="#">
                             <div class="d-flex">
@@ -82,19 +93,26 @@
                                         class="admin-avatar"
                                     >
                                         <p class="mb-0">
-                                            JD
+                                        @if ($role == 'superadmin')
+                                            SA
+                                        @elseif ($role == 'admin')
+                                            A
+                                        @endif
                                         </p>
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
+
                                     <span
                                         class="fw-semibold d-block"
-                                        >John Doe</span
+                                        >{{ Auth::user()->fullname }}</span
                                     >
                                     <small
                                         class="text-muted"
-                                        >Admin</small
+                                        >{{ $role }}</small
                                     >
+
+
                                 </div>
                             </div>
                         </a>
@@ -162,6 +180,7 @@
                             >
                         </span>
                     </li>
+                    @endauth
                 </ul>
             </li>
             <!--/ User -->
