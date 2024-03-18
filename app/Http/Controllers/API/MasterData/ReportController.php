@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
 use App\Models\API\Report;
+use App\Models\BrandList;
+use App\Trait\AdminBrandTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ReportController extends Controller
 {
+    use AdminBrandTrait;
     /**
      * Display a listing of the resource.
      *
@@ -59,15 +62,24 @@ class ReportController extends Controller
             return $this->validationError($validations);
         }
 
-        $reportCount = Report::count();
-        $code = 'TIX-' . str_pad($reportCount + 1, 5, '0', STR_PAD_LEFT) . '-' . date('Y');
+        $currentDate = Carbon::now()->startOfMonth()->format('Y-m-01');
+        $reportCount = Report::where('brand_id', $request->brand_id)
+                    ->whereBetween('report_date', [$currentDate, Carbon::now()->endOfMonth()->format('Y-m-t')])
+                    ->count();
+
+        $brand = BrandList::find($request->brand_id);
+
+        $code = $brand->kode_brand. '/'. Carbon::now()->format('dmY') . '/' . str_pad($reportCount + 1, 5, '0', STR_PAD_LEFT);
+
+        $adminId = $this->assignAdmin($request->brand_id);
 
         $report = Report::create([
             'codes'     => $code,
             'category'  => $request->category,
             'type_id'   => $request->type_id,
             'report_date'   => Carbon::now()->toDateTimeString(),
-            'brand_id'      => $request->brand_id,
+            'brand_id'      => $brand->id,
+            'admin_id'      => $adminId,
             'reporter_id'   => Auth::user()->id,
             'complaint'     => $request->complaint,
         ]);

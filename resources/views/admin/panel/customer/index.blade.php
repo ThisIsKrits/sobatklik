@@ -121,17 +121,25 @@
         searchElement.addClass("form-control-md");
     });
 
+
     $('[data-bs-toggle="modal"]').on('click', function() {
-        var dataId = $(this).data('id');
-        console.log(dataId);
-
-        // Tambahkan baris berikut untuk mengatur atribut action pada form
-        $('#deleteForm').attr('action', '/data-customer/' + dataId);
+        var targetModal = $(this).data('bs-target');
+        $(targetModal).modal('show');
     });
 
-    $('#confirmDeleteBtn').on('click', function() {
-        $('#deleteForm').get(0).submit();
+        $('#confirmDeleteBtn').click(function() {
+            var id = $(this).data('id');
+            var modal = $('#modalDelete');
+            var form = modal.find('form');
+            var action = form.attr('action','/data-brand/'+id);
+            $('#modalDelete').modal('show');
+        });
+
+        $('#deleteForm').submit(function(event) {
+            event.preventDefault();
+            $(this).get(0).submit();
+            $('#modalDelete').modal('hide');
         $('#modalDelete').modal('hide');
-    });
+        });
 </script>
 @endpush

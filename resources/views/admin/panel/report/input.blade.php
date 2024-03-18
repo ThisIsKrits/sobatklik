@@ -10,7 +10,7 @@
     >
         <div class="d-flex align-items-center">
             <a
-                href="./laporan.html"
+                href="{{ route('data-report.index') }}"
                 class="text-general"
                 ><i class="ri-arrow-left-line fs-1"></i
             ></a>
@@ -31,7 +31,6 @@
                         action="index.html"
                         method="POST"
                     >
-                        <form>
                             <div class="mb-3 w-100">
                                 <label
                                     for="brand"
@@ -137,7 +136,6 @@
                             >
                                 Simpan
                             </button>
-                        </form>
                     </form>
                 </div>
             </div>

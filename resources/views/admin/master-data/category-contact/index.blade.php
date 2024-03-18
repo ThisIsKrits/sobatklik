@@ -123,9 +123,6 @@
 
     $('[data-bs-toggle="modal"]').on('click', function() {
         var dataId = $(this).data('id');
-        console.log(dataId);
-
-        // Tambahkan baris berikut untuk mengatur atribut action pada form
         $('#deleteForm').attr('action', '/data-contact/' + dataId);
     });
 

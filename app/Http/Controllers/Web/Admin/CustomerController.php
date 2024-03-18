@@ -116,8 +116,8 @@ class CustomerController extends Controller
     {
         $data = User::findOrFail($id);
 
-        $data->destroy();
+        $data->delete();
 
-        return redirect()->route('data-customer.index')->with('message-success', 'Data customer berhasil dihapus!');
+        return redirect()->back()->with('message-success', 'Data customer berhasil dihapus!');
     }
 }
