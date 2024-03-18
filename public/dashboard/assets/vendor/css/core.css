@@ -796,6 +796,27 @@ div#AvatarFileUpload > .avatar-selector > .avatar-selector-btn > img {
     display: block;
 }
 
+table.dataTable.dtr-column > tbody > tr > td.dtr-control {
+    position: relative !important;
+}
+
+table.dataTable.dtr-column > tbody > tr > td.dtr-control:before {
+    position: absolute !important;
+    top: 25px !important;
+    left: 84% !important;
+    border-top: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    content: url("../../img/icons/Expand-down.svg") !important;
+    width: 20px; /* Sesuaikan ukuran gambar */
+    height: 20px;
+}
+
+table.dataTable.dtr-column > tbody > tr.dtr-expanded td.dtr-control:before {
+    content: url("../../img/icons/Expand-Up.svg") !important;
+}
+
 /* custom class */
 
 abbr[title],
