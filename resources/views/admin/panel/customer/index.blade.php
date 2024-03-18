@@ -131,7 +131,7 @@
             var id = $(this).data('id');
             var modal = $('#modalDelete');
             var form = modal.find('form');
-            var action = form.attr('action','/data-brand/'+id);
+            var action = form.attr('action','/data-customer/'+id);
             $('#modalDelete').modal('show');
         });
 
