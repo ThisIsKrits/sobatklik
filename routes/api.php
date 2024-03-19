@@ -24,9 +24,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::post('/check-email', [AuthController::class, 'checkEmail']);
 Route::post('/register', [AuthController::class, 'register']);
@@ -46,7 +43,7 @@ Route::resource('/theme', ThemeController::class);
 Route::resource('/type-report', ReportTypeController::class);
 
 
-Route::middleware(['auth:api'])->group(function (){
+Route::group(['middleware' => 'api'], function(){
     Route::get('/user', function (Request $request) {
         return $request->user();
     });

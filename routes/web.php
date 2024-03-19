@@ -63,6 +63,6 @@ Route::resource('data-log',LogController::class);
 Route::resource('data-response', ResponseController::class);
 
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'web'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
 });

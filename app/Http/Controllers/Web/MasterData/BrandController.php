@@ -169,8 +169,6 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $validations = Validator::make($request->all(),[
-            'image_logo'          => 'required',
-            'image_maskot'        => 'required',
             'kode_brand'        =>  'required',
             'name'              => 'required',
             'tagline'           => 'required',
@@ -182,8 +180,6 @@ class BrandController extends Controller
             'label_sosmed'    => 'required',
             'link_sosmed'   => 'required',
         ],[
-            'image_logo.required'   => 'Logo tidak boleh kosong!',
-            'image_maskot.required' => 'Maskot tidak boleh kosong!',
             'kode_brand.required'   => 'Kode brand tidak boleh kosong!',
             'name.required'                  => 'Nama brand tidak boleh kosong!',
             'tagline.required'      => 'Tagline tidak boleh kosong!',
@@ -246,9 +242,14 @@ class BrandController extends Controller
                 ]);
             } else {
                 $adds = AddressBrand::find($request->id[$key]);
-                $adds->update(
-                    ['address' => $value]
-                );
+                if (!$adds) {
+                    continue;
+                }
+                if (empty($value)) {
+                    $adds->delete();
+                } else {
+                    $adds->update(['address' => $value]);
+                }
             }
         }
 

@@ -250,9 +250,10 @@
         deleteButton.className =
             "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
         deleteButton.onclick = function () {
+            input.value = '';
             container.removeChild(inputDiv);
+            countAddress--;
         };
-
 
         inputDiv.appendChild(input);
         inputDiv.appendChild(inputId);
@@ -265,7 +266,7 @@
             inputId.value = addressBrand[countAddress]['id'];
             input.value = addressBrand[countAddress]['address'];
         } else {
-            input.value = ''; // Input kosong jika tidak ada data lama atau data baru
+            input.value = '';
         }
 
         countAddress++;

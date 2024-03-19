@@ -89,7 +89,10 @@ class AuthController extends Controller
             'status'        => 1,
         ]);
 
+
         $user->assignRole('customer');
+
+        JWTAuth::factory()->setTTL(50000);
 
         $token = JWTAuth::fromUser($user);
 
@@ -131,6 +134,7 @@ class AuthController extends Controller
             ]);
         }
 
+        JWTAuth::factory()->setTTL(50000);
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
         $theme  = ColorSelect::find(1)->getTheme;
