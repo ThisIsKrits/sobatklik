@@ -176,7 +176,7 @@
             var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
             var modal = $('#modalDelete');
             var form = modal.find('form');
-
+            console.log(id);
             // Set nilai ID ke dalam input hidden di dalam form modal delete
             form.find('#deleteId').val(id);
 

@@ -46,6 +46,9 @@ class SosmedCategoryController extends Controller
         $validations = Validator::make($request->all(),[
             'name'      => 'required',
             'image_base64' => 'required',
+        ],[
+            'name.required' => 'Nama sosial media tidak boleh kosong!',
+            'image_base64.required' => 'Icon sosial media tidak boleh kosong!'
         ]);
 
         if($validations->fails())
@@ -98,7 +101,11 @@ class SosmedCategoryController extends Controller
     public function update(Request $request, $id)
     {
         $validations = Validator::make($request->all(),[
-            'name'  => 'required',
+            'name'      => 'required',
+            'image_base64' => 'required',
+        ],[
+            'name.required' => 'Nama sosial media tidak boleh kosong!',
+            'image_base64.required' => 'Icon sosial media tidak boleh kosong!'
         ]);
 
         if($validations->fails())

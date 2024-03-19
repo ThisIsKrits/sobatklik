@@ -41,6 +41,9 @@
                                     placeholder="Masukan Nama Kategori"
                                     id="brand"
                                 />
+                                @error('name')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-4">
@@ -51,13 +54,16 @@
                                 <div class="input-file">
                                     <div class="file-upload">
                                         <input type="file" name="image" class="image">
-                                        <input type="hidden" name="image_base64">
+                                        <input type="hidden" name="image_base64" accept="image/*">
                                         <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload" alt=""  style="display: {{ isset($sosmed) && $sosmed->icon ? 'none' : '' }};"/>
-                                        <input type="file" name="logo" class="image"/>
+                                        <input type="file" name="logo" class="image" accept="image/*"/>
                                         <img src="{{ isset($sosmed) && $sosmed->icon ? asset('uploads/' . $sosmed->icon) : '' }}" alt="" class="show-image" style="display: {{ isset($sosmed) && $sosmed->icon ? 'block' : 'none' }};"/>
                                         <p class="text-upload" style="display: {{ isset($sosmed) && $sosmed->icon ? 'none' : '' }};">Upload</p>
                                     </div>
                                 </div>
+                                @error('image_base64')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-5">

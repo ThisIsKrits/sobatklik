@@ -11,6 +11,9 @@
                     <span>*</span>
                 </label>
                 <input class="form-control" name="kode_brand" value="{{old('kode_brand', $brand->kode_brand ?? '')}}" placeholder="Masukan Kode Brand" id="code"/>
+                @error('kode_brand')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3 w-100">
                 <label for="brandName" class="form-label">
@@ -24,6 +27,9 @@
                     value="{{old('name', $brand->name ?? '')}}"
                     id="brandName"
                 />
+                @error('name')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3 w-100">
                 <label
@@ -41,6 +47,9 @@
                     placeholder="Masukan Tagline Brand"
                     id="taglineBrand"
                 />
+                @error('tagline')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="row gap-3 mb-5">
@@ -61,14 +70,17 @@
                         <div class="input-file" id="input-logo">
                             <div class="file-upload">
                                 <input type="file" accept="image/*" name="logo" class="image-logo">
-                                <input type="hidden" name="image_logo">
+                                <input type="hidden" name="image_logo" accept="image/*">
                                 <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload-logo" alt=""  style="display: {{ isset($brand) && $brand->logo ? 'none' : '' }};"/>
-                                <input type="file" name="logo" class="image-logo"/>
+                                <input type="file" name="logo" class="image-logo" accept="image/*"/>
                                 <img src="{{ isset($brand) && $brand->logo ? asset('storage/uploads/logo/' . $brand->logo) : '' }}" alt="" class="show-image-logo" style="display: {{ isset($brand) && $brand->logo ? 'block' : 'none' }};max-width: 104px;
                                     border-radius: 8px;"/>
                                 <p class="text-upload-logo" style="display: {{ isset($brand) && $brand->logo ? 'none' : '' }};">Upload</p>
                             </div>
                         </div>
+                        @error('image_logo')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-12 col-md-4">
@@ -80,14 +92,17 @@
                         <div class="input-file" id="input-maskot">
                             <div class="file-upload">
                                 <input type="file" accept="image/*" name="maskot" class="image-maskot">
-                                <input type="hidden" name="image_maskot">
+                                <input type="hidden" name="image_maskot" accept="image/*">
                                 <img src="{{ asset('/dashboard/assets/img/icons/iconly/Plus-general.svg') }}" class="text-upload-maskot" alt=""  style="display: {{ isset($brand) && $brand->maskot ? 'none' : '' }};"/>
-                                <input type="file" name="maskot" class="image-maskot"/>
+                                <input type="file" name="maskot" class="image-maskot" accept="image/*"/>
                                 <img src="{{ isset($brand) && $brand->maskot ? asset('storage/uploads/maskot/' . $brand->maskot) : '' }}" alt="" class="show-image-maskot" style="display: {{ isset($brand) && $brand->maskot ? 'block' : 'none' }};max-width: 104px;
                                     border-radius: 8px;"/>
                                 <p class="text-upload-maskot" style="display: {{ isset($brand) && $brand->maskot ? 'none' : '' }};">Upload</p>
                             </div>
                         </div>
+                        @error('image_maskot')
+                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -97,6 +112,9 @@
                 >
                     Alamat
                 </p>
+                @error('address')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
                 <div
                     id="container"
                 ></div>
@@ -124,6 +142,9 @@
                 >
                     Kontak
                 </p>
+                @error('label_contact')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
                 <div
                     id="contactContainer"
                 ></div>
@@ -150,6 +171,9 @@
                 >
                     Sosial Media
                 </p>
+                @error('label_sosmed')
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                @enderror
                 <div
                     id="sosmedContainer"
                 ></div>

@@ -56,9 +56,28 @@ class BrandController extends Controller
         $validations = Validator::make($request->all(),[
             'image_logo'          => 'required',
             'image_maskot'        => 'required',
-            'kode_brand'    =>  'required',
-            'name'          => 'required',
-            'tagline'       => 'required',
+            'kode_brand'        =>  'required',
+            'name'              => 'required',
+            'tagline'           => 'required',
+            'contact_id'      => 'required',
+            'label_contact'   => 'required',
+            'link_contact'   => 'required',
+            'sosmed_id'      => 'required',
+            'label_sosmed'    => 'required',
+            'link_sosmed'   => 'required',
+        ],[
+            'image_logo.required'   => 'Logo tidak boleh kosong!',
+            'image_maskot.required' => 'Maskot tidak boleh kosong!',
+            'kode_brand.required'   => 'Kode brand tidak boleh kosong!',
+            'name.required'                  => 'Nama brand tidak boleh kosong!',
+            'tagline.required'      => 'Tagline tidak boleh kosong!',
+            'address.required'     => 'Alamat tidak boleh kosong!',
+            'contact_id.required'  => 'kontak tidak boleh kosong!',
+            'label_contact.required'  => 'kontak tidak boleh kosong!',
+            'link_contact.required'  => 'kontak tidak boleh kosong!',
+            'sosmed_id.required'  => 'sosmed tidak boleh kosong!',
+            'label_sosmed.required'  => 'sosmed tidak boleh kosong!',
+            'link_sosmed.required'  => 'sosmed tidak boleh kosong!',
         ]);
 
         if($validations->fails())
@@ -75,11 +94,11 @@ class BrandController extends Controller
             'status'        => $request->status ?? 0,
         ]);
 
-        foreach ($request->address as $key => $value) {
-            $brand->addresses()->create([
-                'address'   => $value
-            ]);
-        }
+            foreach ($request->address as $key => $value) {
+                $brand->addresses()->create([
+                    'address'   => $value
+                ]);
+            }
 
         foreach ($request->label_contact as $key => $value) {
             $brand->contacts()->create([
@@ -150,9 +169,31 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $validations = Validator::make($request->all(),[
-            'kode_brand'    =>  'required',
-            'name'          => 'required',
-            'tagline'       => 'required',
+            'image_logo'          => 'required',
+            'image_maskot'        => 'required',
+            'kode_brand'        =>  'required',
+            'name'              => 'required',
+            'tagline'           => 'required',
+            'address'         => 'required',
+            'contact_id'      => 'required',
+            'label_contact'   => 'required',
+            'link_contact'   => 'required',
+            'sosmed_id'      => 'required',
+            'label_sosmed'    => 'required',
+            'link_sosmed'   => 'required',
+        ],[
+            'image_logo.required'   => 'Logo tidak boleh kosong!',
+            'image_maskot.required' => 'Maskot tidak boleh kosong!',
+            'kode_brand.required'   => 'Kode brand tidak boleh kosong!',
+            'name.required'                  => 'Nama brand tidak boleh kosong!',
+            'tagline.required'      => 'Tagline tidak boleh kosong!',
+            'address.required'     => 'Alamat tidak boleh kosong!',
+            'contact_id.required'  => 'Jenis kontak tidak boleh kosong!',
+            'label_contact.required'  => 'Label kontak tidak boleh kosong!',
+            'link_contact.required'  => 'Link kontak tidak boleh kosong!',
+            'sosmed_id.required'  => 'Jenis sosmed tidak boleh kosong!',
+            'label_sosmed.required'  => 'Label sosmed tidak boleh kosong!',
+            'link_sosmed.required'  => 'Link sosmed tidak boleh kosong!',
         ]);
 
         if($validations->fails())
