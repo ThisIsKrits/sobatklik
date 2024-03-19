@@ -121,14 +121,23 @@
         searchElement.addClass("form-control-md");
     });
 
-    $('[data-bs-toggle="modal"]').on('click', function() {
-        var dataId = $(this).data('id');
-        $('#deleteForm').attr('action', '/data-contact/' + dataId);
-    });
+    $(document).ready(function () {
+        $('#confirmDeleteBtn').click(function() {
+            var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
+            var modal = $('#modalDelete');
+            var form = modal.find('form');
 
-    $('#confirmDeleteBtn').on('click', function() {
-        $('#deleteForm').get(0).submit();
-        $('#modalDelete').modal('hide');
+            // Set nilai ID ke dalam input hidden di dalam form modal delete
+            form.find('#deleteId').val(id);
+
+            // Set URL aksi form modal delete dengan nilai ID yang benar
+            var actionUrl = form.attr('action');
+            actionUrl = actionUrl.replace(':id', id);
+            form.attr('action', actionUrl);
+
+            // Tampilkan modal delete
+            modal.modal('show');
+        });
     });
 </script>
 @endpush

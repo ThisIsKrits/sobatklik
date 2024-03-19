@@ -123,13 +123,23 @@
     });
 
     $('[data-bs-toggle="modal"]').on('click', function() {
-        var dataId = $(this).data('id');
-        $('#deleteForm').attr('action', '/data-brand/' + dataId);
+        var targetModal = $(this).data('bs-target');
+        $(targetModal).modal('show');
     });
 
-    $('#confirmDeleteBtn').on('click', function() {
-        $('#deleteForm').get(0).submit();
+        $('#confirmDeleteBtn').click(function() {
+            var id = $(this).data('id');
+            var modal = $('#modalDelete');
+            var form = modal.find('form');
+            var action = form.attr('action','/data-sosmed/'+id);
+            $('#modalDelete').modal('show');
+        });
+
+        $('#deleteForm').submit(function(event) {
+            event.preventDefault();
+            $(this).get(0).submit();
+            $('#modalDelete').modal('hide');
         $('#modalDelete').modal('hide');
-    });
+        });
 </script>
 @endpush

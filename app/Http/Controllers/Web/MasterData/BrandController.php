@@ -37,7 +37,7 @@ class BrandController extends Controller
      */
     public function create()
     {
-        $$contacts = ContactCategory::where('status', 1)->get();
+        $contacts = ContactCategory::where('status', 1)->get();
         $sosmeds  = SosmedCategory::where('status', 1)->get();
         return view('admin.master-data.brand-list.input',[
             'sosmeds'    => $sosmeds,
