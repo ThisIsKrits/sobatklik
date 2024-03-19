@@ -1,5 +1,3 @@
-<!-- Modal Delete Table-->
-<div class="modal-backdrop fade"></div>
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

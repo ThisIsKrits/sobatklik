@@ -106,7 +106,56 @@
 @include('partials._modal-filter');
 
 <!-- Modal Delete Table-->
-@include('partials._modal-delete',['data' => $data])
+<div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <h2></h2>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="my-5 d-flex justify-content-center align-items-center text-center" >
+                    <form action="{{ route('data-sosmed.destroy', ':id') }}" method="post" id="deleteForm">
+                        @method('DELETE')
+                        @csrf
+                        <div>
+                            <img
+                                class="mb-4 w-px-300"
+                                src="{{ asset('/dashboard/assets/img/elements/email-verify-error.svg') }}"
+                                alt=""
+                            />
+                            <h3
+                                class="mb-3 h3 font-semibold"
+                            >
+                                Apakah kamu yakin akan
+                                menghapus data ini?
+                            </h3>
+                            <button
+                                class="mb-2 btn btn-danger d-grid w-100"
+                                type="submit"
+                            >
+                                Hapus
+                            </button>
+                            <span
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                class="subtitle-1 cursor-pointer"
+                                id="cancelDeleteBtn"
+                            >
+                                Batal
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection
 @push('scripts')
@@ -122,24 +171,23 @@
         searchElement.addClass("form-control-md");
     });
 
-    $('[data-bs-toggle="modal"]').on('click', function() {
-        var targetModal = $(this).data('bs-target');
-        $(targetModal).modal('show');
-    });
-
+    $(document).ready(function () {
         $('#confirmDeleteBtn').click(function() {
-            var id = $(this).data('id');
+            var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
             var modal = $('#modalDelete');
             var form = modal.find('form');
-            var action = form.attr('action','/data-sosmed/'+id);
-            $('#modalDelete').modal('show');
-        });
 
-        $('#deleteForm').submit(function(event) {
-            event.preventDefault();
-            $(this).get(0).submit();
-            $('#modalDelete').modal('hide');
-        $('#modalDelete').modal('hide');
+            // Set nilai ID ke dalam input hidden di dalam form modal delete
+            form.find('#deleteId').val(id);
+
+            // Set URL aksi form modal delete dengan nilai ID yang benar
+            var actionUrl = form.attr('action');
+            actionUrl = actionUrl.replace(':id', id);
+            form.attr('action', actionUrl);
+
+            // Tampilkan modal delete
+            modal.modal('show');
         });
+    });
 </script>
 @endpush
