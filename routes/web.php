@@ -40,35 +40,31 @@ Route::get('/reset-password/{email}/{token}/', [ForgotPasswordController::class,
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.send');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-
-
-
-// setting
-Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
-Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
-
-// contact
-Route::resource('data-contact', ContactCategoryController::class);
-// sosmed category
-Route::resource('data-sosmed', SosmedCategoryController::class);
-// brand
-Route::resource('data-brand', BrandController::class);
-// customer
-Route::resource('data-customer', CustomerController::class);
-// telephone
-Route::resource('data-telepon', TelephoneController::class);
-// laporan
-Route::resource('data-report', ReportController::class);
-// log
-Route::resource('data-log',LogController::class);
-//
-Route::resource('data-response', ResponseController::class);
-//
-Route::resource('data-user', UserController::class);
-// profile
-Route::resource('profile-user', ProfileController::class);
-
-
-Route::group(['middleware' => 'web'], function(){
+Route::group(['middleware' => 'auth'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+    // setting
+    Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+    Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+
+    // contact
+    Route::resource('data-contact', ContactCategoryController::class);
+    // sosmed category
+    Route::resource('data-sosmed', SosmedCategoryController::class);
+    // brand
+    Route::resource('data-brand', BrandController::class);
+    // customer
+    Route::resource('data-customer', CustomerController::class);
+    // telephone
+    Route::resource('data-telepon', TelephoneController::class);
+    // laporan
+    Route::resource('data-report', ReportController::class);
+    // log
+    Route::resource('data-log',LogController::class);
+    //
+    Route::resource('data-response', ResponseController::class);
+    //
+    Route::resource('data-user', UserController::class);
+    // profile
+    Route::resource('profile-user', ProfileController::class);
 });

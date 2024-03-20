@@ -29,13 +29,24 @@
         <div class="col">
             <div class="card">
                 <div class="card-body px-3">
-                    <form
-                        id="formAuthentication"
-                        class="mb-3"
-                        action="index.html"
-                        method="POST"
-                    >
-                        <form>
+                    @if (isset($data))
+                        <form
+                            id="formAuthentication"
+                            class="mb-3"
+                            action="{{ route('data-user.update',$data->id) }}"
+                            method="POST"
+                        >
+                        @method('PUT')
+                    @else
+                        <form
+                            id="formAuthentication"
+                            class="mb-3"
+                            action="{{ route('data-user.store') }}"
+                            method="POST"
+                        >
+                    @endif
+
+                    @csrf
                             <div class="mb-3 w-100">
                                 <label
                                     for="role"
@@ -49,12 +60,13 @@
                                     class="form-select"
                                     id="role"
                                     aria-label="Default select example"
+                                    name="role"
                                 >
-                                    <option selected>
+                                    <option selected disabled >
                                         Pilih Role
                                     </option>
                                     @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">
+                                    <option value="{{ $role->name }}" {{ isset($data) && $data->roles[0]->name == $role->name ? 'selected' : '' }}>
                                         {{ $role->name }}
                                     </option>
                                     @endforeach
@@ -71,9 +83,10 @@
                                 >
                                 <input
                                     class="form-control"
-                                    name="user"
+                                    name="fullname"
                                     placeholder="Masukan Nama User"
                                     id="user"
+                                    value="{{old('fullname', $data->fullname ?? '')}}"
                                 />
                             </div>
                             <div class="mb-3 w-100">
@@ -87,9 +100,10 @@
                                 >
                                 <input
                                     class="form-control"
-                                    name="birth"
+                                    name="birthdate"
                                     placeholder="DD/MM/YYY"
                                     id="birth"
+                                    value="{{old('birthdate', $data->birthdate ?? '')}}"
                                 />
                             </div>
                             <div class="mb-3">
@@ -105,10 +119,11 @@
                                     class="form-select w-100"
                                     id="basic-usage"
                                     multiple="multiple"
+                                    name="brand_id"
                                 >
                                     <option></option>
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">
+                                        <option value="{{ $brand->id }}" {{ isset($data) && $data->brand_id == $brand->id ? 'selected' : '' }}>
                                             {{ $brand->name }}
                                         </option>
                                     @endforeach
@@ -129,33 +144,36 @@
                                     name="email"
                                     placeholder="Masukan Email"
                                     id="email"
+                                    value="{{old('email', $data->email ?? '')}}"
                                 />
                             </div>
-
-                            <div
-                                class="bg-primary-weak text-center py-3 mb-3"
-                            >
-                                <p class="text-primary">
-                                    Default Password :
-                                    12345678
-                                </p>
-                            </div>
-                            <div
-                                class="form-check form-switch mb-4"
-                            >
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="flexSwitchCheckChecked"
-                                    value="true"
-                                    checked
-                                />
+                            <div class="mb-3 w-100">
                                 <label
-                                    class="form-check-label"
-                                    for="flexSwitchCheckChecked"
-                                    >Status Aktif
-                                    ?</label
+                                    for="password"
+                                    class="form-label"
+                                    >Password
+                                    <span
+                                        >*</span
+                                    ></label
                                 >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Password" aria-label="Password" id="password" name="password" aria-describedby="button-addon2">
+                                    <button class="btn btn-outline-secondary" type="button" id="generate">Generate</button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" name="status"
+                                    type="checkbox" id="toggleSwitch" data-toggle="toggle" data-on="1" data-off="0" value="{{old('status', $data->status ?? '')}}"
+                                    @if (isset($data) && $data->status == 'Aktif')
+                                    checked
+                                    @endif>
+                                    <label class="form-check-label" for="toggleSwitch">
+                                        <i class="far fa-square text-secondary" id="uncheckedIcon"></i>
+                                        <i class="fas fa-check-square text-success d-none" id="checkedIcon"></i>
+                                    </label>
+                                    <label for="toggleSwitch" class="mt-2 ml-2">Status Aktif?</label>
+                                </div>
                             </div>
 
                             <button
@@ -164,7 +182,6 @@
                             >
                                 Simpan
                             </button>
-                        </form>
                     </form>
                 </div>
             </div>
@@ -190,6 +207,19 @@
     $("#basic-usage").select2({
         allowClear: true,
         placeholder: "Pilih Brand",
+    });
+
+    $(document).ready(function() {
+        $('#generate').click(function() {
+            var length = 8; // Panjang password minimal 8 karakter
+            var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=";
+            var password = "";
+            for (var i = 0; i < length; i++) {
+                var charIndex = Math.floor(Math.random() * charset.length);
+                password += charset.charAt(charIndex);
+            }
+            $('#password').val(password);
+        });
     });
     </script>
 @endpush

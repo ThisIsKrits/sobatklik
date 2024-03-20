@@ -141,7 +141,7 @@
             </div>
             <div class="modal-body">
                 <div class="my-5 d-flex justify-content-center align-items-center text-center" >
-                    <form action="{{ route('data-customer.destroy', ':id') }}" method="post" id="deleteForm">
+                    <form action="{{ route('data-user.destroy', ':id') }}" method="post" id="deleteForm">
                         @method('DELETE')
                         @csrf
                         <div>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BrandList;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -48,7 +51,42 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validations = Validator::make($request->all(),[
+            'fullname'  => 'required',
+            'birthdate' => 'required',
+            'brand_id'  => 'required',
+            'email'     => 'required|email|unique:users',
+            'password'  =>  ['required',Password::min(8)],
+        ],[
+            'fullname.required' => 'Nama tidak boleh kosong!',
+            'birthdate.required'    => 'Tanggal lahir tidak boleh kosong!',
+            'brand_id.required'    => 'Brand tidak boleh kosong!',
+            'email.required'    => 'Email tidak boleh kosong!',
+            'email.email'    => 'Format email salah!',
+            'email.unique'    => 'Email sudah digunakan!',
+            'password.required'     => 'Password tidak boleh kosong!',
+            'password.min'          => 'Password minimal 8 karakter!',
+        ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
+
+        $birthdate = Carbon::createFromFormat('d/m/Y', $request->birthdate)->format('Y-m-d');
+
+        $user = User::create([
+            'fullname'      => $request->fullname,
+            'birthdate'     => $birthdate,
+            'brand_id'      => $request->brand_id,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password),
+            'status'        => $request->status ?? 0,
+        ]);
+
+        $user->assignRole($request->role);
+
+        return redirect()->route('data-user.index')->with('setting-success', 'Data user berhasil disimpan!');
     }
 
     /**

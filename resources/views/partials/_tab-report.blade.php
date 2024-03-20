@@ -1,0 +1,247 @@
+<div
+    class="tab-pane fade"
+    id="navs-laporan"
+    role="tabpanel"
+>
+    <div class="table">
+        <table
+            id="reportTable"
+            class="table"
+        >
+            <thead>
+                <tr>
+                    <th
+                        class="w-md-px-150"
+                    >
+                        Kode
+                        Pelaporan
+                    </th>
+                    <th>
+                        Tgl.
+                        Lporan
+                    </th>
+                    <th>
+                        Kategori
+                    </th>
+                    <th>
+                        Brand
+                    </th>
+                    <th>
+                        Pelapor
+                    </th>
+                    <th>
+                        Admin
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Aksi
+                    </th>
+                </tr>
+            </thead>
+            <tbody
+                class="table-border-bottom-0"
+            >
+                <!--   1 -->
+                <tr>
+                    <td>
+                        <p
+                            class="text-primary"
+                        >
+                            TIX-1234567892
+                        </p>
+                    </td>
+                    <td>
+                        17
+                        Agustus
+                        2023
+                        19:08:45
+                    </td>
+                    <td>
+                        Tiket
+                    </td>
+                    <td>
+                        Ruang
+                        Bercerita
+                        Indonesia
+                    </td>
+                    <td>
+                        Sebastian
+                        Foster
+                    </td>
+                    <td>
+                        Zoe
+                        Bennett
+                    </td>
+                    <td>
+                        <p
+                            class="badge bg-badge-label-danger"
+                        >
+                            Ada
+                            Balasan
+                            dari
+                            User
+                        </p>
+                    </td>
+                    <td>
+                        <div
+                            class="d-flex justify-conten-center align-items-center gap-2"
+                        >
+                            <a
+                                href="./laporan-detail.html"
+                                class="btn btn-md btn-primary-weak"
+                            >
+                                <i
+                                    class="ri-eye-line"
+                                ></i>
+                            </a>
+
+                            <button
+                                class="btn btn-md btn-danger-weak"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteLaporan"
+                            >
+                                <i
+                                    class="ri-delete-bin-7-line"
+                                ></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- tr 2 -->
+                <tr>
+                    <td>
+                        <p
+                            class="text-primary"
+                        >
+                            TIX-1234567892
+                        </p>
+                    </td>
+                    <td>
+                        17
+                        Agustus
+                        2023
+                        19:08:45
+                    </td>
+                    <td>
+                        Whatsapp
+                    </td>
+                    <td>
+                        Ruang
+                        Bercerita
+                        Indonesia
+                    </td>
+                    <td>
+                        Jasper
+                        Quinn
+                    </td>
+                    <td>
+                        Olivia
+                        Harper
+                    </td>
+                    <td>
+                        <p
+                            class="badge bg-badge-label-warning"
+                        >
+                            Sudah
+                            Dibalas
+                            Admin
+                        </p>
+                    </td>
+                    <td>
+                        <div
+                            class="d-flex justify-conten-center align-items-center gap-2"
+                        >
+                            <a
+                                href="./laporan-detail.html"
+                                class="btn btn-md btn-primary-weak"
+                            >
+                                <i
+                                    class="ri-eye-line"
+                                ></i>
+                            </a>
+
+                            <button
+                                class="btn btn-md btn-danger-weak"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteLaporan"
+                            >
+                                <i
+                                    class="ri-delete-bin-7-line"
+                                ></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <!-- tr 3 -->
+                <tr>
+                    <td>
+                        <p
+                            class="text-primary"
+                        >
+                            TIX-1234567890
+                        </p>
+                    </td>
+                    <td>
+                        17
+                        Agustus
+                        2023
+                        19:08:45
+                    </td>
+                    <td>
+                        Email
+                    </td>
+                    <td>
+                        Smile
+                        Consulting
+                        Indonesia
+                    </td>
+                    <td>
+                        Liam
+                        Anderson
+                    </td>
+                    <td>
+                        Maya
+                        Rodriguez
+                    </td>
+                    <td>
+                        <p
+                            class="badge bg-badge-label-success"
+                        >
+                            Laporan
+                            Selesai
+                        </p>
+                    </td>
+                    <td>
+                        <div
+                            class="d-flex justify-conten-center align-items-center gap-2"
+                        >
+                            <a
+                                href="./laporan-detail.html"
+                                class="btn btn-md btn-primary-weak"
+                            >
+                                <i
+                                    class="ri-eye-line"
+                                ></i>
+                            </a>
+
+                            <button
+                                class="btn btn-md btn-danger-weak"
+                                type="button"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalDeleteLaporan"
+                            >
+                                <i
+                                    class="ri-delete-bin-7-line"
+                                ></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
