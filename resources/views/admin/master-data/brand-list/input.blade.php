@@ -250,14 +250,16 @@
         deleteButton.className =
             "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
         deleteButton.onclick = function () {
-            input.value = '';
+            input.value = null;
             container.removeChild(inputDiv);
             countAddress--;
         };
 
         inputDiv.appendChild(input);
         inputDiv.appendChild(inputId);
-        inputDiv.appendChild(deleteButton);
+        if(countAddress > 0){
+            inputDiv.appendChild(deleteButton);
+        }
 
         container.appendChild(inputDiv);
 
