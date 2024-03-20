@@ -132,7 +132,40 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validations = Validator::make($request->all(),[
+            'fullname'  => 'required',
+            'birthdate' => 'required',
+            'brand_id'  => 'required',
+        ],[
+            'fullname.required' => 'Nama tidak boleh kosong!',
+            'birthdate.required'    => 'Tanggal lahir tidak boleh kosong!',
+            'brand_id.required'    => 'Brand tidak boleh kosong!',
+            'email.required'    => 'Email tidak boleh kosong!',
+            'email.email'    => 'Format email salah!',
+            'email.unique'    => 'Email sudah digunakan!',
+        ]);
+
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
+        }
+
+        $birthdate = Carbon::createFromFormat('d/m/Y', $request->birthdate)->format('Y-m-d');
+
+        $user = User::findOrFail($id);
+
+        $user->update([
+            'fullname'      => $request->fullname,
+            'birthdate'     => $birthdate,
+            'brand_id'      => $request->brand_id,
+            'email'         => $request->email,
+            'password'      => bcrypt($request->password) ?? $user->password,
+            'status'        => $request->status ?? 0,
+        ]);
+
+        $user->assignRole($request->role);
+
+        return redirect()->route('data-user.index')->with('setting-success', 'Data user berhasil diubah!');
     }
 
     /**
@@ -143,6 +176,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+
+        $data->delete();
+
+        return redirect()->back()->with('setting-success', 'Data user berhasil dihapus!');
     }
 }

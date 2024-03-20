@@ -88,6 +88,9 @@
                                     id="user"
                                     value="{{old('fullname', $data->fullname ?? '')}}"
                                 />
+                                @error('fullname')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 w-100">
                                 <label
@@ -103,9 +106,13 @@
                                     name="birthdate"
                                     placeholder="DD/MM/YYY"
                                     id="birth"
-                                    value="{{old('birthdate', $data->birthdate ?? '')}}"
+                                    value="{{ isset($data->birthdate) ? \Carbon\Carbon::createFromFormat('Y-m-d', $data->birthdate)->format('d/m/Y') : '' }}
+"
                                 />
                             </div>
+                            @error('birthdate')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             <div class="mb-3">
                                 <label
                                     for="brand"
@@ -146,6 +153,9 @@
                                     id="email"
                                     value="{{old('email', $data->email ?? '')}}"
                                 />
+                                @error('email')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 w-100">
                                 <label

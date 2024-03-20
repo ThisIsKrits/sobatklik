@@ -101,16 +101,18 @@
                                                     ></i>
                                                 </a>
 
-                                                <button
-                                                    class="btn btn-danger-weak px-2 py-1"
-                                                    type="button"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#modalDelete"
-                                                >
-                                                    <i
-                                                        class="ri-delete-bin-7-line"
-                                                    ></i>
-                                                </button>
+                                                @if ($data->status !== 'Aktif')
+                                                    <button
+                                                        class="btn btn-danger-weak"
+                                                        type="button"
+                                                        id="confirmDeleteBtn"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modalDelete"
+                                                        data-id="{{ $data->id }}"
+                                                    >
+                                                        <i class="ri-delete-bin-7-line"></i>
+                                                    </button>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
@@ -199,19 +201,16 @@
 
     $(document).ready(function () {
         $('#confirmDeleteBtn').click(function() {
-            var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
+            var id = $(this).data('id');
             var modal = $('#modalDelete');
             var form = modal.find('form');
 
-            // Set nilai ID ke dalam input hidden di dalam form modal delete
             form.find('#deleteId').val(id);
 
-            // Set URL aksi form modal delete dengan nilai ID yang benar
             var actionUrl = form.attr('action');
             actionUrl = actionUrl.replace(':id', id);
             form.attr('action', actionUrl);
 
-            // Tampilkan modal delete
             modal.modal('show');
         });
     });
