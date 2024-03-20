@@ -96,6 +96,10 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
+        $log = User::LogActivity($user);
+
+        dd($log);
+
         $theme  = ColorSelect::find(1)->getTheme;
 
         return response()->json([
@@ -138,15 +142,18 @@ class AuthController extends Controller
         $token  = JWTAuth::attempt(['email' => $email, 'password' => $password]);
 
         $theme  = ColorSelect::find(1)->getTheme;
-        // $getIp  = $request->ip();
-        // $location   = Location::get($getIp);
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
 
-        // $logs   = Activity::create([
-        //     'date'          => Carbon::now()->format('Y-m-d'),
-        //     'ip'            => $getIp,
-        //     'location'      => $location->cityName,
-        //     'description'   => 'Login ke aplikasi sobatklik'
-        // ]);
+        if($location){
+            $logs   = Activity::create([
+                'date'          => Carbon::now()->format('Y-m-d'),
+                'ip'            => $getIp,
+                'location'      => $location->regionName,
+                'description'   => 'Login ke aplikasi sobatklik'
+            ]);
+        }
+
 
         return response()->json([
             'success'   => true,
