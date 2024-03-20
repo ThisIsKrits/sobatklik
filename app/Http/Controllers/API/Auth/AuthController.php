@@ -96,9 +96,17 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
 
-        $log = User::LogActivity($user);
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
 
-        dd($log);
+        $logs   = Activity::create([
+            'user_id'       => $user->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Login ke aplikasi sobatklik'
+        ]);
 
         $theme  = ColorSelect::find(1)->getTheme;
 
@@ -143,16 +151,18 @@ class AuthController extends Controller
 
         $theme  = ColorSelect::find(1)->getTheme;
         $getIp  = $request->ip();
-        $location   = Location::get($getIp);
+        $location   = Location::get('27.124.95.100');
+        $locationString = $location->cityName .','.$location->regionName;
 
-        if($location){
-            $logs   = Activity::create([
-                'date'          => Carbon::now()->format('Y-m-d'),
-                'ip'            => $getIp,
-                'location'      => $location->regionName,
-                'description'   => 'Login ke aplikasi sobatklik'
-            ]);
-        }
+        // Use the Ip2LocationHelper to get the user's location
+        // $location = Ip2LocationHelper::getLocationByIp($ipAddress);
+
+        $logs   = Activity::create([
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Login ke aplikasi sobatklik'
+        ]);
 
 
         return response()->json([

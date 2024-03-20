@@ -1,25 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\API\MasterData;
+namespace App\Http\Controllers\API\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
-use App\Models\API\Response;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Stevebauman\Location\Facades\Location;
 
-class ResponseController extends Controller
+class LogActivyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        //
+        $id = Auth::user()->id;
+        $data = Activity::where('user_id', $id)->get();
+
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Data history berhasil ditampilkan!',
+            'data'      => $data,
+        ]);
     }
 
     /**
@@ -40,30 +44,7 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        $responses = Response::create([
-            'user_id'   => Auth::user()->id,
-            'report_id' => $request->report_id,
-            'report_date'   => Carbon::now()->toDateTimeString(),
-            'content'       => $request->content,
-        ]);
-
-        $getIp  = $request->ip();
-        $location   = Location::get($getIp);
-        $locationString = $location->cityName .','.$location->regionName;
-
-        $logs   = Activity::create([
-            'user_id'       => Auth::user()->id,
-            'date'          => Carbon::now()->format('Y-m-d'),
-            'ip'            => $getIp,
-            'location'      => $locationString ?? null,
-            'description'   => 'Customer membalas tanggapan'
-        ]);
-
-        return response()->json([
-            'success'   => true,
-            'message'   => 'Tanggapan berhasil dikirim!',
-            'data'      => $responses
-        ]);
+        //
     }
 
     /**
@@ -74,13 +55,7 @@ class ResponseController extends Controller
      */
     public function show($id)
     {
-        $data = Response::with('users')->where('report_id', $id)->get();
-
-        return response()->json([
-            'success'   => true,
-            'message'   => 'Tanggapan berhasil ditampilkan',
-            'data'      => $data
-        ]);
+        //
     }
 
     /**
