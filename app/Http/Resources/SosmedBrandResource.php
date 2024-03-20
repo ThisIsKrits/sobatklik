@@ -16,7 +16,7 @@ class SosmedBrandResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'type'              => $this->sosmed->name,
+            'type'              => new SosmedCategoryResource($this->sosmed),
             'label'             => $this->label,
             'link'              => $this->link,
         ];

@@ -124,7 +124,7 @@
                             </ul>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link {{ Request::is('') ? 'active' : '' }}">
+                            <a href="{{ route('data-user.index') }}" class="menu-link {{ Request::is('data-user') ? 'active' : '' }}">
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/2-User.svg') }}" alt="">
 
                                <div>Manajemen User</div>
@@ -141,7 +141,7 @@
                            </a>
                         </li>
                         <li class="menu-item {{ Request::is() ? 'active' : '' }}">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('profile-user.index') }}" class="menu-link">
                                 <img class="menu-icon tf-icons" src="{{ asset('dashboard/assets/img/icons/iconly/Profile.svg') }}" alt="">
 
                                <div>Profil Saya</div>

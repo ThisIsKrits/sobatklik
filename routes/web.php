@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\Web\Admin\CustomerController;
 use App\Http\Controllers\Web\Admin\LogController;
+use App\Http\Controllers\Web\Admin\ProfileController;
 use App\Http\Controllers\Web\Admin\ReportController;
 use App\Http\Controllers\Web\Admin\ResponseController;
 use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Admin\TelephoneController;
+use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Auth\AuthController;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
@@ -61,6 +63,10 @@ Route::resource('data-report', ReportController::class);
 Route::resource('data-log',LogController::class);
 //
 Route::resource('data-response', ResponseController::class);
+//
+Route::resource('data-user', UserController::class);
+// profile
+Route::resource('profile-user', ProfileController::class);
 
 
 Route::group(['middleware' => 'web'], function(){

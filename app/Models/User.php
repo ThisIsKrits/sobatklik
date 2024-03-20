@@ -71,4 +71,9 @@ class User extends Authenticatable implements JWTSubject
             default => 'Unknown',
         };
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(BrandList::class, 'brand_id');
+    }
 }

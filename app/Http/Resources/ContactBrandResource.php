@@ -16,7 +16,7 @@ class ContactBrandResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'type'              => $this->contact->name,
+            'type'              => new ContactCategoryResource($this->contact),
             'label'             => $this->label,
             'link'              => $this->link,
         ];

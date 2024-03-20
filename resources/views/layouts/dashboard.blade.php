@@ -68,6 +68,11 @@
         <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
         <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
         <script src="/dashboard/assets/js/config.js"></script>
+
+        <link
+            rel="stylesheet"
+            href="{{ asset('/dashboard/assets/vendor/libs/select2/select2.css') }}"
+        />
         <style>
            .form-switch .form-check-input{
             width: 60px;
@@ -134,6 +139,8 @@
 
         <!-- Datatables -->
         <script src="/dashboard/assets/vendor/libs/datatables/datatables.min.js"></script>
+
+        <script src="{{ asset('/dashboard/assets/vendor/libs/select2/select2.full.min.js') }}"></script>
 
 
         <!-- Main JS -->
