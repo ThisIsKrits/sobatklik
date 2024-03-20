@@ -7,7 +7,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
         />
 
-        <title>Brand List</title>
+        <title>Laporan</title>
 
         <meta name="description" content="" />
 
@@ -93,9 +93,7 @@
                                 />
                             </span>
                         </a>
-                        <button id="toggleSidebar" class="toggle-button">
-                            Toggle Sidebar
-                        </button>
+
                         <a
                             href="javascript:void(0);"
                             class="layout-menu-toggle menu-link ms-auto d-block d-xl-none"
@@ -127,21 +125,17 @@
                             </a>
                         </li>
 
-                        <li class="menu-item">
+                        <li class="menu-item active">
                             <a href="laporan.html" class="menu-link">
                                 <!-- icon saat active -->
-                                <!-- <img
+                                <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/Ticket-Star-active.svg"
                                     alt=""
-                                /> -->
+                                />
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <img
-                                    class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/Ticket-Star.svg"
-                                    alt=""
-                                />
+                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Ticket-Star.svg" alt=""> -->
                                 <!-- icon tidak active -->
 
                                 <div>Laporan</div>
@@ -185,7 +179,7 @@
                             <span class="menu-header-text">Lainnya</span>
                         </li>
                         <li class="menu-item">
-                            <a href="pengaturan.html" class="menu-link">
+                            <a href="index.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Setting-active.svg" alt=""> -->
                                 <!-- icon saat active -->
@@ -200,32 +194,28 @@
                                 <div>Pengaturan</div>
                             </a>
                         </li>
-                        <li class="menu-item active open">
+                        <li class="menu-item">
                             <a
                                 href="javascript:void(0);"
                                 class="menu-link menu-toggle"
                             >
                                 <!-- icon saat active -->
-                                <img
-                                    class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/Folder-active.svg"
-                                    alt=""
-                                />
+                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Folder-active.svg" alt=""> -->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <!-- <img
+                                <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/Folder.svg"
                                     alt=""
-                                /> -->
+                                />
                                 <!-- icon tidak active -->
 
                                 <div>Master Data</div>
                             </a>
                             <ul class="menu-sub">
-                                <li class="menu-item ms-4 active">
+                                <li class="menu-item ms-4">
                                     <a
-                                        href="brand-list.html"
+                                        href="auth-login-basic.html"
                                         class="menu-link"
                                         target="_blank"
                                     >
@@ -234,7 +224,7 @@
                                 </li>
                                 <li class="menu-item ms-4">
                                     <a
-                                        href="kategori-kontak.html"
+                                        href="auth-register-basic.html"
                                         class="menu-link"
                                         target="_blank"
                                     >
@@ -245,7 +235,7 @@
                                 </li>
                                 <li class="menu-item ms-4">
                                     <a
-                                        href="kategori-sosmed.html"
+                                        href="auth-forgot-password-basic.html"
                                         class="menu-link"
                                         target="_blank"
                                     >
@@ -545,32 +535,6 @@
                     <!-- Content wrapper -->
                     <div class="content-wrapper">
                         <div class="container-xxl flex-grow-1 container-p-y">
-                            <!-- Content header -->
-                            <div
-                                class="d-flex flex-row justify-content-between align-items-center pb-4"
-                            >
-                                <h3 class="ms-1 font-semibold mb-0">
-                                    Brand List
-                                </h3>
-
-                                <a
-                                    href="./brand-list-create.html"
-                                    class="btn btn-primary"
-                                >
-                                    <div
-                                        class="d-flex align-items-center gap-3"
-                                    >
-                                        <img
-                                            class="w-px-20"
-                                            src="../assets/img/icons/iconly/Plus.svg"
-                                            alt=""
-                                        />
-                                        Tambah
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- Main Content -->
-
                             <div class="row mb-4">
                                 <div class="col">
                                     <div class="card">
@@ -583,12 +547,15 @@
                                                     <thead>
                                                         <tr>
                                                             <th
-                                                                class="w-md-px-25"
+                                                                class="w-md-px-150"
                                                             >
-                                                                Logo
+                                                                Kode Pelaporan
                                                             </th>
-                                                            <th>Nama Brand</th>
-
+                                                            <th>Tgl. Lporan</th>
+                                                            <th>Kategori</th>
+                                                            <th>Brand</th>
+                                                            <th>Pelapor</th>
+                                                            <th>Admin</th>
                                                             <th>Status</th>
                                                             <th>Aksi</th>
                                                         </tr>
@@ -599,90 +566,31 @@
                                                         <!--   1 -->
                                                         <tr>
                                                             <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/email-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Email</td>
-
-                                                            <td>
                                                                 <p
-                                                                    class="badge bg-badge-label-success"
+                                                                    class="text-primary"
                                                                 >
-                                                                    Aktif
+                                                                    TIX-1234567892
                                                                 </p>
                                                             </td>
                                                             <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
+                                                                17 Agustus 2023
+                                                                19:08:45
                                                             </td>
-                                                        </tr>
-                                                        <!--   2 -->
-                                                        <tr>
+                                                            <td>Tiket</td>
                                                             <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/whatsapp-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Whatsapp</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
+                                                                Ruang Bercerita
+                                                                Indonesia
                                                             </td>
                                                             <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
+                                                                Sebastian Foster
                                                             </td>
-                                                        </tr>
-                                                        <!--   3 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/baru-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                Kategori Baru
-                                                            </td>
-
+                                                            <td>Zoe Bennett</td>
                                                             <td>
                                                                 <p
                                                                     class="badge bg-badge-label-danger"
                                                                 >
-                                                                    Tidak Aktif
+                                                                    Ada Balasan
+                                                                    dari User
                                                                 </p>
                                                             </td>
                                                             <td>
@@ -690,19 +598,16 @@
                                                                     class="d-flex justify-conten-center align-items-center gap-2"
                                                                 >
                                                                     <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
+                                                                        href="./laporan-detail.html"
+                                                                        class="btn btn-md btn-primary-weak"
                                                                     >
                                                                         <i
-                                                                            class="ri-edit-2-line"
+                                                                            class="ri-eye-line"
                                                                         ></i>
                                                                     </a>
 
                                                                     <button
-                                                                        class="btn btn-danger-weak"
-                                                                        type="button"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#modalDelete"
+                                                                        class="btn btn-md btn-danger-weak"
                                                                     >
                                                                         <i
                                                                             class="ri-delete-bin-7-line"
@@ -711,23 +616,37 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <!--   4 -->
+                                                        <!-- tr 2 -->
                                                         <tr>
                                                             <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/laporan-kontak.svg"
-                                                                    alt=""
-                                                                />
+                                                                <p
+                                                                    class="text-primary"
+                                                                >
+                                                                    TIX-1234567892
+                                                                </p>
                                                             </td>
-                                                            <td>Laporan</td>
-
+                                                            <td>
+                                                                17 Agustus 2023
+                                                                19:08:45
+                                                            </td>
+                                                            <td>Whatsapp</td>
+                                                            <td>
+                                                                Ruang Bercerita
+                                                                Indonesia
+                                                            </td>
+                                                            <td>
+                                                                Jasper Quinn
+                                                            </td>
+                                                            <td>
+                                                                Olivia Harper
+                                                            </td>
                                                             <td>
                                                                 <p
-                                                                    class="badge bg-badge-label-success"
+                                                                    class="badge bg-badge-label-warning"
                                                                 >
-                                                                    Aktif
+                                                                    Sudah
+                                                                    Dibalas
+                                                                    Admin
                                                                 </p>
                                                             </td>
                                                             <td>
@@ -735,13 +654,79 @@
                                                                     class="d-flex justify-conten-center align-items-center gap-2"
                                                                 >
                                                                     <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
+                                                                        href="./laporan-detail.html"
+                                                                        class="btn btn-md btn-primary-weak"
                                                                     >
                                                                         <i
-                                                                            class="ri-edit-2-line"
+                                                                            class="ri-eye-line"
                                                                         ></i>
                                                                     </a>
+
+                                                                    <button
+                                                                        class="btn btn-md btn-danger-weak"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-delete-bin-7-line"
+                                                                        ></i>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- tr 3 -->
+                                                        <tr>
+                                                            <td>
+                                                                <p
+                                                                    class="text-primary"
+                                                                >
+                                                                    TIX-1234567890
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                17 Agustus 2023
+                                                                19:08:45
+                                                            </td>
+                                                            <td>Email</td>
+                                                            <td>
+                                                                Smile Consulting
+                                                                Indonesia
+                                                            </td>
+                                                            <td>
+                                                                Liam Anderson
+                                                            </td>
+                                                            <td>
+                                                                Maya Rodriguez
+                                                            </td>
+                                                            <td>
+                                                                <p
+                                                                    class="badge bg-badge-label-success"
+                                                                >
+                                                                    Laporan
+                                                                    Selesai
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <div
+                                                                    class="d-flex justify-conten-center align-items-center gap-2"
+                                                                >
+                                                                    <a
+                                                                        href="./laporan-detail.html"
+                                                                        class="btn btn-md btn-primary-weak"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-eye-line"
+                                                                        ></i>
+                                                                    </a>
+
+                                                                    <button
+                                                                        class="btn btn-md btn-danger-weak"
+                                                                        type="button"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#modalDelete"
+                                                                    >
+                                                                        <i
+                                                                            class="ri-delete-bin-7-line"
+                                                                        ></i>
+                                                                    </button>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -780,6 +765,31 @@
                                         <form>
                                             <div class="mb-3 w-100">
                                                 <label
+                                                    for="brand"
+                                                    class="form-label"
+                                                    >Brand <span>*</span></label
+                                                >
+                                                <select
+                                                    class="form-select"
+                                                    id="brand"
+                                                    aria-label="Default select example"
+                                                >
+                                                    <option selected>
+                                                        Brand
+                                                    </option>
+                                                    <option value="1">
+                                                        One
+                                                    </option>
+                                                    <option value="2">
+                                                        Two
+                                                    </option>
+                                                    <option value="3">
+                                                        Three
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 w-100">
+                                                <label
                                                     for="status"
                                                     class="form-label"
                                                     >Status
@@ -804,13 +814,39 @@
                                                     </option>
                                                 </select>
                                             </div>
-
+                                            <div class="mb-3 w-100">
+                                                <label
+                                                    for="response"
+                                                    class="form-label"
+                                                    >Waktu Respons
+                                                    <span>*</span></label
+                                                >
+                                                <select
+                                                    class="form-select"
+                                                    id="response"
+                                                    aria-label="Default select example"
+                                                >
+                                                    <option selected>
+                                                        Waktu response
+                                                    </option>
+                                                    <option value="1">
+                                                        One
+                                                    </option>
+                                                    <option value="2">
+                                                        Two
+                                                    </option>
+                                                    <option value="3">
+                                                        Three
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <div
                                                 class="d-flex justify-content-between align-items-center"
                                             >
                                                 <span
                                                     class="fs-5 bg-label-danger cursor-pointer font-semibold"
                                                 >
+                                                    Reset
                                                 </span>
                                                 <button
                                                     class="mb-2 btn btn-primary btn-md"
@@ -951,7 +987,20 @@
                         search: "",
                         searchPlaceholder: "Cari",
                     },
-
+                    responsive: {
+                        details: {
+                            type: "column",
+                            target: "td",
+                        },
+                    },
+                    columnDefs: [
+                        { responsivePriority: 1, targets: 0 },
+                        {
+                            responsivePriority: 2,
+                            targets: 6,
+                            className: "dtr-control",
+                        },
+                    ],
                     dom: '<"top"i<"px-3 d-flex flex-column justify-content-start align-items-start gap-3 ms-auto flex-md-row justify-content-between align-items-md-center gap-md-0"lf>>rt<"bottom"p>',
                     fnInitComplete: function () {
                         var newDiv = $(
@@ -970,25 +1019,6 @@
                             "div.d-flex.flex-column.justify-content-start.align-items-start.gap-3.ms-auto.flex-md-row.justify-content-between.align-items-md-center.gap-md-0"
                         ).append(newDiv);
                     },
-                });
-            });
-
-            $(document).ready(function () {
-                var selectElement = $("#dt-length-0");
-                selectElement.removeClass("form-select-sm");
-                selectElement.addClass("form-select-md");
-                var searchElement = $("#dt-search-1");
-                searchElement.removeClass("form-control-sm");
-                searchElement.addClass("form-control-md");
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const toggleButton = document.getElementById("toggleSidebar");
-                const layoutMenu = document.getElementById("layout-menu");
-
-                toggleButton.addEventListener("click", function () {
-                    layoutMenu.classList.toggle("collapsed");
                 });
             });
         </script>

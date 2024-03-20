@@ -7,7 +7,7 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
         />
 
-        <title>Brand List</title>
+        <title>Manajemen User</title>
 
         <meta name="description" content="" />
 
@@ -62,6 +62,12 @@
             href="../assets/vendor/libs/datatables/datatables.min.css"
         />
 
+        <!-- select-2 -->
+        <link
+            rel="stylesheet"
+            href="../assets/vendor/libs/select2/select2.css"
+        />
+
         <!-- Page CSS -->
 
         <!-- Helpers -->
@@ -93,9 +99,7 @@
                                 />
                             </span>
                         </a>
-                        <button id="toggleSidebar" class="toggle-button">
-                            Toggle Sidebar
-                        </button>
+
                         <a
                             href="javascript:void(0);"
                             class="layout-menu-toggle menu-link ms-auto d-block d-xl-none"
@@ -131,10 +135,10 @@
                             <a href="laporan.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img
-                                    class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/Ticket-Star-active.svg"
-                                    alt=""
-                                /> -->
+                                class="menu-icon tf-icons"
+                                src="../assets/img/icons/iconly/Ticket-Star-active.svg"
+                                alt=""
+                            /> -->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
                                 <img
@@ -164,9 +168,13 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                            <a href="customer.html" class="menu-link">
                                 <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/3-User-active.svg" alt=""> -->
+                                <!-- <img
+                                class="menu-icon tf-icons"
+                                src="../assets/img/icons/iconly/3-User-active.svg"
+                                alt="" 
+                            />-->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
                                 <img
@@ -200,30 +208,26 @@
                                 <div>Pengaturan</div>
                             </a>
                         </li>
-                        <li class="menu-item active open">
+                        <li class="menu-item">
                             <a
                                 href="javascript:void(0);"
                                 class="menu-link menu-toggle"
                             >
                                 <!-- icon saat active -->
-                                <img
-                                    class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/Folder-active.svg"
-                                    alt=""
-                                />
+                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Folder-active.svg" alt=""> -->
                                 <!-- icon saat active -->
                                 <!-- icon tidak active -->
-                                <!-- <img
+                                <img
                                     class="menu-icon tf-icons"
                                     src="../assets/img/icons/iconly/Folder.svg"
                                     alt=""
-                                /> -->
+                                />
                                 <!-- icon tidak active -->
 
                                 <div>Master Data</div>
                             </a>
                             <ul class="menu-sub">
-                                <li class="menu-item ms-4 active">
+                                <li class="menu-item ms-4">
                                     <a
                                         href="brand-list.html"
                                         class="menu-link"
@@ -256,24 +260,28 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                        <li class="menu-item active">
+                            <a href="manajemen-user.html" class="menu-link">
                                 <!-- icon saat active -->
-                                <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/2-User-active.svg" alt=""> -->
-                                <!-- icon saat active -->
-                                <!-- icon tidak active -->
                                 <img
                                     class="menu-icon tf-icons"
-                                    src="../assets/img/icons/iconly/2-User.svg"
+                                    src="../assets/img/icons/iconly/2-User-active.svg"
                                     alt=""
                                 />
+                                <!-- icon saat active -->
+                                <!-- icon tidak active -->
+                                <!-- <img
+                                class="menu-icon tf-icons"
+                                src="../assets/img/icons/iconly/2-User.svg"
+                                alt=""
+                            /> -->
                                 <!-- icon tidak active -->
 
                                 <div>Manajemen User</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="index.html" class="menu-link">
+                            <a href="log-aktifitas.html" class="menu-link">
                                 <!-- icon saat active -->
                                 <!-- <img class="menu-icon tf-icons" src="../assets/img/icons/iconly/Light-Time-Circle-active.svg" alt=""> -->
                                 <!-- icon saat active -->
@@ -549,25 +557,16 @@
                             <div
                                 class="d-flex flex-row justify-content-between align-items-center pb-4"
                             >
-                                <h3 class="ms-1 font-semibold mb-0">
-                                    Brand List
-                                </h3>
-
-                                <a
-                                    href="./brand-list-create.html"
-                                    class="btn btn-primary"
-                                >
-                                    <div
-                                        class="d-flex align-items-center gap-3"
-                                    >
-                                        <img
-                                            class="w-px-20"
-                                            src="../assets/img/icons/iconly/Plus.svg"
-                                            alt=""
-                                        />
-                                        Tambah
-                                    </div>
-                                </a>
+                                <div class="d-flex align-items-center">
+                                    <a
+                                        href="./manajemen-user.html"
+                                        class="text-general"
+                                        ><i class="ri-arrow-left-line fs-1"></i
+                                    ></a>
+                                    <h3 class="ms-1 font-semibold mb-0">
+                                        Ubah User
+                                    </h3>
+                                </div>
                             </div>
                             <!-- Main Content -->
 
@@ -575,313 +574,163 @@
                                 <div class="col">
                                     <div class="card">
                                         <div class="card-body px-3">
-                                            <div class="table">
-                                                <table
-                                                    id="reportGrafik"
-                                                    class="table"
-                                                >
-                                                    <thead>
-                                                        <tr>
-                                                            <th
-                                                                class="w-md-px-25"
-                                                            >
-                                                                Logo
-                                                            </th>
-                                                            <th>Nama Brand</th>
+                                            <form
+                                                id="formAuthentication"
+                                                class="mb-3"
+                                                action="index.html"
+                                                method="POST"
+                                            >
+                                                <form>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="role"
+                                                            class="form-label"
+                                                            >Role
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <select
+                                                            class="form-select"
+                                                            id="role"
+                                                            aria-label="Default select example"
+                                                        >
+                                                            <option selected>
+                                                                Pilih Role
+                                                            </option>
+                                                            <option value="1">
+                                                                One
+                                                            </option>
+                                                            <option value="2">
+                                                                Two
+                                                            </option>
+                                                            <option value="3">
+                                                                Three
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="user"
+                                                            class="form-label"
+                                                            >Nama User
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            class="form-control"
+                                                            name="user"
+                                                            placeholder="Masukan Nama User"
+                                                            id="user"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="birth"
+                                                            class="form-label"
+                                                            >Tanggal Lahir
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            class="form-control"
+                                                            name="birth"
+                                                            placeholder="DD/MM/YYY"
+                                                            id="birth"
+                                                        />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label
+                                                            for="brand"
+                                                            class="form-label"
+                                                            >Brand
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <select
+                                                            class="form-select w-100"
+                                                            id="basic-usage"
+                                                            multiple="multiple"
+                                                        >
+                                                            <option></option>
+                                                            <option>
+                                                                Reactive
+                                                            </option>
+                                                            <option>
+                                                                Solution
+                                                            </option>
+                                                            <option>
+                                                                Conglomeration
+                                                            </option>
+                                                            <option>
+                                                                Algoritm
+                                                            </option>
+                                                            <option>
+                                                                Holistic
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3 w-100">
+                                                        <label
+                                                            for="email"
+                                                            class="form-label"
+                                                            >Email
+                                                            <span
+                                                                >*</span
+                                                            ></label
+                                                        >
+                                                        <input
+                                                            type="email"
+                                                            class="form-control"
+                                                            name="email"
+                                                            placeholder="Masukan Email"
+                                                            id="email"
+                                                        />
+                                                    </div>
 
-                                                            <th>Status</th>
-                                                            <th>Aksi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody
-                                                        class="table-border-bottom-0"
+                                                    <div
+                                                        class="bg-primary-weak text-center py-3 mb-3"
                                                     >
-                                                        <!--   1 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/email-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Email</td>
+                                                        <p class="text-primary">
+                                                            Default Password :
+                                                            12345678
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="form-check form-switch mb-4"
+                                                    >
+                                                        <input
+                                                            class="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckChecked"
+                                                            value="true"
+                                                            checked
+                                                        />
+                                                        <label
+                                                            class="form-check-label"
+                                                            for="flexSwitchCheckChecked"
+                                                            >Status Aktif
+                                                            ?</label
+                                                        >
+                                                    </div>
 
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   2 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/whatsapp-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Whatsapp</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   3 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/baru-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>
-                                                                Kategori Baru
-                                                            </td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-danger"
-                                                                >
-                                                                    Tidak Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-
-                                                                    <button
-                                                                        class="btn btn-danger-weak"
-                                                                        type="button"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#modalDelete"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-delete-bin-7-line"
-                                                                        ></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <!--   4 -->
-                                                        <tr>
-                                                            <td>
-                                                                <img
-                                                                    width="48"
-                                                                    height="48"
-                                                                    src="../assets/img/elements/laporan-kontak.svg"
-                                                                    alt=""
-                                                                />
-                                                            </td>
-                                                            <td>Laporan</td>
-
-                                                            <td>
-                                                                <p
-                                                                    class="badge bg-badge-label-success"
-                                                                >
-                                                                    Aktif
-                                                                </p>
-                                                            </td>
-                                                            <td>
-                                                                <div
-                                                                    class="d-flex justify-conten-center align-items-center gap-2"
-                                                                >
-                                                                    <a
-                                                                        href="./customer-edit.html"
-                                                                        class="btn btn-success-weak"
-                                                                    >
-                                                                        <i
-                                                                            class="ri-edit-2-line"
-                                                                        ></i>
-                                                                    </a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    <button
+                                                        class="mb-2 btn btn-primary btn-md"
+                                                        type="submit"
+                                                    >
+                                                        Simpan
+                                                    </button>
+                                                </form>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- / Content -->
-
-                        <!-- Modal Filter Table-->
-                        <div
-                            class="modal fade"
-                            id="modalFilter"
-                            tabindex="-1"
-                            aria-hidden="true"
-                        >
-                            <div
-                                class="modal-dialog modal-dialog-centered"
-                                role="document"
-                            >
-                                <div class="modal-content p-4">
-                                    <div class="modal-header p-0">
-                                        <h4 class="mb-0 mt-4 ms-4">Filter</h4>
-                                        <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                        ></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="mb-3 w-100">
-                                                <label
-                                                    for="status"
-                                                    class="form-label"
-                                                    >Status
-                                                    <span>*</span></label
-                                                >
-                                                <select
-                                                    class="form-select"
-                                                    id="status"
-                                                    aria-label="Default select example"
-                                                >
-                                                    <option selected>
-                                                        Status
-                                                    </option>
-                                                    <option value="1">
-                                                        One
-                                                    </option>
-                                                    <option value="2">
-                                                        Two
-                                                    </option>
-                                                    <option value="3">
-                                                        Three
-                                                    </option>
-                                                </select>
-                                            </div>
-
-                                            <div
-                                                class="d-flex justify-content-between align-items-center"
-                                            >
-                                                <span
-                                                    class="fs-5 bg-label-danger cursor-pointer font-semibold"
-                                                >
-                                                </span>
-                                                <button
-                                                    class="mb-2 btn btn-primary btn-md"
-                                                    type="submit"
-                                                >
-                                                    Filter
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Modal Delete Table-->
-                        <div
-                            class="modal fade"
-                            id="modalDelete"
-                            tabindex="-1"
-                            aria-hidden="true"
-                        >
-                            <div
-                                class="modal-dialog modal-dialog-centered"
-                                role="document"
-                            >
-                                <div class="modal-content">
-                                    <div class="modal-header p-0">
-                                        <h2></h2>
-                                        <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                        ></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div
-                                            class="my-5 d-flex justify-content-center align-items-center text-center"
-                                        >
-                                            <div>
-                                                <img
-                                                    class="mb-4 w-px-300"
-                                                    src="../assets/img/elements/email-verify-error.svg"
-                                                    alt=""
-                                                />
-                                                <h3
-                                                    class="mb-3 h3 font-semibold"
-                                                >
-                                                    Apakah kamu yakin akan
-                                                    menghapus data ini?
-                                                </h3>
-                                                <button
-                                                    class="mb-2 btn btn-danger d-grid w-100"
-                                                    type="submit"
-                                                >
-                                                    Hapus
-                                                </button>
-                                                <span
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"
-                                                    class="subtitle-1 cursor-pointer"
-                                                >
-                                                    Batal
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- / Navbar -->
 
                         <!-- Footer -->
                         <footer class="footer">
@@ -922,6 +771,9 @@
         <!-- Datatables -->
         <script src="../assets/vendor/libs/datatables/datatables.min.js"></script>
 
+        <!-- select-2 -->
+        <script src="../assets/vendor/libs/select2/select2.full.min.js"></script>
+
         <!-- Main JS -->
         <script src="../assets/js/main.js"></script>
 
@@ -936,60 +788,33 @@
             $(function () {
                 $("#reportGrafik").DataTable({
                     responsive: true,
-                    lengthChange: true,
+                    lengthChange: false,
                     autoWidth: false,
-                    searching: true,
-                    paging: true,
-                    pagingType: "simple_numbers",
+                    searching: false,
+                    paging: false,
                     info: false,
-                    language: {
-                        lengthMenu: "Show _MENU_ data",
-                        paginate: {
-                            previous: '<i class="ri-arrow-left-line"></i>',
-                            next: '<i class="ri-arrow-right-line"></i>',
-                        },
-                        search: "",
-                        searchPlaceholder: "Cari",
-                    },
-
-                    dom: '<"top"i<"px-3 d-flex flex-column justify-content-start align-items-start gap-3 ms-auto flex-md-row justify-content-between align-items-md-center gap-md-0"lf>>rt<"bottom"p>',
-                    fnInitComplete: function () {
-                        var newDiv = $(
-                            "<div class='d-flex justify-content-center align-items-center gap-2'></div>"
-                        );
-                        newDiv.append($(".dt-search"));
-                        newDiv.append(
-                            '<button class="btn btn-outline-placeholder" type="button" data-bs-toggle="modal" data-bs-target="#modalFilter"><i class="ri-equalizer-2-line "></i></button>'
-                        );
-
-                        newDiv.append(
-                            '<button class="btn btn-outline-placeholder"> <i class="ri-list-check"></i></button>'
-                        );
-
-                        $(
-                            "div.d-flex.flex-column.justify-content-start.align-items-start.gap-3.ms-auto.flex-md-row.justify-content-between.align-items-md-center.gap-md-0"
-                        ).append(newDiv);
-                    },
-                });
+                }),
+                    $("#byBrandTable").DataTable({
+                        responsive: true,
+                        lengthChange: false,
+                        autoWidth: false,
+                        searching: false,
+                        paging: false,
+                        info: false,
+                    }),
+                    $("#byBrand").DataTable({
+                        responsive: true,
+                        lengthChange: false,
+                        autoWidth: false,
+                        searching: false,
+                        paging: false,
+                        info: false,
+                    });
             });
 
-            $(document).ready(function () {
-                var selectElement = $("#dt-length-0");
-                selectElement.removeClass("form-select-sm");
-                selectElement.addClass("form-select-md");
-                var searchElement = $("#dt-search-1");
-                searchElement.removeClass("form-control-sm");
-                searchElement.addClass("form-control-md");
-            });
-        </script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const toggleButton = document.getElementById("toggleSidebar");
-                const layoutMenu = document.getElementById("layout-menu");
-
-                toggleButton.addEventListener("click", function () {
-                    layoutMenu.classList.toggle("collapsed");
-                });
+            $("#basic-usage").select2({
+                allowClear: true,
+                placeholder: "Pilih Brand",
             });
         </script>
     </body>
