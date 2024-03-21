@@ -175,7 +175,7 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" name="status"
                                     type="checkbox" id="toggleSwitch" data-toggle="toggle" data-on="1" data-off="0" value="{{old('status', $data->status ?? '')}}"
-                                    @if (isset($data) && $data->status == 'Aktif')
+                                    @if (isset($data) && $data->status == 1)
                                     checked
                                     @endif>
                                     <label class="form-check-label" for="toggleSwitch">
