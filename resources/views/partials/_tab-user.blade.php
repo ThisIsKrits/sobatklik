@@ -101,7 +101,7 @@
                 <p
                     class="font-normal"
                 >
-                    {{ $data->brand_id }}
+                {{ implode(', ', $data->brands->pluck('name')->toArray()) }}
                 </p>
             </div>
         </div>

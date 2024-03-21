@@ -68,9 +68,16 @@
                                             {{ $data->email }}
                                         </td>
                                         <td>
-                                            @if (isset($data->brand))
-                                            {{ $data->brand->name }}
-
+                                            @if ($data->brands->count() > 1)
+                                                <ul>
+                                                    @foreach ($data->brands as $key => $brand)
+                                                        <li>{{ $brand->name }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                @foreach ($data->brands as $key => $brand)
+                                                    {{ $brand->name }}
+                                                @endforeach
                                             @endif
                                         </td>
                                         <td>

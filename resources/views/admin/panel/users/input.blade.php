@@ -126,11 +126,11 @@
                                     class="form-select w-100"
                                     id="basic-usage"
                                     multiple="multiple"
-                                    name="brand_id"
+                                    name="brand_id[]"
                                 >
                                     <option></option>
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}" {{ isset($data) && $data->brand_id == $brand->id ? 'selected' : '' }}>
+                                        <option value="{{ $brand->id }}" {{ isset($data) && $data->brands->contains($brand->id) ? 'selected' : '' }}>
                                             {{ $brand->name }}
                                         </option>
                                     @endforeach

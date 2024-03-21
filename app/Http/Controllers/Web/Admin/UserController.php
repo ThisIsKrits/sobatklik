@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BrandList;
 use App\Models\User;
+use App\Models\UserBrand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -20,8 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $datas = User::role('admin')->get();
-
+        $datas = User::with('brands')->role('admin')->get();
         return view('admin.panel.users.index',[
             'datas'  => $datas
         ]);
@@ -78,11 +78,14 @@ class UserController extends Controller
         $user = User::create([
             'fullname'      => $request->fullname,
             'birthdate'     => $birthdate,
-            'brand_id'      => $request->brand_id,
             'email'         => $request->email,
             'password'      => bcrypt($request->password),
             'status'        => $request->status ?? 0,
         ]);
+
+        foreach ($request->brand_id as $key => $value) {
+            $user->brands()->attach($value);
+        }
 
         $user->assignRole($request->role);
 
@@ -162,6 +165,8 @@ class UserController extends Controller
             'password'      => bcrypt($request->password) ?? $user->password,
             'status'        => $request->status ?? 0,
         ]);
+
+        $user->brands()->sync($request->brand_id);
 
         $user->assignRole($request->role);
 
