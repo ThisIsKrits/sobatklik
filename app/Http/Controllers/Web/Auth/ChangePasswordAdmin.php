@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Trait\ImageProcessingTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
-class ProfileController extends Controller
+class ChangePasswordAdmin extends Controller
 {
-    use ImageProcessingTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,12 +17,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $id = Auth::user()->id;
-        $data = User::find($id);
-
-        return view('admin.panel.profile.index',[
-            'data'  => $data
-        ]);
+        //
     }
 
     /**
@@ -78,39 +72,31 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = User::findOrFail($id);
-
-        if (!empty($request->image_base64)) {
-            $profileImage = $data->profile;
-            if (!is_null($profileImage)) {
-                $imagePath = public_path('storage/uploads/profile/') . $profileImage->image;
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                }
-            }
-
-            $image = $this->storeProfile($request->image_base64);
-        } else {
-            $image = $data->profile()->image ?? '';
-        }
-
-        $data->update([
-            'nickname'  => $request->nickname,
+        $validations    = Validator::make($request->all(), [
+            'old_password'      => 'required',
+            'password'          => 'required|confirmed',
+        ],[
+            'old_password.required' => 'Password lama tidak boleh kosong!',
+            'password.required'     => 'Password baru tidak boleh kosong!',
         ]);
 
-        if ($data->profile) {
-            $data->profile->update([
-                'user_id'   => $data->id,
-                'image' => $image,
-            ]);
-        }else{
-            $data->profile->create([
-                'user_id'   => $data->id,
-                'image' => $image,
-            ]);
+        if($validations->fails())
+        {
+            return redirect()->back()->withErrors($validations)->withInput();
         }
 
-        return redirect()->back()->with('setting-success','Data profile berhasil diubah!');
+        if(!Hash::check($request->old_password, auth()->user()->password))
+        {
+            return redirect()->back()->with('error-message','Password tidak sesuai!');
+        }
+
+        $password   = Auth::user();
+
+        $password->update([
+            'password'  => bcrypt($request->password)
+        ]);
+
+        return redirect()->back()->with('setting-success','Password berhasil diubah!');
     }
 
     /**

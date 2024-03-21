@@ -58,7 +58,7 @@ class SosmedCategoryController extends Controller
 
         SosmedCategory::create([
             'name'  => $request->name,
-            'icon'  => $this->storeBase64($request->image_base64),
+            'icon'  => $this->storeSosmed($request->image_base64),
             'status'    => $request->status ?? 0,
         ]);
 
@@ -124,7 +124,7 @@ class SosmedCategoryController extends Controller
                 }
             }
             // Simpan gambar baru
-            $iconName = $this->storeBase64($request->image_base64);
+            $iconName = $this->storeSosmed($request->image_base64);
         } else {
             // Jika tidak ada gambar baru, gunakan gambar yang sudah ada
             $iconName = $contact->icon;

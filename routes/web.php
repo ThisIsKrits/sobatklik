@@ -9,6 +9,7 @@ use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Admin\TelephoneController;
 use App\Http\Controllers\Web\Admin\UserController;
 use App\Http\Controllers\Web\Auth\AuthController;
+use App\Http\Controllers\Web\Auth\ChangePasswordAdmin;
 use App\Http\Controllers\Web\Auth\ForgotPasswordController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\EmailVerfiController;
@@ -46,6 +47,8 @@ Route::group(['middleware' => 'auth'], function(){
     // setting
     Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
     Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+    Route::put('/admin-password/{id}', [AuthController::class, 'change_password_admin'])->name('password.change');
+    Route::resource('admin-pass', ChangePasswordAdmin::class);
 
     // contact
     Route::resource('data-contact', ContactCategoryController::class);
@@ -67,4 +70,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('data-user', UserController::class);
     // profile
     Route::resource('profile-user', ProfileController::class);
+
 });

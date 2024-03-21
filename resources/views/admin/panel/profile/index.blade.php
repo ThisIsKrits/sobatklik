@@ -3,6 +3,9 @@
 @section('title', 'Profile')
 
 @section('content')
+@php
+    $role = Auth::user()->roles->first()->name;
+@endphp
 <div class="container-xxl flex-grow-1 container-p-y">
                             <!-- Main Content -->
     <div class="mb-4">
@@ -13,12 +16,18 @@
                         <div
                             class="d-flex flex-column align-items-center text-center"
                         >
-                            <img
-                                src="{{ asset('/dashboard/assets/img/avatars/5.png') }}"
-                                alt="Admin"
-                                class="rounded-circle p-1"
-                                width="150"
-                            />
+                            @if (isset($data->profile))
+                                <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" class="rounded-circle p-1"
+                                    width="150" alt="{{ $data->name }}">
+                            @else
+                                <img
+                                    src="{{ asset('/dashboard/assets/img/avatars/avatar-default.jpg') }}"
+                                    alt="Admin"
+                                    class="rounded-circle p-1"
+                                    width="150"
+                                />
+                            @endif
+
                             <div class="mt-2">
                                 <h5 class="m-0">
                                     John Doe
@@ -160,10 +169,13 @@
                         >
                             <h4>Pengaturan Profil</h4>
                             <form
-                                id="formAuthentication"
+                                id="formAuthentications"
                                 class="mb-3"
                                 method="POST"
+                                action="{{ route('profile-user.update', $data->id) }}"
                             >
+                                @method('PUT')
+                                @csrf
                                 <div
                                     id="AvatarFileUpload"
                                 >
@@ -171,10 +183,11 @@
                                     <div
                                         class="selected-image-holder"
                                     >
-                                        <img
-                                            src="{{ asset('/dashboard/assets/img/avatars/5.png') }}"
-                                            alt="AvatarInput"
-                                        />
+                                        @if (isset($data->profile))
+                                            <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" alt="Avatar">
+                                        @else
+                                            <img src="{{ asset('/dashboard/assets/img/avatars/avatar-default.jpg') }}" alt="Avatar Default">
+                                        @endif
                                     </div>
                                     <!-- Image Preview Wrapper -->
                                     <!-- Browse Image to Upload Wrapper -->
@@ -185,6 +198,7 @@
                                             href="#"
                                             class="avatar-selector-btn d-flex align-items-center justify-content-center"
                                         >
+
                                             <img
                                                 class="mt-0"
                                                 src="{{ asset('/dashboard/assets/img/icons/camera-fill.svg') }}"
@@ -193,9 +207,11 @@
                                         </a>
                                         <input
                                             type="file"
-                                            accept="images/jpg, images/png"
-                                            name="avatar"
+                                            accept="images/*"
+                                            name="image"
+                                            class="image"
                                         />
+                                        <input type="hidden" name="image_base64" accept="image/*">
                                     </div>
                                     <!-- Browse Image to Upload Wrapper -->
                                 </div>
@@ -212,8 +228,8 @@
                                         type="text"
                                         class="form-control"
                                         id="email"
-                                        name="email-username"
-                                        value="johndoe@gmail.com"
+                                        name="email"
+                                        value="{{ $data->email }}"
                                         placeholder="Masukan Email"
                                         disabled
                                     />
@@ -236,7 +252,7 @@
                                             id="fullName"
                                             class="form-control"
                                             name="fullname"
-                                            value="John Doe Abdullah"
+                                            value="{{ $data->fullname }}"
                                             placeholder="Masukan Nama Lengkap"
                                             disabled
                                         />
@@ -260,7 +276,7 @@
                                             id="nickname"
                                             class="form-control"
                                             name="nickname"
-                                            value="JD"
+                                            value="{{ $data->nickname }}"
                                             placeholder="Masukkan Nick Name"
                                             autofocus
                                         />
@@ -286,11 +302,13 @@
                         >
                             <h4>Ubah Password</h4>
                             <form
-                                id="formAuthentication"
+                                id="formAuthenticati"
                                 class="mb-3"
-                                action="index.html"
-                                method="POST"
+                                action="{{ route('admin-pass.update',$data->id) }}"
+                                method="post"
                             >
+                                @method('PUT')
+                                @csrf
                                 <div
                                     class="mb-3 form-password-toggle"
                                 >
@@ -310,7 +328,7 @@
                                             type="password"
                                             id="oldPassword"
                                             class="form-control error"
-                                            name="password"
+                                            name="old_password"
                                             placeholder="Masukan password lama"
                                             aria-describedby="password"
                                         />
@@ -323,6 +341,9 @@
                                             ></i>
                                         </span>
                                     </div>
+                                    @error('old_password')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div
                                     class="mb-3 form-password-toggle"
@@ -356,6 +377,9 @@
                                             ></i>
                                         </span>
                                     </div>
+                                    @error('password')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div
@@ -378,7 +402,7 @@
                                             type="password"
                                             id="passwordConfirmation"
                                             class="form-control error"
-                                            name="passwordConfirmation"
+                                            name="password_confirmation"
                                             placeholder="Masukan konfirmasi password baru"
                                             aria-describedby="password"
                                         />
@@ -390,6 +414,9 @@
                                             ></i
                                         ></span>
                                     </div>
+                                    @error('password_confirmation')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                                 <div
@@ -410,9 +437,132 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header ms-auto">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="card-body mx-5">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="my-3">
+                            <div class="selfie-area text-center">
+                                <img
+                                    id="image"
+                                    class="w-75 h-75"
+                                    src="#"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="mt-3">
+                                <input type="range" class="form-range" id="range" min="100" max="500" value="250">
+                            </div>
+                        </div>
+                        <button class="mb-3 btn btn-primary d-grid" id="crop">
+                            Crop
+                        </button>
+                        <span class="mb-2 subtitle-1 cursor-pointer">
+                            ulangi
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
     <script>
+    var $modal = $('#modal');
+    var image = document.getElementById('image');
+    var cropper;
+
+    $("body").on("change", ".image", function(e){
+        var files = e.target.files;
+        var done = function (url) {
+            image.src = url;
+            $modal.modal('show');
+        };
+
+        var reader;
+        var file;
+        var url;
+
+        if (files && files.length > 0) {
+            file = files[0];
+
+            if (URL) {
+                done(URL.createObjectURL(file));
+            } else if (FileReader) {
+                reader = new FileReader();
+                reader.onload = function (e) {
+                    done(reader.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    });
+
+    $modal.on('shown.bs.modal', function () {
+        console.log('Modal tampil');
+        if (cropper) {
+            cropper.destroy();
+        }
+
+        cropper = new Cropper(image, {
+            aspectRatio: 1/1,
+            viewMode: 3,
+            preview: '.preview',
+        });
+
+        $('#range').on('input', function() {
+            var value = $(this).val();
+            $('#cropWidth').val(value);
+            $('#cropHeight').val(value);
+            cropper.setCropBoxData({ width: value, height: value });
+            var zoomLevel = parseFloat(value) / 100; // Ubah rentang 100-500 menjadi 0.33-1.67
+            cropper.zoomTo(zoomLevel);
+        });
+    }).on('hidden.bs.modal', function () {
+        console.log('Modal hidden');
+        $('.image').val('');
+        if (cropper) {
+            cropper.destroy();
+            cropper = null;
+        }
+    });
+
+    var croppedCanvas;
+
+    $("#crop").click(function(){
+        if (cropper) {
+            canvas = cropper.getCroppedCanvas({
+                width: 512,
+                height: 512,
+            });
+
+            // Menggunakan croppedCanvas
+            canvas.toBlob(function(blob) {
+                url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function() {
+                        var base64data = reader.result;
+                        $("input[name='image_base64']").val(base64data);
+                        $(".selected-image-holder>img").show();
+                        $(".text-upload").hide();
+                        $(".selected-image-holder>img").attr("src",base64data);
+                        $("#modal").modal('toggle');
+                    }
+            });
+        }
+    });
+
+
         const openTab = (evt, tabName) => {
                 const tabcontent = document.getElementsByClassName("tab");
                 for (let i = 0; i < tabcontent.length; i++) {
@@ -453,7 +603,7 @@
             );
 
             const imageInput = avatarFileUpload.querySelector(
-                'input[name="avatar"]'
+                'input[name="image"]'
             );
 
             imageSelector.addEventListener("click", (e) => {
@@ -462,15 +612,15 @@
                 imageInput.click();
             });
 
-            imageInput.addEventListener("change", (e) => {
-                // Open File eader
-                var reader = new FileReader();
-                reader.onload = function () {
-                    imageViewer.src = reader.result;
-                };
+            // imageInput.addEventListener("change", (e) => {
+            //     // Open File eader
+            //     var reader = new FileReader();
+            //     reader.onload = function () {
+            //         imageViewer.src = reader.result;
+            //     };
 
-                reader.readAsDataURL(e.target.files[0]);
-            });
+            //     reader.readAsDataURL(e.target.files[0]);
+            // });
 
             const togglePassword = (passwordInput, toggleButton) => {
                 passwordInput.type =
@@ -533,5 +683,7 @@
                     togglePasswordConfirmationButton
                 );
             });
+
+
     </script>
 @endpush

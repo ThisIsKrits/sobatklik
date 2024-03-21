@@ -88,6 +88,9 @@
                 @if (session('setting-success'))
                     @include('partials.success',['message' => (session('setting-success'))])
                 @endif
+                @if (session('error-message'))
+                    @include('partials._modal-error',['message' => (session('error-message'))])
+                @endif
     <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
                 <!-- sidebar -->
@@ -159,12 +162,21 @@
            $(document).ready(function() {
                 var successMessage = "{{ session('success') }}";
                 var crudMessage = "{{ session('setting-success') }}";
+                var errorMessage = "{{ session('error-message') }}";
 
                 if (successMessage || crudMessage) {
                     $('#modalCenterSuccess').modal('show');
 
                     setTimeout(function() {
                         $('#modalCenterSuccess').modal('hide');
+                    }, 2000);
+                }
+
+                if(errorMessage){
+                    $('#modalCenterError').modal('show');
+
+                    setTimeout(function() {
+                        $('#modalCenterError').modal('hide');
                     }, 2000);
                 }
             });

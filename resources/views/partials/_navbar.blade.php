@@ -60,6 +60,9 @@
                     href="javascript:void(0);"
                     data-bs-toggle="dropdown"
                 >
+                    @if(isset(Auth::user()->profile))
+                    <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" class="admin-avatar" alt="Avatar">
+                    @else
                     <div class="admin-avatar">
                         <p class="mb-0">
                             @if ($role == 'superadmin')
@@ -69,6 +72,7 @@
                             @endif
                         </p>
                     </div>
+                    @endif
                     <div>
                     @auth
                         <p class="mb-0">{{ Auth::user()->fullname }}</p>
@@ -89,17 +93,21 @@
                                 <div
                                     class="flex-shrink-0 me-3"
                                 >
-                                    <div
-                                        class="admin-avatar"
-                                    >
-                                        <p class="mb-0">
-                                        @if ($role == 'superadmin')
-                                            SA
-                                        @elseif ($role == 'admin')
-                                            A
-                                        @endif
-                                        </p>
-                                    </div>
+                                    @if(isset(Auth::user()->profile))
+                                        <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" class="admin-avatar" alt="Avatar">
+                                    @else
+                                        <div
+                                            class="admin-avatar"
+                                        >
+                                            <p class="mb-0">
+                                            @if ($role == 'superadmin')
+                                                SA
+                                            @elseif ($role == 'admin')
+                                                A
+                                            @endif
+                                            </p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="flex-grow-1">
 

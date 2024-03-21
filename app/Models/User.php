@@ -77,4 +77,8 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(BrandList::class, 'user_brands', 'user_id', 'brand_id');
     }
 
+    public function profile()
+    {
+        return $this->hasOne(ImageProfile::class,'user_id','id');
+    }
 }

@@ -1,5 +1,4 @@
-<div class="modal-backdrop fade show"></div>
-<div class="modal fade show" id="modalCenterError" tabindex="-1"
+<div class="modal fade" id="modalCenterError" tabindex="-1"
     style="display: block" aria-modal="true" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -11,9 +10,7 @@
                   src="{{ asset('/dashboard/assets/img/icons/danger.svg') }}"
                   alt=""
                 />
-                <p class="subtitle-1">
-                  {{ $message }}
-                </p>
+                <h4 class="mb-2 font-semibold">{{ $message }}</h4>
               </div>
             </div>
           </div>
