@@ -28,9 +28,10 @@
                     <form
                         id="formAuthentication"
                         class="mb-3"
-                        action="index.html"
+                        action="{{ route('data-report.store') }}"
                         method="POST"
                     >
+                    @csrf
                             <div class="mb-3 w-100">
                                 <label
                                     for="brand"
@@ -44,20 +45,48 @@
                                     class="form-select"
                                     id="brand"
                                     aria-label="Default select example"
+                                    name="brand_id"
                                 >
                                     <option selected>
                                         Brand
                                     </option>
-                                    <option value="1">
-                                        One
-                                    </option>
-                                    <option value="2">
-                                        Two
-                                    </option>
-                                    <option value="3">
-                                        Three
-                                    </option>
+                                    @foreach ($brands as $brand)
+                                        <option value="{{ $brand->id }}">
+                                            {{ $brand->name }}
+                                        </option>
+                                    @endforeach
                                 </select>
+                                @error('brand_id')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 w-100">
+                                <label
+                                    for="type"
+                                    class="form-label"
+                                    >Jenis Laporan
+                                    <span
+                                        >*</span
+                                    ></label
+                                >
+                                <select
+                                    class="form-select"
+                                    id="type"
+                                    aria-label="Default select example"
+                                    name="type_id"
+                                >
+                                    <option selected>
+                                        Pilih Jenis Laporan
+                                    </option>
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}">
+                                            {{ $type->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('type_id')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3 w-100">
                                 <label
@@ -72,20 +101,20 @@
                                     class="form-select"
                                     id="customer"
                                     aria-label="Default select example"
+                                    name="customer_id"
                                 >
                                     <option selected>
                                         Pilih Customer
                                     </option>
-                                    <option value="1">
-                                        One
-                                    </option>
-                                    <option value="2">
-                                        Two
-                                    </option>
-                                    <option value="3">
-                                        Three
-                                    </option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">
+                                            {{ $customer->fullname }}
+                                        </option>
+                                    @endforeach
                                 </select>
+                                @error('customer_id')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div
                                 class="my-4 text-start"
@@ -103,10 +132,13 @@
                                     class="form-control"
                                     id="keluhan"
                                     rows="3"
-                                    name="detail"
+                                    name="complaint"
                                     placeholder="Masukan Detail Keluhan"
                                     autofocus
                                 ></textarea>
+                                @error('complaint')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-4">
                                 <label
@@ -120,14 +152,15 @@
                                         class="file-upload"
                                     >
                                         <input
-                                            type="file"
+                                            type="file" id="fileInput[]" multiple onchange="displayFileName()"
                                         />
                                         <img
-                                            src="../assets//img/icons/iconly/Plus-general.svg"
+                                            src="{{ asset('/dashboard/assets//img/icons/iconly/Plus-general.svg') }}"
                                             alt=""
                                         />
                                         <p>Upload</p>
                                     </div>
+                                    <div id="fileNameDisplay"></div>
                                 </div>
                             </div>
                             <button
@@ -143,3 +176,18 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+        function displayFileName() {
+            const fileInput = document.getElementById('fileInput[]');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+
+            if (fileInput && fileInput.files.length > 0) {
+                const fileNames = Array.from(fileInput.files).map(file => file.name);
+                fileNameDisplay.textContent = `Selected files: ${fileNames.join(', ')}`;
+            } else {
+                fileNameDisplay.textContent = 'No file selected';
+            }
+        }
+    </script>
+@endpush

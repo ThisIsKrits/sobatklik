@@ -10,7 +10,7 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['codes','report_date','categories_id','brand_id','reporter_id','admin_id','status'];
+    protected $fillable = ['codes','report_date', 'type_id','category','brand_id','reporter_id','admin_id','status'];
 
     public function category()
     {
@@ -40,5 +40,10 @@ class Report extends Model
     public function files()
     {
         return $this->hasMany(AttachReport::class, 'report_id');
+    }
+
+    public function getStatusTextAttribute()
+    {
+        return $this->status == 1 ? 'Aktif' : 'Tidak Aktif';
     }
 }

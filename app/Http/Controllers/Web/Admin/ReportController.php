@@ -7,6 +7,8 @@ use App\Models\Activity;
 use App\Models\API\Response;
 use App\Models\BrandList;
 use App\Models\Report;
+use App\Models\ReportType;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +37,14 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('admin.panel.report.input');
+        $brands = BrandList::where('status',1)->get();
+        $customers  = User::where('status',1)->role('customer')->get();
+        $types      = ReportType::all();
+        return view('admin.panel.report.input',[
+            'brands'    => $brands,
+            'customers' => $customers,
+            'types'     => $types
+        ]);
     }
 
     /**
@@ -46,13 +55,16 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validations = Validator::make($request->all(),[
-            'category'      => 'required',
             'type_id'       => 'required',
+            'brand_id'       => 'required',
+            'customer_id'       => 'required',
             'complaint'     => 'required',
         ],[
-            'category.required' => 'Kategori tidak boleh kosong!',
             'type_id.required'  => 'Jenis Keluhan tidak boleh kosong!',
+            'brand_id.required'  => 'Brand tidak boleh kosong!',
+            'customer_id.required'  => 'Brand tidak boleh kosong!',
             'complaint.required' => 'Keluhan tidak boleh kosong!'
         ]);
 
@@ -70,17 +82,18 @@ class ReportController extends Controller
 
         $code = $brand->kode_brand. '/'. Carbon::now()->format('dmY') . '/' . str_pad($reportCount + 1, 5, '0', STR_PAD_LEFT);
 
-        $adminId = $this->assignAdmin($request->brand_id);
+        $categpry   = 'email';
 
         $report = Report::create([
             'codes'     => $code,
-            'category'  => $request->category,
+            'category'  => 'email',
             'type_id'   => $request->type_id,
             'report_date'   => Carbon::now()->toDateTimeString(),
             'brand_id'      => $brand->id,
-            'admin_id'      => $adminId,
-            'reporter_id'   => Auth::user()->id,
+            'admin_id'      => Auth::user()->id,
+            'reporter_id'   => $request->customer_id,
             'complaint'     => $request->complaint,
+            'status'        => 1
         ]);
 
         if ($request->hasFile('files')) {
@@ -94,19 +107,19 @@ class ReportController extends Controller
             }
         }
 
-        $getIp  = $request->ip();
-        $location   = Location::get($getIp);
-        $locationString = $location->cityName .','.$location->regionName;
+        // $getIp  = $request->ip();
+        // $location   = Location::get($getIp);
+        // $locationString = $location->cityName .','.$location->regionName;
 
-        $logs   = Activity::create([
-            'user_id'       => Auth::user()->id,
-            'date'          => Carbon::now()->format('Y-m-d'),
-            'ip'            => $getIp,
-            'location'      => $locationString ?? null,
-            'description'   => 'Membuat laporan untuk user'
-        ]);
+        // $logs   = Activity::create([
+        //     'user_id'       => Auth::user()->id,
+        //     'date'          => Carbon::now()->format('Y-m-d'),
+        //     'ip'            => $getIp,
+        //     'location'      => $locationString ?? null,
+        //     'description'   => 'Membuat laporan untuk user'
+        // ]);
 
-        return redirect()->route('report.index')->with('setting-success','Data laporan berhasil ditambah!');
+        return redirect()->route('data-report.index')->with('setting-success','Data laporan berhasil ditambah!');
     }
 
     /**
@@ -156,6 +169,36 @@ class ReportController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Report::with('files')->findOrFail($id);
+
+        if(isset($data->files)){
+            foreach ($data->files as $file) {
+                $path = public_path() . "/storage/uploads/report/" . $file->name;
+
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+
+                $file->delete();
+            }
+        }
+
+
+        $data->delete();
+
+         // $getIp  = $request->ip();
+        // $location   = Location::get($getIp);
+        // $locationString = $location->cityName .','.$location->regionName;
+
+        // $logs   = Activity::create([
+        //     'user_id'       => Auth::user()->id,
+        //     'date'          => Carbon::now()->format('Y-m-d'),
+        //     'ip'            => $getIp,
+        //     'location'      => $locationString ?? null,
+        //     'description'   => 'Membuat laporan untuk user'
+        // ]);
+
+
+        return redirect()->back()->with('setting-success','Data laporan berhasil dihapus');
     }
 }
