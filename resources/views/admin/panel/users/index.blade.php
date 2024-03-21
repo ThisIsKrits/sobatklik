@@ -81,9 +81,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
-                                                {{ $data->status_text }}
-                                            </p>
+                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">{{ $data->status }}</p>
                                         </td>
                                         <td>
                                             <div
@@ -106,7 +104,7 @@
                                                     ></i>
                                                 </a>
 
-                                                @if ($data->status !== 'Aktif')
+                                                @if ($data->status !== 1)
                                                     <button
                                                         class="btn btn-danger-weak"
                                                         type="button"

@@ -70,7 +70,7 @@
                                             <a href="{{ route('data-sosmed.edit',$data->id) }}" class="btn btn-success-weak" >
                                                 <i class="ri-edit-2-line"></i>
                                             </a>
-                                            @if ($data->status !== 'Aktif' && !$data->sosmedBrand->count())
+                                            @if ($data->status !== 1 && !$data->sosmedBrand->count())
                                             <button
                                                 class="btn btn-danger-weak"
                                                 type="button"

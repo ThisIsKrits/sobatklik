@@ -56,8 +56,8 @@
                                             {{ $user->birthdate }}
                                         </td>
                                         <td>
-                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
-                                                {{ $data->status_text }}
+                                            <p class="badge {{ $user->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
+                                                {{ $user->status_text }}
                                             </p>
                                         </td>
                                         <td>
@@ -67,7 +67,7 @@
                                                 <a href="{{ route('data-customer.edit',$user->id) }}" class="btn btn-success-weak" >
                                                     <i class="ri-edit-2-line"></i>
                                                 </a>
-                                                @if ($user->status !== 'Aktif')
+                                                @if ($user->status !== 1)
                                                 <button
                                                     class="btn btn-danger-weak"
                                                     type="button"

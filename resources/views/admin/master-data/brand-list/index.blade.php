@@ -69,7 +69,7 @@
                                             <a href="{{ route('data-brand.edit',$data->id) }}" class="btn btn-success-weak" >
                                                 <i class="ri-edit-2-line"></i>
                                             </a>
-                                            @if ($data->status !== 'Aktif')
+                                            @if ($data->status !== 1)
                                             <button
                                                 class="btn btn-danger-weak"
                                                 type="button"
