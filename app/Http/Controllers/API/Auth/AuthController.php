@@ -213,6 +213,15 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         JWTAuth::parseToken()->invalidate();
+
+        $logs   = Activity::create([
+            'user_id'       => $user->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Login ke aplikasi sobatklik'
+        ]);
+
         return response()->json([
             'success'   => true,
             'message'   => 'Logout berhasil',
