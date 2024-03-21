@@ -158,6 +158,7 @@ class AuthController extends Controller
         // $location = Ip2LocationHelper::getLocationByIp($ipAddress);
 
         $logs   = Activity::create([
+            'user_id'       => $user->id,
             'date'          => Carbon::now()->format('Y-m-d'),
             'ip'            => $getIp,
             'location'      => $locationString ?? null,
