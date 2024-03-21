@@ -61,7 +61,7 @@
                     data-bs-toggle="dropdown"
                 >
                     @if(isset(Auth::user()->profile))
-                    <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" class="admin-avatar" alt="Avatar">
+                    <img src="{{ asset('storage/uploads/profile/' . Auth::user()->profile->image) }}" class="admin-avatar" alt="Avatar">
                     @else
                     <div class="admin-avatar">
                         <p class="mb-0">
@@ -94,7 +94,7 @@
                                     class="flex-shrink-0 me-3"
                                 >
                                     @if(isset(Auth::user()->profile))
-                                        <img src="{{ asset('storage/uploads/profile/' . $data->profile->image) }}" class="admin-avatar" alt="Avatar">
+                                        <img src="{{ asset('storage/uploads/profile/' . Auth::user()->profile->image) }}" class="admin-avatar" alt="Avatar">
                                     @else
                                         <div
                                             class="admin-avatar"

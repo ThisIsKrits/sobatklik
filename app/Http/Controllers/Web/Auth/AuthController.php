@@ -52,12 +52,14 @@ class AuthController extends Controller
             }
         }
 
-
-
-        if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
-        {
-            $request->session()->flash('success', 'Login berhasil!');
-            return redirect()->route('home');
+        if ($userEmail && $userEmail->status != 0) {
+            if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
+            {
+                $request->session()->flash('success', 'Login berhasil!');
+                return redirect()->route('home');
+            }
+        }else {
+            return redirect()->back()->with('error', 'Akun tidak aktif!');
         }
 
         return redirect()->back()->with('error', 'Username atau Password salah!');

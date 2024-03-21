@@ -60,15 +60,9 @@
                                     </td>
                                     <td>{{ $data->name }}</td>
                                     <td>
-                                        @if($data->status == 'Aktif')
-                                        <p class="badge bg-badge-label-success">
-                                            {{ $data->status }}
+                                        <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
+                                            {{ $data->status_text }}
                                         </p>
-                                        @else
-                                        <p class="badge bg-badge-label-danger">
-                                            {{ $data->status }}
-                                        </p>
-                                        @endif
                                     </td>
                                     <td>
                                         <div class="d-flex justify-conten-center align-items-center gap-2" >

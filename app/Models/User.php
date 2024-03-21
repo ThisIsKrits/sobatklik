@@ -63,13 +63,18 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function getStatusAttribute($value)
+    // public function getStatusAttribute($value)
+    // {
+    //     return match ($value) {
+    //         StatusEnum::Aktif->value => 'Aktif',
+    //         StatusEnum::TidakAktif->value => 'Tidak',
+    //         default => 'Unknown',
+    //     };
+    // }
+
+    public function getStatusTextAttribute()
     {
-        return match ($value) {
-            StatusEnum::Aktif->value => 'Aktif',
-            StatusEnum::TidakAktif->value => 'Tidak',
-            default => 'Unknown',
-        };
+        return $this->status == 1 ? 'Aktif' : 'Tidak Aktif';
     }
 
     public function brands()

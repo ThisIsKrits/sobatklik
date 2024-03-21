@@ -27,12 +27,8 @@ class BrandList extends Model
         return $this->hasMany(AddressBrand::class,'brand_id','id');
     }
 
-    public function getStatusAttribute($value)
+    public function getStatusTextAttribute()
     {
-        return match ($value) {
-            StatusEnum::Aktif->value => 'Aktif',
-            StatusEnum::TidakAktif->value => 'Tidak',
-            default => 'Unknown',
-        };
+        return $this->status == 1 ? 'Aktif' : 'Tidak Aktif';
     }
 }
