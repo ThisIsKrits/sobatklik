@@ -63,25 +63,12 @@ class BrandController extends Controller
             'kode_brand'        =>  'required',
             'name'              => 'required',
             'tagline'           => 'required',
-            'contact_id'      => 'required',
-            'label_contact'   => 'required',
-            'link_contact'   => 'required',
-            'sosmed_id'      => 'required',
-            'label_sosmed'    => 'required',
-            'link_sosmed'   => 'required',
         ],[
             'image_logo.required'   => 'Logo tidak boleh kosong!',
             'image_maskot.required' => 'Maskot tidak boleh kosong!',
             'kode_brand.required'   => 'Kode brand tidak boleh kosong!',
             'name.required'                  => 'Nama brand tidak boleh kosong!',
             'tagline.required'      => 'Tagline tidak boleh kosong!',
-            'address.required'     => 'Alamat tidak boleh kosong!',
-            'contact_id.required'  => 'kontak tidak boleh kosong!',
-            'label_contact.required'  => 'kontak tidak boleh kosong!',
-            'link_contact.required'  => 'kontak tidak boleh kosong!',
-            'sosmed_id.required'  => 'sosmed tidak boleh kosong!',
-            'label_sosmed.required'  => 'sosmed tidak boleh kosong!',
-            'link_sosmed.required'  => 'sosmed tidak boleh kosong!',
         ]);
 
         if($validations->fails())
@@ -98,26 +85,34 @@ class BrandController extends Controller
             'status'        => $request->status ?? 0,
         ]);
 
-            foreach ($request->address as $key => $value) {
+        if($request->long){
+            foreach ($request->long as $key => $value) {
                 $brand->addresses()->create([
-                    'address'   => $value
+                    'long'   => $value,
+                    'lat'   => $request->lat[$key]
                 ]);
             }
-
-        foreach ($request->label_contact as $key => $value) {
-            $brand->contacts()->create([
-                'contact_id'    => $request->contact_id[$key],
-                'label'         => $value,
-                'link'          => $request->link_contact[$key]
-            ]);
         }
 
-        foreach ($request->label_sosmed as $key => $value) {
-            $brand->sosmeds()->create([
-                'sosmed_id'     => $request->sosmed_id[$key],
-                'label'         => $value,
-                'link'          => $request->link_sosmed[$key]
-            ]);
+        if($request->label_contact){
+            foreach ($request->label_contact as $key => $value) {
+                $brand->contacts()->create([
+                    'contact_id'    => $request->contact_id[$key],
+                    'label'         => $value,
+                    'link'          => $request->link_contact[$key]
+                ]);
+            }
+        }
+
+        if($request->label_sosmed){
+
+            foreach ($request->label_sosmed as $key => $value) {
+                $brand->sosmeds()->create([
+                    'sosmed_id'     => $request->sosmed_id[$key],
+                    'label'         => $value,
+                    'link'          => $request->link_sosmed[$key]
+                ]);
+            }
         }
 
         $getIp  = $request->ip();
@@ -188,24 +183,10 @@ class BrandController extends Controller
             'kode_brand'        =>  'required',
             'name'              => 'required',
             'tagline'           => 'required',
-            'address'         => 'required',
-            'contact_id'      => 'required',
-            'label_contact'   => 'required',
-            'link_contact'   => 'required',
-            'sosmed_id'      => 'required',
-            'label_sosmed'    => 'required',
-            'link_sosmed'   => 'required',
         ],[
             'kode_brand.required'   => 'Kode brand tidak boleh kosong!',
             'name.required'                  => 'Nama brand tidak boleh kosong!',
             'tagline.required'      => 'Tagline tidak boleh kosong!',
-            'address.required'     => 'Alamat tidak boleh kosong!',
-            'contact_id.required'  => 'Jenis kontak tidak boleh kosong!',
-            'label_contact.required'  => 'Label kontak tidak boleh kosong!',
-            'link_contact.required'  => 'Link kontak tidak boleh kosong!',
-            'sosmed_id.required'  => 'Jenis sosmed tidak boleh kosong!',
-            'label_sosmed.required'  => 'Label sosmed tidak boleh kosong!',
-            'link_sosmed.required'  => 'Link sosmed tidak boleh kosong!',
         ]);
 
         if($validations->fails())
@@ -251,57 +232,63 @@ class BrandController extends Controller
             'status'        => $request->status ?? 0,
         ]);
 
-        foreach ($request->address as $key => $value) {
-            if (empty($request->id[$key])) {
-                $brand->addresses()->create([
-                    'address' => $value
+        if($request->long){
+            foreach ($request->long as $key => $value) {
+                if (empty($request->id[$key])) {
+                    $brand->addresses()->create([
+                        'long'   => $value,
+                        'lat'   => $request->lat[$key]
                 ]);
             } else {
-                $adds = AddressBrand::find($request->id[$key]);
-                if (!$adds) {
-                    continue;
-                }
-                if (empty($value)) {
-                    $adds->delete();
-                } else {
-                    $adds->update(['address' => $value]);
+                    $adds = AddressBrand::find($request->id[$key]);
+                    if (!$adds) {
+                        continue;
+                    }
+                    if (empty($value)) {
+                        $adds->delete();
+                    } else {
+                        $adds->update(['address' => $value]);
+                    }
                 }
             }
         }
 
-        // Perbarui kontak merek
-        foreach ($request->label_contact as $key => $value) {
-            if (empty($request->idContact[$key])) {
-                $brand->contacts()->create([
-                    'contact_id' => $request->contact_id[$key],
+        if($request->label_contact){
+            foreach ($request->label_contact as $key => $value) {
+                if (empty($request->idContact[$key])) {
+                    $brand->contacts()->create([
+                        'contact_id' => $request->contact_id[$key],
                     'label' => $value,
                     'link' => $request->link_contact[$key],
                 ]);
             } else {
-                $conts = ContactBrand::find($request->idContact[$key]);
-                $conts->update([
-                    'contact_id' => $request->contact_id[$key],
-                    'label' => $value,
-                    'link' => $request->link_contact[$key],
-                ]);
+                    $conts = ContactBrand::find($request->idContact[$key]);
+                    $conts->update([
+                        'contact_id' => $request->contact_id[$key],
+                        'label' => $value,
+                        'link' => $request->link_contact[$key],
+                    ]);
+                }
             }
         }
 
         // Perbarui sosial media merek
-        foreach ($request->label_sosmed as $key => $value) {
-            if (empty($request->idSosmed[$key])) {
+        if($request->label_sosmed){
+            foreach ($request->label_sosmed as $key => $value) {
+                if (empty($request->idSosmed[$key])) {
                 $brand->sosmeds()->create([
                     'sosmed_id' => $request->sosmed_id[$key],
                     'label' => $value,
                     'link' => $request->link_sosmed[$key],
                 ]);
             } else {
-                $conts = SosmedBrand::find($request->idSosmed[$key]);
-                $conts->update([
-                    'sosmed_id' => $request->sosmed_id[$key],
-                    'label' => $value,
-                    'link' => $request->link_sosmed[$key],
-                ]);
+                    $conts = SosmedBrand::find($request->idSosmed[$key]);
+                    $conts->update([
+                        'sosmed_id' => $request->sosmed_id[$key],
+                        'label' => $value,
+                        'link' => $request->link_sosmed[$key],
+                    ]);
+                }
             }
         }
 

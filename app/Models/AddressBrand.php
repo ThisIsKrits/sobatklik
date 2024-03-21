@@ -9,5 +9,5 @@ class AddressBrand extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['brand_id','address'];
+    protected $fillable = ['brand_id','long','lat'];
 }

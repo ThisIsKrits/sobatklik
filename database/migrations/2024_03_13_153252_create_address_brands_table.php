@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('brand_id')->constrained('brand_lists')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-            $table->string('address');
+            $table->string('long');
+            $table->string('lat');
             $table->timestamps();
         });
     }

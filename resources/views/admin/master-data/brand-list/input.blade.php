@@ -231,44 +231,71 @@
     const addAddress = () => {
         let container = document.getElementById("container");
 
-        let inputDiv = document.createElement("div");
-        inputDiv.className  = "mb-4 w-100 d-flex";
-        inputDiv.id         = "input-"+countAddress;
+        const rowDiv = document.createElement("div");
+        rowDiv.className = "row gap-1 mb-3";
+        rowDiv.id         = "input-"+countAddress;
+        container.appendChild(rowDiv);
+
+        const colDiv1 = document.createElement("div");
+        rowDiv.appendChild(colDiv1);
 
         let inputId = document.createElement("input");
         inputId.type = "hidden";
         inputId.name = "id[]";
-        inputId.className = "form-control";
+        colDiv1.appendChild(inputId);
 
-        let input = document.createElement("input");
-        input.type = "text";
-        input.name = "address[]";
-        input.className = "form-control";
+        const colDiv2 = document.createElement("div");
+        colDiv2.className = "col-12 col-md-5";
+        rowDiv.appendChild(colDiv2);
+
+        const label2 = document.createElement("label");
+        label2.textContent = "Long";
+        label2.className = "form-label";
+        colDiv2.appendChild(label2);
+
+        const input1 = document.createElement("input");
+        input1.className = "form-control";
+        input1.name = "long[]";
+        input1.placeholder = "long";
+        input1.id = "long[]";
+        colDiv2.appendChild(input1);
+
+        const colDiv3 = document.createElement("div");
+        colDiv3.className = "col-12 col-md-5";
+        rowDiv.appendChild(colDiv3);
+
+        const label3 = document.createElement("label");
+        label3.textContent = "Lat";
+        label3.className = "form-label";
+        colDiv3.appendChild(label3);
+
+        const flexDiv = document.createElement("div");
+        flexDiv.className = "d-flex";
+        colDiv3.appendChild(flexDiv);
+
+        const input2 = document.createElement("input");
+        input2.className = "form-control";
+        input2.name = "lat[]";
+        input2.placeholder = "Lat";
+        input2.id = "lat[]";
+        flexDiv.appendChild(input2);
 
 
-        let deleteButton = document.createElement("i");
-        deleteButton.className =
+        const deleteIcon = document.createElement("i");
+        deleteIcon.className =
             "ri-close-circle-fill cursor-pointer ic-md text-danger ms-1";
-        deleteButton.onclick = function () {
-            input.value = null;
-            container.removeChild(inputDiv);
-            countAddress--;
-        };
-
-        inputDiv.appendChild(input);
-        inputDiv.appendChild(inputId);
-        if(countAddress > 0){
-            inputDiv.appendChild(deleteButton);
-        }
-
-        container.appendChild(inputDiv);
-
+        deleteIcon.addEventListener("click", () => {
+            container.removeChild(rowDiv);
+        });
+        flexDiv.appendChild(deleteIcon);
 
         if (addressBrand && countAddress < addressBrand.length) {
             inputId.value = addressBrand[countAddress]['id'];
-            input.value = addressBrand[countAddress]['address'];
+            input1.value = addressBrand[countAddress]['long'];
+            input2.value = addressBrand[countAddress]['lat'];
         } else {
-            input.value = '';
+            input1.value = '';
+            input2.value = '';
         }
 
         countAddress++;
