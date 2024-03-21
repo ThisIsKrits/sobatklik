@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\AddressBrand;
 use App\Models\BrandList;
 use App\Models\ContactBrand;
@@ -10,8 +11,11 @@ use App\Models\ContactCategory;
 use App\Models\SosmedBrand;
 use App\Models\SosmedCategory;
 use App\Trait\ImageProcessingTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class BrandController extends Controller
 {
@@ -115,6 +119,18 @@ class BrandController extends Controller
                 'link'          => $request->link_sosmed[$key]
             ]);
         }
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat Brand'
+        ]);
 
         // dd($request->all());
 
@@ -289,7 +305,18 @@ class BrandController extends Controller
             }
         }
 
-        // dd($request->all());
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Memperbarui Brand'
+        ]);
 
         return redirect()->route('data-brand.index')->with('setting-success', 'Data Brand berhasil diperbarui!');
     }
@@ -300,7 +327,7 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $data = BrandList::with('contacts','sosmeds','addresses')->findOrFail($id);
 
@@ -320,6 +347,18 @@ class BrandController extends Controller
         }
 
         $data->delete();
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Mendelete Brand'
+        ]);
 
         return redirect()->back()->with('setting-success', 'Data Brand Berhasil dihapus!');
     }

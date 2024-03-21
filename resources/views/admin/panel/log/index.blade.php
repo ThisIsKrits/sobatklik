@@ -40,76 +40,75 @@
                                 class="table-border-bottom-0"
                             >
                                 <!--   1 -->
-                                <tr>
-                                    <td>
-                                        17 Agustus 2023
-                                        17:08:45
-                                    </td>
-                                    <td>192.168.1.1</td>
-                                    <td>
-                                        <div
-                                            class="d-flex justify-content-start align-items-center gap-1"
-                                        >
-                                            <i
-                                                class="ri-map-pin-range-fill text-danger ic-md"
-                                            ></i>
-                                            <p
-                                                class="ic-sm"
+                                @foreach ($datas as  $data)
+                                    <tr>
+                                        <td>
+                                        {{ \Carbon\Carbon::parse($data->create_at)->format('d M Y H:i:s') }}
+                                        </td>
+                                        <td>{{ $data->ip }}</td>
+                                        <td>
+                                            <div
+                                                class="d-flex justify-content-start align-items-center gap-1"
                                             >
-                                                Jawa
-                                                Timur
-                                            </p>
-                                            <img
-                                                src="../assets/img/icons/iconly/Image.svg"
-                                                alt=""
-                                            />
-                                            <i
-                                                class="ri-error-warning-line text-danger ic-sm mb-0"
-                                            ></i>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        Login ke
-                                        Aplikasi Sobat
-                                        Klik
-                                    </td>
+                                                <i
+                                                    class="ri-map-pin-range-fill text-danger ic-md"
+                                                ></i>
+                                                <p
+                                                    class="ic-sm"
+                                                >
+                                                    {{ $data->location }}
+                                                </p>
+                                                <img
+                                                    src="{{ asset('../assets/img/icons/iconly/Image.sv') }}g"
+                                                    alt=""
+                                                />
+                                                <i
+                                                    class="ri-error-warning-line text-danger ic-sm mb-0"
+                                                ></i>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{ $data->description }}
+                                        </td>
 
-                                    <td>
-                                        <div
-                                            class="d-flex justify-conten-center align-items-center gap-2"
-                                        >
-                                            <button
-                                                class="btn btn-primary-weak"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalInfo"
+                                        <td>
+                                            <div
+                                                class="d-flex justify-conten-center align-items-center gap-2"
                                             >
-                                                <i
-                                                    class="ri-eye-line"
-                                                ></i>
-                                            </button>
-                                            <a
-                                                href="./customer-edit.html"
-                                                class="btn btn-success-weak"
-                                            >
-                                                <i
-                                                    class="ri-edit-2-line"
-                                                ></i>
-                                            </a>
+                                                <button
+                                                    class="btn btn-primary-weak"
+                                                    type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalInfo"
+                                                >
+                                                    <i
+                                                        class="ri-eye-line"
+                                                    ></i>
+                                                </button>
+                                                <a
+                                                    href="./customer-edit.html"
+                                                    class="btn btn-success-weak"
+                                                >
+                                                    <i
+                                                        class="ri-edit-2-line"
+                                                    ></i>
+                                                </a>
 
-                                            <button
-                                                class="btn btn-danger-weak"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modalDelete"
-                                            >
-                                                <i
-                                                    class="ri-delete-bin-7-line"
-                                                ></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                <button
+                                                    class="btn btn-danger-weak"
+                                                    type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalDelete"
+                                                >
+                                                    <i
+                                                        class="ri-delete-bin-7-line"
+                                                    ></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\API\ListTheme;
 use App\Models\ColorSelect;
 use App\Models\TermCondition;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class SettingController extends Controller
 {
@@ -89,6 +93,19 @@ class SettingController extends Controller
 
         $update_term    = $term->update([
             'terms'      => $request->term
+        ]);
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? "",
+            'description'   => 'Memperbarui pengaturan'
         ]);
 
         return redirect()->back()->with('setting-success','Setting berhasil diperbarui!');

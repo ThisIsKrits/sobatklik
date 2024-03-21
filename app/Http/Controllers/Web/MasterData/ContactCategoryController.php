@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\ContactCategory;
 use App\Trait\ImageProcessingTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class ContactCategoryController extends Controller
 {
@@ -63,6 +67,18 @@ class ContactCategoryController extends Controller
             'name'  => $request->name,
             'icon'  => $this->storeContact($request->image_base64),
             'status'    => $request->status ?? 0,
+        ]);
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat kategori kontak'
         ]);
 
         return redirect()->route('data-contact.index')->with('setting-success', 'Data contact berhasil ditambahkan!');
@@ -139,6 +155,18 @@ class ContactCategoryController extends Controller
             'status'    => $request->status ?? 0,
         ]);
 
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Memperbarui kategori kontak'
+        ]);
+
         return redirect()->route('data-contact.index')->with('setting-success', 'Data contact berhasil diubah!');
     }
 
@@ -148,13 +176,25 @@ class ContactCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $data = ContactCategory::findOrFail($id);
 
         $this->deleteImage($data->icon);
 
         $data->delete();
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Mendelete kategori kontak'
+        ]);
 
         return redirect()->back()->with('setting-success', 'Data Kategori Kontak Berhasil dihapus!');
     }

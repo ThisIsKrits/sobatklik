@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\API\Response;
 use App\Models\BrandList;
 use App\Models\Report;
@@ -10,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class ReportController extends Controller
 {
@@ -91,6 +93,19 @@ class ReportController extends Controller
                 ]);
             }
         }
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat laporan untuk user'
+        ]);
+
         return redirect()->route('report.index')->with('setting-success','Data laporan berhasil ditambah!');
     }
 

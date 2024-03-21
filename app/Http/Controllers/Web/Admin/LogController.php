@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -14,7 +15,11 @@ class LogController extends Controller
      */
     public function index()
     {
-        return view('admin.panel.log.index');
+        $datas = Activity::all();
+
+        return view('admin.panel.log.index',[
+            'datas' => $datas
+        ]);
     }
 
     /**

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Spatie\Permission\Models\Role;
+use Stevebauman\Location\Facades\Location;
 
 class CustomerController extends Controller
 {
@@ -103,6 +107,18 @@ class CustomerController extends Controller
             'status'    => $request->status ?? 0,
         ]);
 
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Memperbarui data customer'
+        ]);
+
         return redirect()->route('data-customer.index')->with('message-success', 'Data customer berhasil diubah!');
     }
 
@@ -112,11 +128,23 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $data = User::findOrFail($id);
 
         $data->delete();
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Mendelete data customer'
+        ]);
 
         return redirect()->back()->with('message-success', 'Data customer berhasil dihapus!');
     }

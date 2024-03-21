@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\User;
 use App\Trait\ImageProcessingTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Location\Facades\Location;
 
 class ProfileController extends Controller
 {
@@ -109,6 +112,18 @@ class ProfileController extends Controller
                 'image' => $image,
             ]);
         }
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Memperbarui profile'
+        ]);
 
         return redirect()->back()->with('setting-success','Data profile berhasil diubah!');
     }

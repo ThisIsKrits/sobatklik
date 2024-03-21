@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Web\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\SosmedCategory;
 use App\Trait\ImageProcessingTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class SosmedCategoryController extends Controller
 {
@@ -60,6 +64,18 @@ class SosmedCategoryController extends Controller
             'name'  => $request->name,
             'icon'  => $this->storeSosmed($request->image_base64),
             'status'    => $request->status ?? 0,
+        ]);
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat kategori sosmed'
         ]);
 
         return redirect()->route('data-sosmed.index')->with('setting-success', 'Data contact berhasil ditambahkan!');
@@ -136,6 +152,18 @@ class SosmedCategoryController extends Controller
             'status'    => $request->status ?? 0,
         ]);
 
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Memperbarui kategori kontak'
+        ]);
+
         return redirect()->route('data-sosmed.index')->with('setting-success', 'Data sosial media berhasil diubah!');
     }
 
@@ -145,13 +173,25 @@ class SosmedCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request,$id)
     {
         $data = SosmedCategory::findOrFail($id);
 
         $this->deleteImage($data->icon);
 
         $data->delete();
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Mendelete kategori sosmed'
+        ]);
 
         return redirect()->back()->with('setting-success', 'Data Kategori Sosial Media Berhasil dihapus!');
     }

@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class AuthController extends Controller
 {
@@ -55,6 +58,18 @@ class AuthController extends Controller
         if ($userEmail && $userEmail->status != 0) {
             if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
             {
+                $getIp  = $request->ip();
+                $location   = Location::get($getIp);
+                $locationString = $location->cityName .','.$location->regionName;
+
+                $logs   = Activity::create([
+                    'user_id'       => Auth::user()->id,
+                    'date'          => Carbon::now()->format('Y-m-d'),
+                    'ip'            => $getIp,
+                    'location'      => $locationString ?? null,
+                    'description'   => 'Login ke aplikasi sobatklik'
+                ]);
+
                 $request->session()->flash('success', 'Login berhasil!');
                 return redirect()->route('home');
             }

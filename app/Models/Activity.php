@@ -9,5 +9,5 @@ class Activity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date','ip','location', 'description'];
+    protected $fillable = ['user_id','date','ip','location', 'description'];
 }

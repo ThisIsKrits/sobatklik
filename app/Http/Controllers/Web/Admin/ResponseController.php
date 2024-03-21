@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Web\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\API\Report;
 use App\Models\API\Response;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Stevebauman\Location\Facades\Location;
 
 class ResponseController extends Controller
 {
@@ -51,6 +53,18 @@ class ResponseController extends Controller
 
         $report->update([
             'admin_id'  => Auth::user()->id,
+        ]);
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Menanggapi customer'
         ]);
 
         return redirect()->back()->with('messages', 'Balasan terkirim!');
