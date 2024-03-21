@@ -67,7 +67,7 @@ class AuthController extends Controller
                     'date'          => Carbon::now()->format('Y-m-d'),
                     'ip'            => $getIp,
                     'location'      => $locationString ?? null,
-                    'description'   => 'Login ke aplikasi sobatklik'
+                    'description'   => 'Login ke web admin sobatklik'
                 ]);
 
                 $request->session()->flash('success', 'Login berhasil!');
@@ -83,6 +83,14 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Logout ke web admin sobatklik'
+        ]);
 
         $request->session()->invalidate();
 
