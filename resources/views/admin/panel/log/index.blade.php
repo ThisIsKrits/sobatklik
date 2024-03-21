@@ -20,7 +20,7 @@
                 <div class="card-body px-3">
                     <div class="table">
                         <table
-                            id="reportGrafik"
+                            id="data"
                             class="table"
                         >
                             <thead>
@@ -50,18 +50,22 @@
                                             <div
                                                 class="d-flex justify-content-start align-items-center gap-1"
                                             >
-                                                <i
-                                                    class="ri-map-pin-range-fill text-danger ic-md"
-                                                ></i>
+                                                <a href="#modalMaps" data-bs-toggle="modal"  data-bs-target="#modalMaps">
+                                                    <i
+                                                        class="ri-map-pin-range-fill text-danger ic-md"
+                                                    ></i>
+                                                </a>
                                                 <p
                                                     class="ic-sm"
                                                 >
                                                     {{ $data->location }}
                                                 </p>
-                                                <img
-                                                    src="{{ asset('../assets/img/icons/iconly/Image.sv') }}g"
-                                                    alt=""
-                                                />
+                                                <a href="#modalSelfie" data-bs-toggle="modal"  data-bs-target="#modalSelfie">
+                                                    <img
+                                                        src="{{ asset('/dashboard/assets/img/icons/iconly/Image.sv') }}g"
+                                                        alt=""
+                                                    />
+                                                </a>
                                                 <i
                                                     class="ri-error-warning-line text-danger ic-sm mb-0"
                                                 ></i>
@@ -117,4 +121,121 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalMaps" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <h2></h2>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                    <div class="email-verify-wrapper authentication-basic">
+                        <!-- Register -->
+                        <div class="card card-login">
+                            <div class="card-body">
+                                <!-- Logo -->
+                                <div
+                                    class="app-brand flex-column justify-content-center"
+                                >
+                                    <!-- /Logo -->
+                                    <div class="card my-3">
+                                        <img
+                                            src="{{ asset('/dashboard/assets/img/elements/Maps.png') }}"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <a href="" class="btn btn-lg btn-primary" style="width:100%;">
+                                        Buka Maps
+                                    </a>
+                                    <a href="" class="text-primary mt-3 fw-bold" data-bs-dismiss="modal" aria-label="Close">
+                                        Tutup
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSelfie" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <h2></h2>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                    <div class="email-verify-wrapper authentication-basic">
+                        <!-- Register -->
+                        <div class="card card-login">
+                            <div class="card-body">
+                                <!-- Logo -->
+                                <div
+                                    class="app-brand flex-column justify-content-center"
+                                >
+                                    <!-- /Logo -->
+                                    <div class="card my-3">
+                                        <img
+                                            src="{{ asset('/dashboard/assets/img/elements/Selfie.png') }}"
+                                            class="image-card" width="633px" height="527px"
+                                            alt=""
+                                        />
+                                    </div>
+                                    <a href="" class="text-primary mt-3 fw-bold" data-bs-dismiss="modal" aria-label="Close">
+                                        Tutup
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+@include('partials._datatable-view')
+<script>
+    $(document).ready(function () {
+        var selectElement = $("#dt-length-0");
+        selectElement.removeClass("form-select-sm");
+        selectElement.addClass("form-select-md");
+        var searchElement = $("#dt-search-1");
+        searchElement.removeClass("form-control-sm");
+        searchElement.addClass("form-control-md");
+    });
+
+    $(document).ready(function () {
+        $('#confirmDeleteBtn').click(function() {
+            var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
+            var modal = $('#modalDelete');
+            var form = modal.find('form');
+
+            // Set nilai ID ke dalam input hidden di dalam form modal delete
+            form.find('#deleteId').val(id);
+
+            // Set URL aksi form modal delete dengan nilai ID yang benar
+            var actionUrl = form.attr('action');
+            actionUrl = actionUrl.replace(':id', id);
+            form.attr('action', actionUrl);
+
+            // Tampilkan modal delete
+            modal.modal('show');
+        });
+    });
+</script>
+@endpush
