@@ -84,6 +84,9 @@ class AuthController extends Controller
     {
         Auth::logout();
 
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
         $logs   = Activity::create([
             'user_id'       => Auth::user()->id,
             'date'          => Carbon::now()->format('Y-m-d'),
