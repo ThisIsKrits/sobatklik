@@ -151,7 +151,7 @@ class AuthController extends Controller
 
         $theme  = ColorSelect::find(1)->getTheme;
         $getIp  = $request->ip();
-        $location   = Location::get('27.124.95.100');
+        $location   = Location::get($getIp);
         $locationString = $location->cityName .','.$location->regionName;
 
         // Use the Ip2LocationHelper to get the user's location
@@ -214,12 +214,15 @@ class AuthController extends Controller
     {
         JWTAuth::parseToken()->invalidate();
 
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
         $logs   = Activity::create([
-            'user_id'       => $user->id,
+            'user_id'       => Auth::user()->id,
             'date'          => Carbon::now()->format('Y-m-d'),
             'ip'            => $getIp,
             'location'      => $locationString ?? null,
-            'description'   => 'Login ke aplikasi sobatklik'
+            'description'   => 'Logout dari aplikasi sobatklik'
         ]);
 
         return response()->json([
