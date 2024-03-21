@@ -56,15 +56,9 @@
                                             {{ $user->birthdate }}
                                         </td>
                                         <td>
-                                            @if($user->status == 'Aktif')
-                                                <p class="badge bg-badge-label-success">
-                                                    {{ $user->status }}
-                                                </p>
-                                            @else
-                                                <p class="badge bg-badge-label-danger">
-                                                    {{ $user->status }}
-                                                </p>
-                                            @endif
+                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
+                                                {{ $data->status_text }}
+                                            </p>
                                         </td>
                                         <td>
                                             <div

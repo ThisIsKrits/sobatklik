@@ -12,8 +12,8 @@
                         <label for="status" class="form-label">Status <span>*</span></label>
                         <select class="form-select" id="status" aria-label="Default select example">
                             <option value="">Status</option>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Tidak">Tidak Aktif</option>
+                            <option value="1">Aktif</option>
+                            <option value="0">Tidak Aktif</option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
