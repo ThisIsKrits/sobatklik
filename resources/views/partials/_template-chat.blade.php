@@ -38,7 +38,7 @@
                                         >Pembukaan</span
                                     >
                                     <p>
-                                    Halo saya dengan dengan saat ini kamu sedang ditanggapi oleh  customer service Assessment Indonesia
+                                    Halo dengan saya {{ Auth::user()->fullname }} saat ini kamu sedang ditanggapi oleh customer service {{ $report->brand->name }}
                                     </p>
                                     <span class="mt-2 fw-bold"> - {{ Auth::user()->fullname }}</span>
                                 </div>

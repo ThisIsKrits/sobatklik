@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\MasterData;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use App\Models\API\Response;
+use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,11 +41,26 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
+        $report = Report::find($request->report_id);
+
+        if($report->status == 2) {
+            return response()->json([
+                'success'   => true,
+                'message'   => 'Laporan telah diselesaikan!',
+            ]);
+        }
+
         $responses = Response::create([
             'user_id'   => Auth::user()->id,
             'report_id' => $request->report_id,
             'report_date'   => Carbon::now()->toDateTimeString(),
             'content'       => $request->content,
+        ]);
+
+
+
+        $report->update([
+            'status'  => 0,
         ]);
 
         $getIp  = $request->ip();

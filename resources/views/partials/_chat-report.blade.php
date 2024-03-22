@@ -10,6 +10,8 @@
                 >
                 @csrf
                     <input type="hidden" name="id" value="{{ $datas->id }}">
+                    <input type="hidden" name="opening" id="opening" value="0">
+                    <input type="hidden" name="closing" id="closing" value="0">
                         <div class="mb-4">
                             <div
                                 class="d-flex justify-content-between align-content-center"

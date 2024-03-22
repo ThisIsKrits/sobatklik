@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
-use App\Models\Activity;
-use App\Models\API\Report;
-use App\Models\API\Response;
-use Carbon\Carbon;
+use App\Models\Review;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Stevebauman\Location\Facades\Location;
 
-class ResponseController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +15,7 @@ class ResponseController extends Controller
      */
     public function index()
     {
-        $datas = Response::all();
-
+        //
     }
 
     /**
@@ -42,33 +36,20 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        $report = Report::find($request->id);
-
-        Response::create([
-            'report_id'     => $report->id,
-            'user_id'       => Auth::user()->id,
-            'report_date'   => Carbon::now()->toDateTimeString(),
-            'content'       => trim($request->content)
+        $data = Review::create([
+            'report_id' => $request->report_id,
+            'review1'   => $request->review1,
+            'review2'   => $request->review2,
+            'review3'   => $request->review3,
+            'review4'   => $request->review4,
+            'response'   => $request->response,
         ]);
 
-        $report->status = 1;
-        $report->opening = $request->opening ?? 0;
-        $report->closing = $request->closing ?? 0;
-        $report->save();
-
-        $getIp  = $request->ip();
-        $location   = Location::get($getIp);
-        $locationString = $location->cityName .','.$location->regionName;
-
-        $logs   = Activity::create([
-            'user_id'       => Auth::user()->id,
-            'date'          => Carbon::now()->format('Y-m-d'),
-            'ip'            => $getIp,
-            'location'      => $locationString ?? null,
-            'description'   => 'Menanggapi customer'
+        return response()->json([
+            'success'   => true,
+            'message'   => 'Review berhasil dikirim!',
+            'data'      => $data
         ]);
-
-        return redirect()->back()->with('messages', 'Balasan terkirim!');
     }
 
     /**

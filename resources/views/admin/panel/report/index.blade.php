@@ -35,7 +35,7 @@
                 <div class="card-body px-3">
                     <div class="table">
                         <table
-                            id="reportGrafik"
+                            id="data"
                             class="table"
                         >
                             <thead>
@@ -46,7 +46,6 @@
                                         Kode Pelaporan
                                     </th>
                                     <th>Tgl. Lporan</th>
-                                    <th>Jenis Laporan</th>
                                     <th>Kategori</th>
                                     <th>Brand</th>
                                     <th>Pelapor</th>
@@ -68,10 +67,9 @@
                                         </p>
                                     </td>
                                     <td>
-                                        {{ $report->report_date }}
+                                    {{ \Carbon\Carbon::parse($report->report_date)->format('d M Y H:i:s') }}
                                     </td>
-                                    <td>{{ $report->type->name }}</td>
-                                    <td>{{ $report->category }}</td>
+                                    <td>{{ $report->categories->name }}</td>
                                     <td>
                                         {{ $report->brand->name }}
                                     </td>
@@ -84,7 +82,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <p class="badge {{ $report->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">
+                                        <p class="badge @if($report->status == 2)
+                                                    bg-badge-label-success
+                                                @elseif($report->status == 1)
+                                                    bg-badge-label-warning
+                                                @else
+                                                    bg-badge-label-danger
+                                                @endif">
                                             {{ $report->status_text }}
                                         </p>
                                     </td>

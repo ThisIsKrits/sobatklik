@@ -33,14 +33,10 @@
                     >
                     @csrf
                             <div class="mb-3 w-100">
-                                <label
-                                    for="brand"
-                                    class="form-label"
-                                    >Brand
-                                    <span
-                                        >*</span
-                                    ></label
-                                >
+                                <label for="brand" class="form-label" >
+                                    Brand
+                                    <span >*</span >
+                                </label>
                                 <select
                                     class="form-select"
                                     id="brand"
@@ -57,6 +53,32 @@
                                     @endforeach
                                 </select>
                                 @error('brand_id')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3 w-100">
+                                <label for="brand" class="form-label" >
+                                    Kategori
+                                    <span >*</span >
+                                </label>
+                                <select
+                                    class="form-select"
+                                    id="brand"
+                                    aria-label="Default select example"
+                                    name="category"
+                                >
+                                    <option selected>
+                                        Pilih Kategori
+                                    </option>
+                                    @foreach ($brands as $brand)
+                                        @foreach ($brand->contacts as $contact)
+                                            <option value="{{ $contact->contact_id }}">
+                                                {{ $contact->contact->name }}
+                                            </option>
+                                        @endforeach
+                                    @endforeach
+                                </select>
+                                @error('category')
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>

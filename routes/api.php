@@ -6,6 +6,7 @@ use App\Http\Controllers\API\MasterData\ContactCategoryController;
 use App\Http\Controllers\API\MasterData\ReportController;
 use App\Http\Controllers\API\MasterData\ReportTypeController;
 use App\Http\Controllers\API\MasterData\ResponseController;
+use App\Http\Controllers\API\MasterData\ReviewController;
 use App\Http\Controllers\API\MasterData\SosmedCategoryController;
 use App\Http\Controllers\API\Profile\LogActivyController;
 use App\Http\Controllers\API\Profile\ProfileController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => 'api'], function(){
     });
     Route::resource('report', ReportController::class);
     Route::resource('response', ResponseController::class);
+    Route::resource('review', ReviewController::class);
     Route::post('change-password/{id}', [AuthController::class, 'change_password']);
     // Route::resource('profile-update', ProfileController::class);
     Route::post('profile-update', [ProfileController::class, 'updateProfile']);

@@ -24,7 +24,14 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $datas = Report::all();
+        $user = Auth::user();
+        $role = $user->roles->first->name;
+
+        if($role->name == 'superadmin'){
+            $datas = Report::with('categories')->get();
+        } else {
+            $datas = Report::where('admin_id',$user->id)->get();
+        }
         return view('admin.panel.report.index',[
             'datas' => $datas
         ]);
@@ -37,7 +44,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        $brands = BrandList::where('status',1)->get();
+        $brands = BrandList::with('contacts')->where('status',1)->get();
         $customers  = User::where('status',1)->role('customer')->get();
         $types      = ReportType::all();
         return view('admin.panel.report.input',[
@@ -80,14 +87,12 @@ class ReportController extends Controller
 
         $brand = BrandList::find($request->brand_id);
 
-        $code = $brand->kode_brand. '/'. Carbon::now()->format('dmY') . '/' . str_pad($reportCount + 1, 5, '0', STR_PAD_LEFT);
-
-        $categpry   = 'email';
+        $code = $brand->kode_brand . '/'. Carbon::now()->format('dmY') . '/' . str_pad($reportCount + 1, 5, '0', STR_PAD_LEFT);
 
         $report = Report::create([
             'codes'     => $code,
-            'category'  => 'email',
-            'type_id'   => $request->type_id,
+            'contact_id'    => $request->category,
+            'type_id'       => $request->type_id,
             'report_date'   => Carbon::now()->toDateTimeString(),
             'brand_id'      => $brand->id,
             'admin_id'      => Auth::user()->id,
@@ -130,7 +135,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = Report::findOrFail($id);
+        $report = Report::with('reviews')->findOrFail($id);
         $responses  = Response::where('report_id',$id)->get();
         return view('admin.panel.report.show',[
             'report'    => $report,
@@ -158,7 +163,37 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Report::find($id);
+
+        $responses = Response::where('report_id', $id)->get();
+
+        $diffs = [];
+        $prevDate = null;
+
+        foreach ($responses as $date) {
+            $currentDate = Carbon::createFromFormat('Y-m-d H:i:s', $date->report_date)->startOfDay();
+            // dd($currentDate);
+
+            if ($prevDate !== null) {
+                $diff = $prevDate->diffInDays($currentDate);
+                if ($diff > 0) { // Hanya hitung jika selisih hari lebih dari 0
+                    $diffs[] = $diff;
+                }
+            }
+
+            $prevDate = $currentDate;
+        }
+
+        $totalDays = array_sum($diffs);
+        $countDiffs = count($diffs);
+        $avg = ($countDiffs > 0) ? $totalDays / $countDiffs : 0;
+
+        $data->status = 2;
+        $data->avg    = round($avg);
+        $data->total    = $totalDays;
+        $data->save();
+
+        return redirect()->back()->with('setting-success','Laporan berhasil diselesaikan!');
     }
 
     /**

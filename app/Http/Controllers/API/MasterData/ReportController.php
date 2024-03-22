@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
-use App\Models\API\Report;
+use App\Models\Activity;
 use App\Models\BrandList;
+use App\Models\Report;
 use App\Trait\AdminBrandTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class ReportController extends Controller
 {
@@ -49,11 +51,11 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $validations = Validator::make($request->all(),[
-            'category'      => 'required',
+            'contact_id'      => 'required',
             'type_id'       => 'required',
             'complaint'     => 'required',
         ],[
-            'category.required' => 'Kategori tidak boleh kosong!',
+            'contact_id.required' => 'Kategori tidak boleh kosong!',
             'type_id.required'  => 'Jenis Keluhan tidak boleh kosong!',
             'complaint.required' => 'Keluhan tidak boleh kosong!'
         ]);
@@ -74,9 +76,9 @@ class ReportController extends Controller
         $adminId = $this->assignAdmin($request->brand_id);
 
         $report = Report::create([
-            'codes'     => $code,
-            'category'  => $request->category,
-            'type_id'   => $request->type_id,
+            'codes'         => $code,
+            'contact_id'    => $request->contact_id,
+            'type_id'       => $request->type_id,
             'report_date'   => Carbon::now()->toDateTimeString(),
             'brand_id'      => $brand->id,
             'admin_id'      => $adminId,
@@ -94,6 +96,19 @@ class ReportController extends Controller
                 ]);
             }
         }
+
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
+
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat laporan'
+        ]);
+
         return response()->json([
             'success'   => true,
             'message'   => 'Laporan berhasil dikirim!',

@@ -3,23 +3,24 @@ namespace App\Trait;
 
 use App\Models\API\Report;
 use App\Models\User;
+use App\Models\UserBrand;
 
 trait AdminBrandTrait
 {
     private function assignAdmin($brandId)
     {
-        $admins = User::where('brand_id', $brandId)->get();
+        $admins = UserBrand::where('brand_id', $brandId)->get();
 
         if ($admins->isEmpty()) {
             return null;
         }
 
         $sortedAdmins = $admins->sortBy(function ($admin) {
-            return Report::where('admin_id', $admin->id)->count();
+            return Report::where('admin_id', $admin->user_id)->count();
         });
 
         $chosenAdmin = $sortedAdmins->first();
 
-        return $chosenAdmin->id;
+        return $chosenAdmin->user_id;
     }
 }

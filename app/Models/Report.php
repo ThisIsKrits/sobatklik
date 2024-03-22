@@ -10,11 +10,11 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['codes','report_date', 'type_id','category','brand_id','reporter_id','admin_id','status'];
+    protected $fillable = ['codes','report_date', 'type_id','contact_id','brand_id','reporter_id','admin_id','status', 'complaint'];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(SosmedCategory::class,'categories_id','id');
+        return $this->belongsTo(ContactCategory::class,'contact_id','id');
     }
 
     public function brand()
@@ -42,8 +42,32 @@ class Report extends Model
         return $this->hasMany(AttachReport::class, 'report_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasOne(Review::class, 'report_id','id');
+    }
+
     public function getStatusTextAttribute()
     {
-        return $this->status == 1 ? 'Aktif' : 'Tidak Aktif';
+        switch ($this->status) {
+            case 0:
+                return 'Ada balasan user';
+            case 1:
+                return 'Sudah dibalas admin';
+            case 2:
+                return 'Selesai';
+            default:
+                return 'Status tidak valid';
+        }
+    }
+
+    public function getOpeningTextAttribute()
+    {
+        return $this->opening == 1 ? 'Ya' : 'Tidak';
+    }
+
+    public function getClosingTextAttribute()
+    {
+        return $this->closing == 1 ? 'Ya' : 'Tidak';
     }
 }

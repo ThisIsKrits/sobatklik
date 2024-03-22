@@ -121,10 +121,8 @@ class ContactCategoryController extends Controller
     {
         $validations = Validator::make($request->all(),[
             'name'      => 'required',
-            'image_base64' => 'required',
         ],[
             'name.required' => 'Nama kontak tidak boleh kosong!',
-            'image_base64.required' => 'Icon kontak tidak boleh kosong!'
         ]);
 
         if($validations->fails())

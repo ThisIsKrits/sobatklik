@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('codes');
-            $table->string('category');
+            $table->foreignId('contact_id')->constrained('contact_categories');
             $table->foreignId('type_id')->constrained('report_types');
             $table->dateTime('report_date');
             $table->foreignId('brand_id')->constrained('brand_lists')
@@ -25,7 +25,11 @@ return new class extends Migration
             $table->foreignId('reporter_id')->constrained('users');
             $table->foreignId('admin_id')->nullable()->constrained('users');
             $table->string('complaint');
-            $table->string('status')->default('Laporan Baru');
+            $table->integer('opening')->default(0);
+            $table->integer('closing')->default(0);
+            $table->integer('status')->default(0);
+            $table->integer('avg')->nullable();
+            $table->integer('total')->nullable();
             $table->timestamps();
         });
     }
