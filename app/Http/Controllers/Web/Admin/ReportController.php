@@ -104,7 +104,7 @@ class ReportController extends Controller
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 $fileName = $file->getClientOriginalName();
-                $filePath = $file->store('uploads/report', 'public');
+                $filePath = $file->storeAs('uploads/report', $fileName,'public');
 
                 $report->files()->create([
                     'name' => $fileName,
@@ -112,17 +112,17 @@ class ReportController extends Controller
             }
         }
 
-        // $getIp  = $request->ip();
-        // $location   = Location::get($getIp);
-        // $locationString = $location->cityName .','.$location->regionName;
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+        $locationString = $location->cityName .','.$location->regionName;
 
-        // $logs   = Activity::create([
-        //     'user_id'       => Auth::user()->id,
-        //     'date'          => Carbon::now()->format('Y-m-d'),
-        //     'ip'            => $getIp,
-        //     'location'      => $locationString ?? null,
-        //     'description'   => 'Membuat laporan untuk user'
-        // ]);
+        $logs   = Activity::create([
+            'user_id'       => Auth::user()->id,
+            'date'          => Carbon::now()->format('Y-m-d'),
+            'ip'            => $getIp,
+            'location'      => $locationString ?? null,
+            'description'   => 'Membuat laporan untuk user'
+        ]);
 
         return redirect()->route('data-report.index')->with('setting-success','Data laporan berhasil ditambah!');
     }

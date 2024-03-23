@@ -89,7 +89,7 @@ class ReportController extends Controller
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
                 $fileName = $file->getClientOriginalName();
-                $filePath = $file->store('uploads/report', 'public');
+                $filePath = $file->storeAs('uploads/report', $fileName, 'public');
 
                 $report->files()->create([
                     'name' => $fileName,
