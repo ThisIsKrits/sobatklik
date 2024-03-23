@@ -171,7 +171,7 @@
 
         cropper = new Cropper(image, {
             aspectRatio: 1/1,
-            viewMode: 3,
+            viewMode: 1,
             preview: '.preview',
         });
 
@@ -180,7 +180,7 @@
             $('#cropWidth').val(value);
             $('#cropHeight').val(value);
             cropper.setCropBoxData({ width: value, height: value });
-            var zoomLevel = parseFloat(value) / 100; // Ubah rentang 100-500 menjadi 0.33-1.67
+            var zoomLevel = parseFloat(value) / 100;
             cropper.zoomTo(zoomLevel);
         });
     }).on('hidden.bs.modal', function () {
@@ -201,7 +201,6 @@
                 height: 512,
             });
 
-            // Menggunakan croppedCanvas
             canvas.toBlob(function(blob) {
                 url = URL.createObjectURL(blob);
                     var reader = new FileReader();

@@ -80,7 +80,7 @@
 
         cropperLogo = new Cropper(imageLogo, {
             aspectRatio: 1/1,
-            viewMode: 3,
+            viewMode: 1,
             preview: '.preview',
         });
 
@@ -156,7 +156,7 @@
 
         cropperMaskot = new Cropper(imageMaskot, {
             aspectRatio: 1/1,
-            viewMode: 3,
+            viewMode: 1,
             preview: '.preview',
         });
 
