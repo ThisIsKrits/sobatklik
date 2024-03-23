@@ -19,7 +19,7 @@ class ReportResource extends JsonResource
             'codes'         => $this->codes,
             'type_id'       => $this->type->name,
             'report_date'   => $this->report_date,
-            'brand_id'      => new BrandListDetailResource($this->brand),
+            'brand'         => new BrandListDetailResource($this->brand),
             'file'          => AttachResource::collection($this->files),
             'admin_id'      => $this->user->fullname,
             'complaint'     => $this->complaint,
