@@ -16,7 +16,8 @@ class AddressBrandResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'address'           => $this->address
+            'long'              => $this->long,
+            'lat'               => $this->lat
         ];
     }
 }
