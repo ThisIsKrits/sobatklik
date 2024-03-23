@@ -23,7 +23,9 @@ class ReportController extends Controller
      */
     public function index()
     {
-        $datas   = Report::all();
+        $userId = Auth::user()->id;
+        dd($userId);
+        $datas   = Report::where('reporter_id', $userId)->get();
 
         return response()->json([
             'success'   => true,
