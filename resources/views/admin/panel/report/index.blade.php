@@ -69,7 +69,13 @@
                                     <td>
                                     {{ \Carbon\Carbon::parse($report->report_date)->format('d M Y H:i:s') }}
                                     </td>
-                                    <td>{{ $report->categories->name }}</td>
+                                    <td>
+                                        @if($report->categories)
+                                            {{ $report->categories->name }}
+                                        @else
+                                            Laporan
+                                        @endif
+                                    </td>
                                     <td>
                                         {{ $report->brand->name }}
                                     </td>

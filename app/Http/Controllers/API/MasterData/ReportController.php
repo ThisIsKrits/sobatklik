@@ -24,7 +24,6 @@ class ReportController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        // dd($userId);
         $datas   = Report::where('reporter_id', $userId)->get();
 
         return response()->json([
@@ -53,11 +52,9 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $validations = Validator::make($request->all(),[
-            'contact_id'      => 'required',
             'type_id'       => 'required',
             'complaint'     => 'required',
         ],[
-            'contact_id.required' => 'Kategori tidak boleh kosong!',
             'type_id.required'  => 'Jenis Keluhan tidak boleh kosong!',
             'complaint.required' => 'Keluhan tidak boleh kosong!'
         ]);
