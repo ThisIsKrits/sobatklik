@@ -91,6 +91,8 @@
                 @if (session('error-message'))
                     @include('partials._modal-error',['message' => (session('error-message'))])
                 @endif
+
+                @include('partials.success-secure')
     <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
                 <!-- sidebar -->
@@ -198,10 +200,10 @@
                         data: formData,
                         success: function(response) {
                             if(response.success == true){
-                                $('#modalCenterSuccess .modal-body h4').text(response.message);
-                                $('#modalCenterSuccess').show();
+                                $('#modalCenterSecure').modal('show');
+                                $('#modalCenterSecure .modal-body h4').text(response.message);
                                 setTimeout(function() {
-                                    $('#modalCenterSuccess').modal('hide');
+                                    $('#modalCenterSecure').modal('hide');
                                 }, 3000);
                             }
                         },

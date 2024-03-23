@@ -166,21 +166,27 @@
                     </li>
                     <li>
                         <div class="dropdown-item">
-                            <div
-                                class="form-check form-switch"
-                            >
-                                <input
-                                    class="form-check-input"
-                                    type="checkbox"
-                                    id="flexSwitchCheckChecked"
-                                    checked
-                                />
-                                <label
-                                    class="form-check-label"
-                                    for="flexSwitchCheckChecked"
-                                    >Secure Login</label
-                                >
-                            </div>
+                            <form id="secureForm">
+                                @csrf
+                                <div class="form-check form-switch">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        id="secureCheck"
+                                        name="secure"
+                                        data-on="1"
+                                        data-off="0"
+                                        @if (Auth::user()->secure == 1)
+                                                    checked
+                                                    @endif
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="secureCheck"
+                                        >Secure Login</label
+                                    >
+                                </div>
+                            </form>
                         </div>
                     </li>
                     <li>
