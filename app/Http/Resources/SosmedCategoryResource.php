@@ -16,7 +16,7 @@ class SosmedCategoryResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'icon'              => $this->icon,
+            'icon'              =>  asset('storage/uploads/sosmed/' . $this->icon),
             'name'              => $this->name
         ];
     }

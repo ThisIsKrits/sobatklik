@@ -16,7 +16,7 @@ class ContactCategoryResource extends JsonResource
     {
         return [
             'id'                => $this->id,
-            'icon'              => $this->icon,
+            'icon'              =>  asset('storage/uploads/kontak/' . $this->icon),
             'name'              => $this->name
         ];
     }
