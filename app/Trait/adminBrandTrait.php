@@ -12,7 +12,7 @@ trait AdminBrandTrait
         $admins = UserBrand::where('brand_id', $brandId)->get();
 
         if ($admins->isEmpty()) {
-            return null;
+            return 1;
         }
 
         $sortedAdmins = $admins->sortBy(function ($admin) {

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->string('codes');
-            $table->foreignId('contact_id')->nullable()->constrained('contact_categories');
+            $table->foreignId('contact_id')->nullable()->constrained('contact_categories'); // jika contact id null maka otomatis kategori menjadi laporan
             $table->foreignId('type_id')->constrained('report_types');
             $table->dateTime('report_date');
             $table->foreignId('brand_id')->constrained('brand_lists')

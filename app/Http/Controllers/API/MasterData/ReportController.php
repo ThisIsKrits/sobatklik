@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReportResource;
 use App\Models\Activity;
 use App\Models\BrandList;
 use App\Models\Report;
@@ -24,12 +25,12 @@ class ReportController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $datas   = Report::where('reporter_id', $userId)->get();
+        $datas   = Report::with('brand','files')->where('reporter_id', $userId)->get();
 
         return response()->json([
             'success'   => true,
             'message'   => 'Data laporan berhasil ditampilkan!',
-            'data'      => $datas,
+            'data'      => ReportResource::collection($datas),
         ],200);
     }
 
@@ -123,7 +124,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = Report::with(['type','files'])->findOrFail($id);
+        $report = Report::with(['brand','type','files'])->findOrFail($id);
 
         return response()->json([
             'success'   => true,
