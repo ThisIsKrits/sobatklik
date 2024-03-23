@@ -20,7 +20,8 @@ class BrandListResource extends JsonResource
             'maskot'        => asset('storage/uploads/maskot/' . $this->maskot),
             'name'          => $this->name,
             'tagline'       => $this->tagline,
-            'address'       => AddressBrandResource::collection($this->addresses)
+            'address'       => AddressBrandResource::collection($this->addresses),
+            'isActive'      => $this->status_text
         ];
     }
 }

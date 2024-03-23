@@ -26,19 +26,27 @@
             class="navbar-nav align-items-center d-none d-xl-block"
         >
             <div class="nav-item d-flex align-items-center">
+                <form id="secureForm">
+                    @csrf
                 <div class="form-check form-switch">
                     <input
                         class="form-check-input"
                         type="checkbox"
-                        id="flexSwitchCheckChecked"
-                        checked
+                        id="secureCheck"
+                        name="secure"
+                        data-on="1"
+                        data-off="0"
+                        @if (Auth::user()->secure == 1)
+                                    checked
+                                    @endif
                     />
                     <label
                         class="form-check-label"
-                        for="flexSwitchCheckChecked"
+                        for="secureCheck"
                         >Secure Login</label
                     >
                 </div>
+                </form>
             </div>
         </div>
         <!-- /Secure Login -->

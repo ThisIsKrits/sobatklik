@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\Admin\LogController;
 use App\Http\Controllers\Web\Admin\ProfileController;
 use App\Http\Controllers\Web\Admin\ReportController;
 use App\Http\Controllers\Web\Admin\ResponseController;
+use App\Http\Controllers\Web\Admin\SecureController;
 use App\Http\Controllers\Web\Admin\SettingController;
 use App\Http\Controllers\Web\Admin\TelephoneController;
 use App\Http\Controllers\Web\Admin\UserController;
@@ -70,5 +71,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('data-user', UserController::class);
     // profile
     Route::resource('profile-user', ProfileController::class);
-
+    Route::post('secure-login',[SecureController::class, 'update'])->name('secure.update');
 });

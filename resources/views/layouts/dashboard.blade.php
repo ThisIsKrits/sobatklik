@@ -181,6 +181,33 @@
                 }
             });
 
+            $(document).ready(function() {
+                $('#secureCheck').change(function() {
+                    var isChecked = $(this).is(':checked');
+                    var formData = { secure: isChecked ? 1 : 0 };
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route("secure.update") }}',
+                        data: formData,
+                        success: function(response) {
+                            if(response.success == true){
+                                $('#modalCenterSuccess .modal-body h4').text(response.message);
+                                $('#modalCenterSuccess').show();
+                                setTimeout(function() {
+                                    $('#modalCenterSuccess').modal('hide');
+                                }, 3000);
+                            }
+                        },
+                    });
+                });
+            });
 
             // Datatables
 
