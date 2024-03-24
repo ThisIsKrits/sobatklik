@@ -43,6 +43,7 @@
 
 
     <link rel="stylesheet" href="{{ asset('/dashboard/assets/vendor/css/pages/page-auth.css') }}"/>
+
 </head>
 <body>
     <div id="app">
@@ -50,6 +51,9 @@
             <div class="container-fluid">
                 @if(session('success'))
                     @include('partials._login-success',['message' => (session('success'))])
+                @endif
+                @if(session('error'))
+                    @include('partials._modal-error',['message' => (session('error'))])
                 @endif
                 @yield('content')
             </div>
@@ -75,6 +79,7 @@
 
     <script src="{{ asset('/dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script src="{{ asset('/dashboard/assets/vendor/js/menu.js') }}"></script>
     <script src="{{ asset('/dashboard/assets/js/main.js') }}"></script>
         <!-- Place this tag in your head or just before your close body tag. -->
@@ -82,10 +87,24 @@
     <script>
         $(document).ready(function() {
             setTimeout(function() {
-                $('.modal-backdrop').hide();
                 $('#modalCenterSuccess').hide();
             }, 3000);
+
+            setTimeout(function() {
+                $('#modalCenterError').hide();
+            }, 3000);
         });
+        $(document).ready(function() {
+                var errorMessage = "{{ session('error') }}";
+
+                if(errorMessage){
+                    $('#modalCenterError').modal('show');
+
+                    setTimeout(function() {
+                        $('#modalCenterError').modal('hide');
+                    }, 2000);
+                }
+            });
     </script>
     @stack('scripts')
 </body>

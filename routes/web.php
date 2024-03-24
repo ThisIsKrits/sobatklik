@@ -18,6 +18,8 @@ use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\MasterData\BrandController;
 use App\Http\Controllers\Web\MasterData\ContactCategoryController;
 use App\Http\Controllers\Web\MasterData\SosmedCategoryController;
+use App\Http\Controllers\Web\PhotoController;
+use App\Http\Controllers\Web\VerifCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,34 +44,43 @@ Route::get('/reset-password/{email}/{token}/', [ForgotPasswordController::class,
 Route::post('/reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.send');
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::get('/', [DashboardController::class, 'index'])->name('home');
 
-    // setting
-    Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
-    Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
-    Route::put('/admin-password/{id}', [AuthController::class, 'change_password_admin'])->name('password.change');
-    Route::resource('admin-pass', ChangePasswordAdmin::class);
+Route::get('/verif-code',[VerifCodeController::class, 'verifCodeView'])->name('verif.view');
+Route::post('/upload-photo', [PhotoController::class, 'store'])->name('save.store');
+Route::get('/code-view', [VerifCodeController::class, 'codeVerif'])->name('code.view');
+Route::post('/code-send',[VerifCodeController::class, 'verifyCode'])->name('code.verify');
 
-    // contact
-    Route::resource('data-contact', ContactCategoryController::class);
-    // sosmed category
-    Route::resource('data-sosmed', SosmedCategoryController::class);
-    // brand
-    Route::resource('data-brand', BrandController::class);
-    // customer
-    Route::resource('data-customer', CustomerController::class);
-    // telephone
-    Route::resource('data-telepon', TelephoneController::class);
-    // laporan
-    Route::resource('data-report', ReportController::class);
-    // log
-    Route::resource('data-log',LogController::class);
-    //
-    Route::resource('data-response', ResponseController::class);
-    //
-    Route::resource('data-user', UserController::class);
-    // profile
-    Route::resource('profile-user', ProfileController::class);
-    Route::post('secure-login',[SecureController::class, 'update'])->name('secure.update');
+
+Route::group(['middleware' => ['auth','checkDistance']], function(){
+
+
+        Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+        // setting
+        Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::put('/setting/{id}', [SettingController::class, 'update'])->name('setting.update');
+        Route::put('/admin-password/{id}', [AuthController::class, 'change_password_admin'])->name('password.change');
+        Route::resource('admin-pass', ChangePasswordAdmin::class);
+
+        // contact
+        Route::resource('data-contact', ContactCategoryController::class);
+        // sosmed category
+        Route::resource('data-sosmed', SosmedCategoryController::class);
+        // brand
+        Route::resource('data-brand', BrandController::class);
+        // customer
+        Route::resource('data-customer', CustomerController::class);
+        // telephone
+        Route::resource('data-telepon', TelephoneController::class);
+        // laporan
+        Route::resource('data-report', ReportController::class);
+        // log
+        Route::resource('data-log',LogController::class);
+        //
+        Route::resource('data-response', ResponseController::class);
+        //
+        Route::resource('data-user', UserController::class);
+        // profile
+        Route::resource('profile-user', ProfileController::class);
+        Route::post('secure-login',[SecureController::class, 'update'])->name('secure.update');
 });

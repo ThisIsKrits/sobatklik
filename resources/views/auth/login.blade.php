@@ -90,7 +90,6 @@
 
         $(document).ready(function() {
             setTimeout(function() {
-                $('.modal-backdrop').hide();
                 $('#modalCenter').hide();
                 $('#modalCenterSuccess').hide();
             }, 3000);

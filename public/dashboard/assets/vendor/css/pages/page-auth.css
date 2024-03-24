@@ -80,6 +80,21 @@
   font-size: 150%;
 }
 
+@media (max-width: 768px) {
+    #selfie-area {
+        width: 100%; /* Sesuaikan dengan ukuran yang sesuai */
+        height: auto; /* Sesuaikan dengan ukuran yang sesuai */
+    }
+    #selfie-area video{
+        width: 100%; /* Sesuaikan dengan ukuran yang sesuai */
+        height: auto; /* Sesuaikan dengan ukuran yang sesuai */
+    }
+    #selfie-area img{
+        width: 100%; /* Sesuaikan dengan ukuran yang sesuai */
+        height: auto; /* Sesuaikan dengan ukuran yang sesuai */
+    }
+}
+
 @media (max-width: 575.98px) {
   .authentication-wrapper .auth-input-wrapper .auth-input {
     font-size: 1.125rem;

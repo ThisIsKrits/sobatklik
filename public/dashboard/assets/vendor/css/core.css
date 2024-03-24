@@ -176,7 +176,7 @@ h3,
     font-size: calc(1.2625rem + 0.15vw);
 }
 @media (min-width: 1200px) {
-    
+
     .h35 {
         font-size: 2rem;
     }

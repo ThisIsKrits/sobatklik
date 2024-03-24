@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
+use App\Helpers\DistanceHelper;
 use App\Http\Controllers\Controller;
+use App\Mail\VerificationMail;
 use App\Models\Activity;
 use App\Models\User;
+use App\Models\UserBrand;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Stevebauman\Location\Facades\Location;
 
@@ -43,7 +47,12 @@ class AuthController extends Controller
         $password   = $request->password;
         $remember   = $request->get('remember');
 
+        // getIP
+        $getIp  = $request->ip();
+        $location   = Location::get($getIp);
+
         $userEmail = User::where('email', $email)->first();
+
 
         if(!$userEmail || !Hash::check($password, optional($userEmail)->password)){
 
@@ -58,20 +67,25 @@ class AuthController extends Controller
         if ($userEmail && $userEmail->status != 0) {
             if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
             {
-                $getIp  = $request->ip();
-                $location   = Location::get($getIp);
-                $locationString = $location->cityName .','.$location->regionName;
+                    if($userEmail->secure == 1){
+                        $verificationCode = rand(1000, 9999);
+                        $userEmail->verification_code = $verificationCode;
+                        $userEmail->save();
 
-                $logs   = Activity::create([
-                    'user_id'       => Auth::user()->id,
-                    'date'          => Carbon::now()->format('Y-m-d'),
-                    'ip'            => $getIp,
-                    'location'      => $locationString ?? null,
-                    'description'   => 'Login ke web admin sobatklik'
-                ]);
+                        Mail::to($userEmail->email)->send(new VerificationMail($verificationCode));
+                    }
 
-                $request->session()->flash('success', 'Login berhasil!');
-                return redirect()->route('home');
+                    $locationString = $location->cityName .','.$location->regionName;
+
+                    $logs   = Activity::create([
+                        'user_id'       => Auth::user()->id,
+                        'date'          => Carbon::now()->format('Y-m-d'),
+                        'ip'            => $getIp,
+                        'location'      => $locationString ?? null,
+                        'description'   => 'Login ke web admin sobatklik'
+                    ]);
+                    $request->session()->flash('success', 'Login berhasil!');
+                    return redirect()->route('home');
             }
         }else {
             return redirect()->back()->with('error', 'Akun tidak aktif!');
