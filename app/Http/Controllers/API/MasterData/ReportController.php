@@ -129,7 +129,7 @@ class ReportController extends Controller
         return response()->json([
             'success'   => true,
             'message'   => 'Laporan berhasil ditampilkan!',
-            'data'      => $report
+            'data'      => new ReportResource($report)
         ]);
     }
 
