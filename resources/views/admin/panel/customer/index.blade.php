@@ -69,7 +69,7 @@
                                                 </a>
                                                 @if ($user->status !== 1)
                                                 <button
-                                                    class="btn btn-danger-weak"
+                                                    class="btn btn-danger-weak confirmDeleteBtn"
                                                     type="button"
                                                     id="confirmDeleteBtn"
                                                     data-bs-toggle="modal"
@@ -166,7 +166,7 @@
 
 
     $(document).ready(function () {
-        $('#confirmDeleteBtn').click(function() {
+        $('.confirmDeleteBtn').click(function() {
             var id = $(this).data('id'); // Ambil nilai ID dari tombol konfirmasi hapus
             var modal = $('#modalDelete');
             var form = modal.find('form');
