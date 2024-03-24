@@ -96,8 +96,6 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
-
         $getIp  = $request->ip();
         $location   = Location::get($getIp);
         $locationString = $location->cityName .','.$location->regionName;
@@ -106,8 +104,10 @@ class AuthController extends Controller
             'date'          => Carbon::now()->format('Y-m-d'),
             'ip'            => $getIp,
             'location'      => $locationString ?? null,
-            'description'   => 'Logout ke web admin sobatklik'
+            'description'   => 'Logout dari web admin sobatklik'
         ]);
+
+        Auth::logout();
 
         $request->session()->invalidate();
 
