@@ -73,12 +73,6 @@
                             Masuk
                             </button>
                         </div>
-                            <!-- error message -->
-                            @if(session('error'))
-                                <span class="invalid-feedback" role="alert">
-                                </span>
-                                @include('partials._login-failed',['message' => (session('error'))])
-                            @endif
                         </form>
                     </div>
                 </div>
@@ -87,14 +81,6 @@
 @endsection
 @push('scripts')
     <script>
-
-        $(document).ready(function() {
-            setTimeout(function() {
-                $('#modalCenter').hide();
-                $('#modalCenterSuccess').hide();
-            }, 3000);
-        });
-
         const togglePassword = () => {
         const passwordInput = document.getElementById('password');
         const toggleButton =

@@ -88,10 +88,10 @@ class AuthController extends Controller
                     return redirect()->route('home');
             }
         }else {
-            return redirect()->back()->with('error', 'Akun tidak aktif!');
+            return redirect()->back()->with('error-login', 'Akun tidak aktif!');
         }
 
-        return redirect()->back()->with('error', 'Username atau Password salah!');
+        return redirect()->back()->with('error-login', 'Username atau Password salah!');
     }
 
     public function logout(Request $request)

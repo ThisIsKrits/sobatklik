@@ -55,6 +55,9 @@
                 @if(session('error'))
                     @include('partials._modal-error',['message' => (session('error'))])
                 @endif
+                @if(session('error-login'))
+                    @include('partials._login-failed',['message' => (session('error-login'))])
+                @endif
                 @yield('content')
             </div>
         </main>
@@ -96,12 +99,20 @@
         });
         $(document).ready(function() {
                 var errorMessage = "{{ session('error') }}";
+                var loginFailed     = "{{ session('error-login') }}";
 
                 if(errorMessage){
                     $('#modalCenterError').modal('show');
 
                     setTimeout(function() {
                         $('#modalCenterError').modal('hide');
+                    }, 2000);
+                }
+                if(loginFailed){
+                    $('#modalCenterFailed').modal('show');
+
+                    setTimeout(function() {
+                        $('#modalCenterFailed').modal('hide');
                     }, 2000);
                 }
             });
