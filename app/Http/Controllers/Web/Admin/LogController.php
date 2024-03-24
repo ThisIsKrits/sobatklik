@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogController extends Controller
 {
@@ -15,7 +16,13 @@ class LogController extends Controller
      */
     public function index()
     {
-        $datas = Activity::all();
+        $user = Auth::user();
+        $role = $user->roles->first->name;
+        if($role == 'superadmin'){
+            $datas = Activity::all();
+        } else {
+            $datas = Activity::where('user_id', $user->id)->get();
+        }
 
         return view('admin.panel.log.index',[
             'datas' => $datas
