@@ -134,6 +134,9 @@
     </div>
 </div>
 
+<!-- Modal Filter Table-->
+@include('partials._modal-filter');
+
 <!-- Modal Delete Table-->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

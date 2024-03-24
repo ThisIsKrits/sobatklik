@@ -205,6 +205,9 @@
         </div>
     </div>
 </div>
+<!-- Modal Filter Table-->
+@include('partials._modal-filter');
+
 @endsection
 
 @push('scripts')

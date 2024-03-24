@@ -178,7 +178,7 @@ class ContactCategoryController extends Controller
     {
         $data = ContactCategory::findOrFail($id);
 
-        $this->deleteImage($data->icon);
+        $this->deleteContact($data->icon);
 
         $data->delete();
 

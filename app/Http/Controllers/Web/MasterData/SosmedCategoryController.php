@@ -177,7 +177,7 @@ class SosmedCategoryController extends Controller
     {
         $data = SosmedCategory::findOrFail($id);
 
-        $this->deleteImage($data->icon);
+        $this->deleteSosmed($data->icon);
 
         $data->delete();
 
