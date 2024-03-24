@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\MasterData;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ReportResource;
+use App\Models\Report;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -45,10 +47,15 @@ class ReviewController extends Controller
             'response'   => $request->response,
         ]);
 
+        $report = new Report();
+
+        $report->review_status = 1;
+        $report->save();
+
         return response()->json([
             'success'   => true,
             'message'   => 'Review berhasil dikirim!',
-            'data'      => $data
+            'data'      => new ReportResource($data)
         ]);
     }
 

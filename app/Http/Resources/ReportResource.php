@@ -23,7 +23,8 @@ class ReportResource extends JsonResource
             'file'          => AttachResource::collection($this->files),
             'admin_id'      => $this->user->fullname,
             'complaint'     => $this->complaint,
-            'status'        => $this->status
+            'status'        => $this->status,
+            'review_status' => $this->review_status,
         ];
     }
 }
