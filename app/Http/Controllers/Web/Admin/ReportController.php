@@ -28,9 +28,9 @@ class ReportController extends Controller
         $role = $user->roles->first->name;
 
         if($role->name == 'superadmin'){
-            $datas = Report::with('categories')->get();
+            $datas = Report::with('categories')->paginate(100);
         } else {
-            $datas = Report::where('admin_id',$user->id)->get();
+            $datas = Report::where('admin_id',$user->id)->paginate(100);
         }
         return view('admin.panel.report.index',[
             'datas' => $datas

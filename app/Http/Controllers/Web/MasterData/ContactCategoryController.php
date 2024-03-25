@@ -25,7 +25,7 @@ class ContactCategoryController extends Controller
         $status = $request->status;
         $datas = ContactCategory::query()->when($status, function ($query, $status) {
             return $query->where('status', $status);
-        })->get();
+        })->paginate(100);
 
         return view('admin.master-data.category-contact.index',[
             'datas'  => $datas

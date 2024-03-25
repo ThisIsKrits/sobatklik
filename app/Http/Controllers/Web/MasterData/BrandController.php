@@ -27,7 +27,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $datas  = BrandList::all();
+        $datas  = BrandList::paginate(100);
 
         return view('admin.master-data.brand-list.index',[
             'datas' => $datas

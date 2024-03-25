@@ -17,7 +17,7 @@ class LogActivyController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $data = Activity::where('user_id', $id)->get();
+        $data = Activity::where('user_id', $id)->paginate(10);
 
         return response()->json([
             'success'   => true,

@@ -22,7 +22,7 @@ class SosmedCategoryController extends Controller
      */
     public function index()
     {
-        $datas  = SosmedCategory::all();
+        $datas  = SosmedCategory::paginate(100);
 
         return view('admin.master-data.category-sosmed.index',[
             'datas' => $datas

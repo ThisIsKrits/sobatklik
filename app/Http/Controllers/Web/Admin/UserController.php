@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $datas = User::with('brands')->role('admin')->get();
+        $datas = User::with('brands')->role('admin')->paginate(100);
         return view('admin.panel.users.index',[
             'datas'  => $datas
         ]);

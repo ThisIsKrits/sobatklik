@@ -19,9 +19,9 @@ class LogController extends Controller
         $user = Auth::user();
         $role = $user->roles->first->name;
         if($role == 'superadmin'){
-            $datas = Activity::all();
+            $datas = Activity::paginate(100);
         } else {
-            $datas = Activity::where('user_id', $user->id)->get();
+            $datas = Activity::where('user_id', $user->id)->paginate(100);
         }
 
         return view('admin.panel.log.index',[
