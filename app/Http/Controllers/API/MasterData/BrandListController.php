@@ -17,7 +17,7 @@ class BrandListController extends Controller
      */
     public function index()
     {
-        $datas = BrandList::with('addresses')->paginate(10);
+        $datas = BrandList::with('addresses');
         $data = BrandListResource::collection($datas->paginate(10))->resource;
 
         return response()->json([
