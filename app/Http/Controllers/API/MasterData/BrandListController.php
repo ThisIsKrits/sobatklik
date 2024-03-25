@@ -17,13 +17,13 @@ class BrandListController extends Controller
      */
     public function index()
     {
-        $datas = BrandList::with('addresses')->get();
-        // dd($datas);
+        $datas = BrandList::with('addresses')->paginate(10);
+        $data = BrandListResource::collection($datas->paginate(10))->resource;
 
         return response()->json([
             'success'   => true,
             'message'   => 'Data daftar brand berhasil ditampilkan!',
-            'data'      => BrandListResource::collection($datas),
+            'data'      => $data,
         ]);
     }
 
