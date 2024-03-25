@@ -25,12 +25,14 @@ class ReportController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $datas   = Report::with('brand','files')->where('reporter_id', $userId)->get();
+        $datas   = Report::with('brand','files')->where('reporter_id', $userId);
+
+        $data = ReportResource::collection($datas->paginate(10))->resource;
 
         return response()->json([
             'success'   => true,
             'message'   => 'Data laporan berhasil ditampilkan!',
-            'data'      => ReportResource::collection($datas),
+            'data'      => $data,
         ],200);
     }
 
