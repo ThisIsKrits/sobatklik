@@ -467,6 +467,13 @@ table.dataTable thead > tr > th.dt-orderable-desc:hover {
     border-radius: 0.438rem;
 }
 
+.form-control-md {
+    min-height: calc(1.53em + 0.5rem + 2px);
+    padding: 1rem;
+    font-size: 0.75rem;
+    border-radius: 0.625rem;
+    width: 90% !important;
+}
 .form-control-sm {
     min-height: calc(1.53em + 0.5rem + 2px);
     padding: 1rem;
