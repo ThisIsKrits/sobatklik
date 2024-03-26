@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\Admin\BirthSpeechController;
 use App\Http\Controllers\Web\Admin\CustomerController;
 use App\Http\Controllers\Web\Admin\LogController;
 use App\Http\Controllers\Web\Admin\ProfileController;
@@ -83,4 +84,5 @@ Route::group(['middleware' => ['auth','checkDistance']], function(){
         // profile
         Route::resource('profile-user', ProfileController::class);
         Route::post('secure-login',[SecureController::class, 'update'])->name('secure.update');
+        Route::resource('speech-birthday', BirthSpeechController::class);
 });

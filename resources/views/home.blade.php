@@ -41,55 +41,17 @@
         </div>
 
         <!-- Birthday notif -->
-        <div class="mb-3 container-xxl navbar navbar-expand-xl navbar-detached  d-flex justify-content-between bg-primary-weak rounded-4 py-3">
-            <div class="d-flex align-items-center gap-2">
-                <img class="w-px-50 h-auto rounded-circle" src="{{ asset('dashboard/assets/img/avatars/6.png') }}" alt="">
-                <h6 class="mb-0 text-general">Admin {{ $user->fullname }} sedang berulang tahun hari ini yang ke-{{ $age }}
-                </h6>
-            </div>
-            <button class="btn btn-primary" type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#modalFormBirthday">Kirim Ucapan</button>
-
-        </div>
+        @if($user->birthdate == Auth::user()->birthdate)
+            @include('partials._birthday-notif')
+            @include('partials._modal-birthday-notif')
+        @else
+            @include('partials._birthday-send')
+            @include('partials._modal-birthday-send')
+        @endif
 
 
         <!-- Modal Birthday notif-->
-        <div class="modal fade" id="modalFormBirthday" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header p-0">
-                        <h2></h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                <div class="modal-body">
-                    <div
-                    class="my-5 d-flex justify-content-center align-items-center text-center"
-                    >
-                    <div >
-                        <img class="w-px-100 h-auto rounded-circle mb-2" src="{{ asset('/dashboard/assets/img/avatars/6.png') }}" alt="">
-                        <h5 class="mb-3 font-semibold">Kirim Ucapan untuk John Doe</h5>
-                        <div class="my-4 text-start">
-                            <label for="birthday" class="form-label"
-                                >Ucapan Ulang Tahun <span>*</span></label
-                            >
-                            <textarea
-                                type="text"
-                                class="form-control"
-                                id="birthday"
-                                rows="3"
-                                name="birthday-username"
-                                placeholder="Tulis Ucapan"
-                                autofocus
-                            ></textarea>
-                        </div>
-                        <button class="btn btn-primary"> <div class="d-flex align-items-center gap-2">kirim Sekarang <i class="ri-send-plane-2-line"></i> </div></button>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
+
         <!-- Modal Birthday notif-->
         <!-- Birthday notif -->
     <!-- Content header -->
@@ -156,7 +118,7 @@
                             <div
                                 class="table-responsive text-nowrap"
                             >
-                                <table id="reportGrafik" class="table responsive">
+                                <table id="data" class="table responsive">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -594,7 +556,7 @@
                         class="d-flex justify-content-between align-items-center"
                     >
                         <h3 class="mb-0">
-                            Ringkasan by Brand
+                            Ringkasan by Admin
                         </h3>
                         <ul
                             class="nav nav-pills mb-3"
@@ -879,3 +841,8 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    @include('partials._datatable-view')
+@endpush
+
+
