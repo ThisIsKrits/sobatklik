@@ -43,8 +43,8 @@
         <!-- Birthday notif -->
         <div class="mb-3 container-xxl navbar navbar-expand-xl navbar-detached  d-flex justify-content-between bg-primary-weak rounded-4 py-3">
             <div class="d-flex align-items-center gap-2">
-                <img class="w-px-50 h-auto rounded-circle" src="../assets/img/avatars/6.png" alt="">
-                <h6 class="mb-0 text-general">Admin John Doe sedang berulang tahun hari ini yang ke-27
+                <img class="w-px-50 h-auto rounded-circle" src="{{ asset('dashboard/assets/img/avatars/6.png') }}" alt="">
+                <h6 class="mb-0 text-general">Admin {{ $user->fullname }} sedang berulang tahun hari ini yang ke-{{ $age }}
                 </h6>
             </div>
             <button class="btn btn-primary" type="button"
@@ -67,7 +67,7 @@
                     class="my-5 d-flex justify-content-center align-items-center text-center"
                     >
                     <div >
-                        <img class="w-px-100 h-auto rounded-circle mb-2" src="../assets/img/avatars/6.png" alt="">
+                        <img class="w-px-100 h-auto rounded-circle mb-2" src="{{ asset('/dashboard/assets/img/avatars/6.png') }}" alt="">
                         <h5 class="mb-3 font-semibold">Kirim Ucapan untuk John Doe</h5>
                         <div class="my-4 text-start">
                             <label for="birthday" class="form-label"
