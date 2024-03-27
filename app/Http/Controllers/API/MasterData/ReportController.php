@@ -22,10 +22,27 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $userId = Auth::user()->id;
-        $datas   = Report::with('brand','files')->where('reporter_id', $userId);
+        $brand  = BrandList::select('id','name')->get();
+        $datas   = Report::with('brand','files')->where('reporter_id', $userId)
+                        ->orderBy('created_at','DESC');
+
+        if($request->has('status')){
+            $datas->where('status', $request->status);
+        }
+
+        if($request->has('brand_id')){
+            $datas->where('brand_id', $request->brand_id);
+        }
+
+        if ($request->has('start') && $request->has('end')) {
+            $start = Carbon::createFromFormat('d-m-Y', $request->input('start'))->startOfDay();
+            $end = Carbon::createFromFormat('d-m-Y', $request->input('end'))->endOfDay();
+
+            $datas->whereBetween('report_date', [$start, $end]);
+        }
 
         $data = ReportResource::collection($datas->paginate(10))->resource;
 
@@ -33,6 +50,7 @@ class ReportController extends Controller
             'success'   => true,
             'message'   => 'Data laporan berhasil ditampilkan!',
             'data'      => $data,
+            'brand'     => $brand
         ],200);
     }
 
