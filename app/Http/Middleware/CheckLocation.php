@@ -26,8 +26,8 @@ class CheckLocation
         $getIp  = $request->ip();
         $location   = Location::get($getIp);
 
-        // $userLat = $location->latitude;
-        // $userLong = $location->longitude;
+        $userLat = $location->latitude;
+        $userLong = $location->longitude;
 
         if ($user && $user->secure == 1) {
             $userLat = $request->session()->get('userLat');

@@ -53,8 +53,8 @@ class AuthController extends Controller
 
         $userEmail = User::where('email', $email)->first();
 
-        // $userLat = $location->latitude;
-        // $userLong = $location->longitude;
+        $userLat = $location->latitude;
+        $userLong = $location->longitude;
 
         $brand = UserBrand::with('brand.addresses')->where('user_id', '=', $userEmail->id)->get();
         $closestDistance = null;
