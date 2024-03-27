@@ -53,6 +53,22 @@ class AuthController extends Controller
 
         $userEmail = User::where('email', $email)->first();
 
+        $userLat = $location->latitude;
+        $userLong = $location->longitude;
+
+        $brand = UserBrand::with('brand.addresses')->where('user_id', '=', $userEmail->id)->get();
+        $closestDistance = null;
+
+        foreach ($brand as $userBrand) {
+            foreach ($userBrand->brand->addresses as $address) {
+                $distance = DistanceHelper::haversineGreatCircleDistance($address->lat, $address->long, $userLat, $userLong);
+
+                if ($closestDistance === null || $distance < $closestDistance) {
+                    $closestDistance = $distance;
+                }
+            }
+        }
+
 
         if(!$userEmail || !Hash::check($password, optional($userEmail)->password)){
 
@@ -68,11 +84,13 @@ class AuthController extends Controller
             if(Auth::attempt(['email' => $email, 'password' => $password], $remember))
             {
                     if($userEmail->secure == 1){
-                        $verificationCode = rand(1000, 9999);
-                        $userEmail->verification_code = $verificationCode;
-                        $userEmail->save();
+                        if ($closestDistance > 1) {
+                            $verificationCode = rand(1000, 9999);
+                            $userEmail->verification_code = $verificationCode;
+                            $userEmail->save();
 
-                        Mail::to($userEmail->email)->send(new VerificationMail($verificationCode));
+                            Mail::to($userEmail->email)->send(new VerificationMail($verificationCode));
+                        }
                     }
 
                     $locationString = $location->cityName .','.$location->regionName;

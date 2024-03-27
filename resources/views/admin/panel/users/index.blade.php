@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Customer')
+@section('title', 'User')
 
 @section('content')
 @if (session('message-success'))
@@ -81,7 +81,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">{{ $data->status }}</p>
+                                            <p class="badge {{ $data->status == 1 ? 'bg-badge-label-success' : 'bg-badge-label-danger' }}">{{ $data->status_text }}</p>
                                         </td>
                                         <td>
                                             <div

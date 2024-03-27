@@ -20,6 +20,7 @@ use App\Http\Controllers\Web\MasterData\BrandController;
 use App\Http\Controllers\Web\MasterData\ContactCategoryController;
 use App\Http\Controllers\Web\MasterData\SosmedCategoryController;
 use App\Http\Controllers\Web\PhotoController;
+use App\Http\Controllers\Web\ReviewController;
 use App\Http\Controllers\Web\VerifCodeController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,8 @@ Route::post('/upload-photo', [PhotoController::class, 'store'])->name('save.stor
 Route::get('/code-view', [VerifCodeController::class, 'codeVerif'])->name('code.view');
 Route::post('/code-send',[VerifCodeController::class, 'verifyCode'])->name('code.verify');
 
+Route::get('/review/{name}/{kode}', [ReviewController::class, 'index'])->name('review.view');
+Route::post('/review-store', [ReviewController::class, 'store'])->name('submit.review');
 
 Route::group(['middleware' => ['auth','checkDistance']], function(){
 

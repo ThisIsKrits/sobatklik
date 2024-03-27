@@ -31,4 +31,9 @@ class BrandList extends Model
     {
         return $this->status == 1 ? 'Aktif' : 'Tidak Aktif';
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_brands', 'brand_id', 'user_id');
+    }
 }

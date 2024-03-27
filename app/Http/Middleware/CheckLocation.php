@@ -24,10 +24,10 @@ class CheckLocation
     {
         $user = Auth::user();
         $getIp  = $request->ip();
-        $location   = Location::get('27.124.95.100');
+        $location   = Location::get($getIp);
 
-        $userLat = $location->latitude;
-        $userLong = $location->longitude;
+        // $userLat = $location->latitude;
+        // $userLong = $location->longitude;
 
         if ($user && $user->secure == 1) {
             $userLat = $request->session()->get('userLat');

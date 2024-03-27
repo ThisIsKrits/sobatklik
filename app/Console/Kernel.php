@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('speeches:delete')->dailyAt('21.00');
+        $schedule->command('reports:update-status')->daily();
     }
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__.'/Commands');
         $this->load(__DIR__.'/Commands/DeleteSpeeches');
+        $this->load(__DIR__.'/Commands/UpdateReportStatus');
 
         require base_path('routes/console.php');
     }

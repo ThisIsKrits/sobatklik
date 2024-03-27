@@ -20,9 +20,9 @@
                         <option selected>
                             Filter Brand
                         </option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        @foreach ($brand as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div>
@@ -41,10 +41,10 @@
         </div>
 
         <!-- Birthday notif -->
-        @if($user->birthdate == Auth::user()->birthdate)
+        @if(isset($user->birthdate) && $user->birthdate == Auth::user()->birthdate)
             @include('partials._birthday-notif')
             @include('partials._modal-birthday-notif')
-        @else
+        @elseif(isset($user->birthdate))
             @include('partials._birthday-send')
             @include('partials._modal-birthday-send')
         @endif
@@ -133,112 +133,19 @@
                                     <tbody
                                         class="table-border-bottom-0"
                                     >
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                Januari
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                Februari
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                Maret
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                April
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Mei</td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>
-                                                Juni
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>
-                                                Juli
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>
-                                                Agustus
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>
-                                                September
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>10</td>
-                                            <td>
-                                                Oktober
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>11</td>
-                                            <td>
-                                                November
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>12</td>
-                                            <td>
-                                                Desember
-                                            </td>
-                                            <td>
-                                                2413
-                                            </td>
-                                        </tr>
+                                        @foreach ($report as $key => $report)
+                                            <tr>
+                                                <td>{{ ++$key }}</td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::createFromDate(null, $report->bulan, 1)->monthName }}
+                                                </td>
+                                                <td>
+                                                    {{ $report->jumlah_data }}
+                                                </td>
+                                            </tr>
+
+                                        @endforeach
+
                                     </tbody>
                                 </table>
                             </div>
@@ -342,161 +249,46 @@
                                     <tbody
                                         class="table-border-bottom-0"
                                     >
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/elements/SCI.png"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        Smile
-                                                        Consulting
-                                                        Indonesia
-                                                    </p>
-                                                </div>
-                                            </td>
+                                        @foreach ($reportBrand as $key => $reportBrand )
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <div
+                                                        class="d-flex align-items-center gap-2"
+                                                    >
+                                                        <img
+                                                            class="w-px-30"
+                                                            src="{{ asset('/storage/uploads/logo/'. $reportBrand->brand_logo) }}"
+                                                            alt=""
+                                                        />
+                                                        <p>
+                                                            {{ $reportBrand->brand_name }}
+                                                        </p>
+                                                    </div>
+                                                </td>
 
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
+                                                <td>
+                                                    <div
+                                                        class="d-flex align-items-center gap-2"
+                                                    >
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/elements/ASI.png"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        Assesment
-                                                        Indonesia
-                                                    </p>
-                                                </div>
-                                            </td>
+                                                        <img
+                                                            class="w-px-30"
+                                                            src="{{ asset('/dashboard/assets/img/icons/iconly/Star.svg') }}"
+                                                            alt=""
+                                                        />
+                                                        <p>
+                                                           {{ number_format($reportBrand->avg_rating,2) }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                            {{ number_format($reportBrand->avg_time,0) }} Hari
+                                                </td>
+                                                <td>{{ $reportBrand->total_reports }}</td>
 
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/elements/RBI.png"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        Ruang
-                                                        Bercerita
-                                                        Indonesia
-                                                    </p>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/elements/Psikolog-Kak-Gun.png"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        Psikolog
-                                                        Kak
-                                                        Gun
-                                                    </p>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -631,185 +423,37 @@
                                     <tbody
                                         class="table-border-bottom-0"
                                     >
-                                        <tr>
-                                            <td>1</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Sebastian Foster
-                                            </td>
+                                        @foreach ($reportUser as $reportUser)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <div
+                                                        class="d-flex align-items-center gap-2"
+                                                    >
+                                                    {{ $reportUser->user_name }}
+                                                </td>
 
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
+                                                <td>
+                                                    <div
+                                                        class="d-flex align-items-center gap-2"
+                                                    >
+                                                        <img
+                                                            class="w-px-30"
+                                                            src="{{ asset('/dasboard/assets/img/icons/iconly/Star.svg') }}"
+                                                            alt=""
+                                                        />
+                                                        <p>
+                                                        {{ number_format($reportUser->avg_rating,2) }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {{ number_format($reportUser->avg_time,) }} Hari
+                                                </td>
+                                                <td>{{ $reportUser->total_reports }}</td>
 
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Maya Rodriguez
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Jasper Quinn
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Olivia Harper
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Liam Anderson
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    Zoe Bennett
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                <div
-                                                    class="d-flex align-items-center gap-2"
-                                                >
-                                                    <img
-                                                        class="w-px-30"
-                                                        src="../assets/img/icons/iconly/Star.svg"
-                                                        alt=""
-                                                    />
-                                                    <p>
-                                                        5.0
-                                                    </p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                1m 15s
-                                            </td>
-                                            <td>100</td>
-
-                                        </tr>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
