@@ -12,7 +12,7 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['codes','report_date','category','type_id','brand_id','reporter_id','admin_id','complaint'];
+    protected $fillable = ['codes','report_date','category','type_id','brand_id','reporter_id','admin_id','complaint','review_status'];
 
     public function type()
     {
